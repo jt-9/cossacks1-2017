@@ -1851,8 +1851,8 @@ void SetRoadInCurve(int tp) {
 void SoftRegion() {
 	int NVert = 0;
 	int MaxVert = 0;
-	int* Vert = NULL;
-	int* VertHi = NULL;
+	int* Vert = nullptr;
+	int* VertHi = nullptr;
 	int xmin = 100000;
 	int ymin = 100000;
 	int xmax = -1;
@@ -2079,9 +2079,9 @@ void SetHiInRegion(byte H) {
 void SoftRegion(byte* MpVertHi) {
 	int NVert = 0;
 	int MaxVert = 0;
-	int* Vert = NULL;
-	int* VertHi = NULL;
-	int* TmVertHi = NULL;
+	int* Vert = nullptr;
+	int* VertHi = nullptr;
+	int* TmVertHi = nullptr;
 	int xmin = 100000;
 	int ymin = 100000;
 	int xmax = -1;

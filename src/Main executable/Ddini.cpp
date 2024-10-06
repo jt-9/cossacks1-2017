@@ -43,7 +43,7 @@ __declspec( dllexport ) int RSCRSizeY;
 __declspec( dllexport ) int COPYSizeX;
 __declspec( dllexport ) int Pitch;
 
-LPDIRECTDRAW            lpDD = NULL;      // DirectDraw object
+LPDIRECTDRAW            lpDD = nullptr;      // DirectDraw object
 LPDIRECTDRAWSURFACE     lpDDSPrimary;   // DirectDraw primary surface
 LPDIRECTDRAWSURFACE     lpDDSBack;      // DirectDraw back surface
 BOOL                    bActive;        // is application active (not minimized / has focus)?
@@ -214,9 +214,9 @@ void LockSurface( void )
 		return;
 	}
 
-	if (( dderr = lpDDSPrimary->Lock( NULL, &ddsd,
+	if (( dderr = lpDDSPrimary->Lock( nullptr, &ddsd,
 		DDLOCK_SURFACEMEMORYPTR |
-		DDLOCK_WAIT, NULL ) ) != DD_OK)
+		DDLOCK_WAIT, nullptr ) ) != DD_OK)
 	{
 		DDError = true;
 	}
@@ -247,7 +247,7 @@ void UnlockSurface( void )
 		return;
 	}
 
-	if (lpDDSPrimary->Unlock( NULL ) != DD_OK)
+	if (lpDDSPrimary->Unlock( nullptr ) != DD_OK)
 	{
 		DDError = true;
 	}
@@ -284,12 +284,12 @@ HRESULT CALLBACK ModeCallback( LPDDSURFACEDESC pdds, LPVOID lParam )
 //Init DirectDraw and find possible resolutions
 bool EnumModesOnly()
 {
-	HRESULT ddrval = DirectDrawCreate_wrapper( NULL, &lpDD, NULL );
+	HRESULT ddrval = DirectDrawCreate_wrapper( nullptr, &lpDD, nullptr );
 	if (ddrval == DD_OK)
 	{
-		lpDD->EnumDisplayModes( 0, NULL, NULL, ModeCallback );
+		lpDD->EnumDisplayModes( 0, nullptr, nullptr, ModeCallback );
 		lpDD->Release();
-		lpDD = NULL;
+		lpDD = nullptr;
 
 		return true;
 	}
@@ -361,7 +361,7 @@ bool CreateDDObjects( HWND hwnd )
 		goto SDMOD;
 	}
 
-	lpDD = NULL;
+	lpDD = nullptr;
 
 	ddrval = DirectDrawCreate_wrapper( nullptr, &lpDD, nullptr );
 
@@ -444,7 +444,7 @@ BOOL CreateRGBDDObjects( HWND hwnd )
 		lpDDSPrimary->Release();
 		goto SDMOD;
 	}
-	ddrval = DirectDrawCreate_wrapper( NULL, &lpDD, NULL );
+	ddrval = DirectDrawCreate_wrapper( nullptr, &lpDD, nullptr );
 	if (ddrval == DD_OK)
 	{
 		// Get exclusive mode
@@ -460,7 +460,7 @@ SDMOD:
 				ddsd.dwSize = sizeof( ddsd );
 				ddsd.dwFlags = DDSD_CAPS;
 				ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
-				ddrval = lpDD->CreateSurface( &ddsd, &lpDDSPrimary, NULL );
+				ddrval = lpDD->CreateSurface( &ddsd, &lpDDSPrimary, nullptr );
 				if (ddrval == DD_OK)
 				{
 					DDError = false;
@@ -526,7 +526,7 @@ BOOL CreateRGB640DDObjects( HWND hwnd )
 		lpDDSPrimary->Release();
 		goto SDMOD;
 	};
-	ddrval = DirectDrawCreate_wrapper( NULL, &lpDD, NULL );
+	ddrval = DirectDrawCreate_wrapper( nullptr, &lpDD, nullptr );
 	if (ddrval == DD_OK)
 	{
 SDMOD:;
@@ -542,7 +542,7 @@ SDMOD:;
 				ddsd.dwSize = sizeof( ddsd );
 				ddsd.dwFlags = DDSD_CAPS;
 				ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
-				ddrval = lpDD->CreateSurface( &ddsd, &lpDDSPrimary, NULL );
+				ddrval = lpDD->CreateSurface( &ddsd, &lpDDSPrimary, nullptr );
 				if (ddrval == DD_OK)
 				{
 					DDError = false;
@@ -651,7 +651,7 @@ void LoadPalette( LPCSTR lpFileName )
 		{
 			if (!PalDone)
 			{
-				lpDD->CreatePalette( DDPCAPS_8BIT, &GPal[0], &lpDDPal, NULL );
+				lpDD->CreatePalette( DDPCAPS_8BIT, &GPal[0], &lpDDPal, nullptr );
 				PalDone = true;
 				lpDDSPrimary->SetPalette( lpDDPal );
 			}

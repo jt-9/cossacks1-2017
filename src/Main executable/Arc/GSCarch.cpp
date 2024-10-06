@@ -22,21 +22,21 @@ GFILE_API CGSCarch::~CGSCarch()
 
 void GSC_OpenError()
 {
-	MessageBox( NULL, "Unable to map files into memory.", "Loading error...", MB_ICONERROR );
+	MessageBox( nullptr, "Unable to map files into memory.", "Loading error...", MB_ICONERROR );
 }
 
 BOOL CGSCarch::Open( LPCSTR lpcsArchFileName )
 {
 	strcpy( m_ArchName, lpcsArchFileName );
 
-	m_hMapFile = CreateFile( m_ArchName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, 0 );
+	m_hMapFile = CreateFile( m_ArchName, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, 0 );
 	if (INVALID_HANDLE_VALUE == m_hMapFile)
 	{
 		GSC_OpenError();
 		return FALSE;
 	}
 
-	m_hMapping = CreateFileMapping( m_hMapFile, NULL, PAGE_READONLY, 0, 0, NULL );
+	m_hMapping = CreateFileMapping( m_hMapFile, nullptr, PAGE_READONLY, 0, 0, nullptr );
 	if (!m_hMapping)
 	{
 		GSC_OpenError();
@@ -77,8 +77,8 @@ BOOL CGSCarch::Close()
 LPGSCfile CGSCarch::GetFileHandle( LPCSTR lpcsFileName )
 {
 	DWORD			i = 0;
-	LPGSCfile		lpFileHandle = NULL;
-	LPGSCarchFAT	pFAT = NULL;
+	LPGSCfile		lpFileHandle = nullptr;
+	LPGSCarchFAT	pFAT = nullptr;
 	CHAR			sUpFileName[64];
 
 	ZeroMemory( sUpFileName, 64 );
@@ -101,7 +101,7 @@ LPGSCfile CGSCarch::GetFileHandle( LPCSTR lpcsFileName )
 			}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 VOID CGSCarch::CloseFileHandle( LPGSCfile lpFileHandle )
@@ -222,7 +222,7 @@ LPGSCFindData CGSCarch::FindFile( LPCSTR lpcsMask )
 	};
 
 	delete pFindData;
-	return NULL;
+	return nullptr;
 };
 
 BOOL CGSCarch::NextFile( LPGSCFindData gFindData )

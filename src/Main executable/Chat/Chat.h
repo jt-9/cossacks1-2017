@@ -86,7 +86,7 @@ typedef void (* chatDisconnected)(CHAT chat,
 								  void * param);
 
 // Called when a private message from another user is received.
-// If user==NULL, this is a message from the server.
+// If user==nullptr, this is a message from the server.
 ///////////////////////////////////////////////////////////////
 typedef void (* chatPrivateMessage)(CHAT chat,
 									const char * user,

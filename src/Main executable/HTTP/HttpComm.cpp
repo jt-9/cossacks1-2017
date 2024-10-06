@@ -46,22 +46,22 @@ CHttpComm::CHttpComm()
 		dwSiz = 4;
 		RegQueryValueEx( hGscKey,
 			"httpcUseProxy",
-			NULL,
-			NULL,
+			nullptr,
+			nullptr,
 			(LPBYTE) &m_bUseProxy,
 			(LPDWORD) &dwSiz );
 		dwSiz = 4;
 		RegQueryValueEx( hGscKey,
 			"httpcProxyPort",
-			NULL,
-			NULL,
+			nullptr,
+			nullptr,
 			(LPBYTE) &m_dwProxyPort,
 			(LPDWORD) &dwSiz );
 		dwSiz = 256;
 		RegQueryValueEx( hGscKey,
 			"httpcProxyAddr",
-			NULL,
-			NULL,
+			nullptr,
+			nullptr,
 			(LPBYTE) m_szProxyAddr,
 			(LPDWORD) &dwSiz );
 
@@ -96,7 +96,7 @@ DWORD CHttpComm::AddRequest( LPCSTR lpcszURL )
 	m_pRequestList[m_dwRequestCount - 1].m_Stage = csConnecting;
 	m_pRequestList[m_dwRequestCount - 1].m_dwHandle = m_dwHandleAuto;
 	m_pRequestList[m_dwRequestCount - 1].m_lpvBuffer = malloc( RECV_BUFFER_SIZE );
-	m_pRequestList[m_dwRequestCount - 1].m_lpszQuery = NULL;
+	m_pRequestList[m_dwRequestCount - 1].m_lpszQuery = nullptr;
 	// -- socket ------------------------------------------------------------
 	m_pRequestList[m_dwRequestCount - 1].m_Socket = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 	if (m_pRequestList[m_dwRequestCount - 1].m_Socket == INVALID_SOCKET)
@@ -211,7 +211,7 @@ VOID CHttpComm::ProcessRequests()
 			FD_SET( m_pRequestList[i].m_Socket, &except_fds );
 			TimeOut.tv_sec = 0;
 			TimeOut.tv_usec = 500;
-			if (select( 0, NULL, &write_fds, &except_fds, &TimeOut ) != SOCKET_ERROR)
+			if (select( 0, nullptr, &write_fds, &except_fds, &TimeOut ) != SOCKET_ERROR)
 			{
 				if (FD_ISSET( m_pRequestList[i].m_Socket, &except_fds ))
 				{
@@ -240,7 +240,7 @@ VOID CHttpComm::ProcessRequests()
 			FD_SET( m_pRequestList[i].m_Socket, &except_fds );
 			TimeOut.tv_sec = 0;
 			TimeOut.tv_usec = 500;
-			if (select( 0, NULL, &read_fds, &except_fds, &TimeOut ) != SOCKET_ERROR)
+			if (select( 0, nullptr, &read_fds, &except_fds, &TimeOut ) != SOCKET_ERROR)
 			{
 				if (FD_ISSET( m_pRequestList[i].m_Socket, &except_fds ))
 				{

@@ -19,7 +19,7 @@ void PreDrawGameProcess();
 void PostDrawGameProcess();
 SimpleDialog* DialogsSystem::addViewPort(int x, int y, int Lx, int Ly) {
 	int i;
-	for (i = 0; i < 512 && DSS[i] != NULL; i++);
+	for (i = 0; i < 512 && DSS[i] != nullptr; i++);
 	if (i < 512) {
 		SimpleDialog* SD = new SimpleDialog;
 		DSS[i] = SD;
@@ -28,10 +28,10 @@ SimpleDialog* DialogsSystem::addViewPort(int x, int y, int Lx, int Ly) {
 		SD->x1 = SD->x + Lx;
 		SD->y1 = SD->y + Ly;
 		SD->Enabled = 1;
-		SD->Parent = NULL;
+		SD->Parent = nullptr;
 		return SD;
 	};
-	return NULL;
+	return nullptr;
 };
 extern int RealLx;
 extern int RealLy;
@@ -48,7 +48,7 @@ bool MakeClipping(SimpleDialog* SD) {
 };
 SimpleDialog* DialogsSystem::addClipper(int x0, int y0, int x1, int y1) {
 	int i;
-	for (i = 0; i < 512 && DSS[i] != NULL; i++);
+	for (i = 0; i < 512 && DSS[i] != nullptr; i++);
 	if (i < 512) {
 		SimpleDialog* SD = new SimpleDialog;
 		DSS[i] = SD;
@@ -58,10 +58,10 @@ SimpleDialog* DialogsSystem::addClipper(int x0, int y0, int x1, int y1) {
 		SD->y1 = y1;
 		SD->Enabled = 1;
 		SD->Visible = 0;
-		SD->Parent = NULL;
+		SD->Parent = nullptr;
 		SD->OnDraw = &MakeClipping;
 		return SD;
 	};
-	return NULL;
+	return nullptr;
 
 };

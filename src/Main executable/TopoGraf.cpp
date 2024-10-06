@@ -419,7 +419,7 @@ void EraseAreas() {
 		free(LinksDist);
 		NAreas = 0;
 		MaxArea = 0;
-		TopMap = NULL;
+		TopMap = nullptr;
 	};
 	if (!WNAreas)return;
 	for (int i = 0; i < WNAreas; i++) {
@@ -432,7 +432,7 @@ void EraseAreas() {
 	free(WLinksDist);
 	WNAreas = 0;
 	WMaxArea = 0;
-	WTopMap = NULL;
+	WTopMap = nullptr;
 }
 
 extern word CurZone;
@@ -567,9 +567,9 @@ void InitTopChange() {
 	NeedProcessTop = false;
 	MaxChAreas = 0;
 	NChAreas = 0;
-	ChAreas = NULL;
-	TmpMLinks = NULL;
-	TmpMDist = NULL;
+	ChAreas = nullptr;
+	TmpMLinks = nullptr;
+	TmpMDist = nullptr;
 	CurIStart = 0;
 	MinChX = 100000;
 	MaxChX = 0;
@@ -582,8 +582,8 @@ void ClearTopChange() {
 		free(TmpMLinks);
 		free(TmpMDist);
 	};
-	TmpMLinks = NULL;
-	TmpMDist = NULL;
+	TmpMLinks = nullptr;
+	TmpMDist = nullptr;
 	InitTopChange();
 	WasOnlyOpen = true;
 };
@@ -679,8 +679,8 @@ void OnePartIteration(int Nitr) {
 		memcpy(LinksDist, TmpMDist, NAreas*NAreas * 2);
 		free(TmpMLinks);
 		free(TmpMDist);
-		TmpMLinks = NULL;
-		TmpMDist = NULL;
+		TmpMLinks = nullptr;
+		TmpMDist = nullptr;
 		CurIStart = 0;
 	}
 	else {
@@ -961,12 +961,12 @@ void ProcessDynamicalTopology()
 void StopDynamicalTopology() {
 	if (TmpMLinks)free(TmpMLinks);
 	if (TmpMDist)free(TmpMDist);
-	TmpMLinks = NULL;
-	TmpMDist = NULL;
+	TmpMLinks = nullptr;
+	TmpMDist = nullptr;
 	NeedProcessTop = false;
 	NChAreas = 0;
 	if (MaxChAreas)free(ChAreas);
-	ChAreas = NULL;
+	ChAreas = nullptr;
 	CurIStart = 0;
 	TmpChanges = 0;
 	MaxChAreas = 0;
@@ -998,13 +998,13 @@ public:
 Road::Road() {
 	MaxSegs = 0;
 	NSegs = 0;
-	Segs = NULL;
+	Segs = nullptr;
 };
 Road::~Road() {
 	if (Segs)free(Segs);
 	MaxSegs = 0;
 	NSegs = 0;
-	Segs = NULL;
+	Segs = nullptr;
 };
 void Road::Erase() {
 	NSegs = 0;
@@ -1148,7 +1148,7 @@ bool AddWArea(short x, short y) {
 	AR->Importance = 0;
 	AR->NTrees = 0;
 	AR->NStones = 0;
-	AR->MinesIdx = NULL;
+	AR->MinesIdx = nullptr;
 	AR->NLinks = 0;
 	AR->NMines = 0;
 	AR->MaxLink = 6;
@@ -1322,8 +1322,8 @@ void CreateWTopMap() {
 		CreateWLinkInfo();
 	}
 	else {
-		WMotionLinks = NULL;
-		WLinksDist = NULL;
+		WMotionLinks = nullptr;
+		WLinksDist = nullptr;
 	};
 	GTOP[0].LinksDist = LinksDist;
 	GTOP[0].MotionLinks = MotionLinks;
@@ -1373,7 +1373,7 @@ struct OLDLINK {
 	word LinkBuf[40000];
 	int LBPOS;
 };
-OLDLINK* OLN = NULL;
+OLDLINK* OLN = nullptr;
 void SymmetrizeLinks() {
 	for (int i = 0; i < NAreas; i++) {
 		Area* AR = TopMap + i;

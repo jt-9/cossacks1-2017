@@ -364,7 +364,7 @@ void ChatSystem::CheckMessage( char* message )
 			else
 			{
 				strcpy( cc3, cc );
-				cc = NULL;
+				cc = nullptr;
 			};
 			PRESENT = 0;
 			for (int q = 0; q < NCHNL; q++)for (i = 0; i < CCH[q].NPlayers; i++)
@@ -458,7 +458,7 @@ bool ChatSystem::ConnectToChat( char* Nick, char* Info, char* Mail, char* Chat )
 	else
 	{
 		for (int q = 0; q < NCHNL; q++)
-			chatEnterChannel( chat, chatChannel[q], NULL, &channelCallbacks, EnterChannelCallback, this, CHATFalse );
+			chatEnterChannel( chat, chatChannel[q], nullptr, &channelCallbacks, EnterChannelCallback, this, CHATFalse );
 		t0 = current_time();
 		do
 		{

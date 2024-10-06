@@ -110,7 +110,7 @@ char* GameConstants::GetString(char* Name) {
 	char gx[128];
 	sprintf(gx, "Unknown external string value ID: %s \n(It does not present in Const.lst)", Name);
 	ErrM(gx);
-	return NULL;
+	return nullptr;
 }
 
 GameConstants::~GameConstants()

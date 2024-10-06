@@ -109,7 +109,7 @@ typedef void (*ArrayElementFreeFn)(void *elem);
  * array when the entire array is being freed (using ArrayFree).  This function
  * is your chance to do any deallocation/cleanup required for the element
  * (such as freeing any pointers contained in the element). The client can pass 
- * NULL for the cleanupFn if the elements don't require any handling on free. 
+ * nullptr for the cleanupFn if the elements don't require any handling on free. 
  */
 DArray ArrayNew(int elemSize, int numElemsToAllocate, 
                 ArrayElementFreeFn elemFreeFn);
@@ -225,7 +225,7 @@ void ArrayReplaceAt(DArray array, const void *newElem, int n);
  * ---------
  * Sorts the specified array into ascending order according to the supplied
  * comparator.  The numbering of the elements will change to reflect the 
- * new ordering. An assert is raised if the comparator is NULL.
+ * new ordering. An assert is raised if the comparator is nullptr.
  */
 void ArraySort(DArray array, ArrayCompareFn comparator);
 
@@ -249,7 +249,7 @@ void ArraySort(DArray array, ArrayCompareFn comparator);
  * the logical length (although searching from logical length will never
  * find anything, allowing this case means you can search an entirely empty
  * array from 0 without getting an assert). An assert is raised if the
- * comparator is NULL.
+ * comparator is nullptr.
  */
 int ArraySearch(DArray array, const void *key, ArrayCompareFn comparator, 
                   int fromIndex, int isSorted);
@@ -262,7 +262,7 @@ int ArraySearch(DArray array, const void *key, ArrayCompareFn comparator,
  * called with the address of the array element and the clientData pointer.  
  * The clientData value allows the client to pass extra state information to 
  * the client-supplied function, if necessary.  If no client data is required, 
- * this argument should be NULL. An assert is raised if map function is NULL.
+ * this argument should be nullptr. An assert is raised if map function is nullptr.
  */
 void ArrayMap(DArray array, ArrayMapFn fn, void *clientData);
 
@@ -277,7 +277,7 @@ void ArrayMapBackwards(DArray array, ArrayMapFn fn, void *clientData);
  * -----------
  * Same as ArrayMap, but allows the mapping to be stopped by returning 0
  * from the mapping function.  If the mapping was stopped, the element
- * it was stopped at will be returned.  If it wasn't stopped, then NULL
+ * it was stopped at will be returned.  If it wasn't stopped, then nullptr
  * will be returned.
  */
 void * ArrayMap2(DArray array, ArrayMapFn2 fn, void *clientData);

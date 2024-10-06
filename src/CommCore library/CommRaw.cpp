@@ -136,7 +136,7 @@ BOOL CCommCore::SendRawPacket(PEER_ADDR			PeerAddr,
 	m_bBlockingCall = TRUE;
 
 	while (QueuePacketExists(m_lStamp)) {
-		ReceiveData(NULL);
+		ReceiveData(nullptr);
 		QueueProcess();
 		if (lpIdleProc)
 			lpIdleProc();

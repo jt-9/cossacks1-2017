@@ -28,10 +28,10 @@ void AddToVisual( short uy, short x, short y, OneObject* OB, word FileID, word S
 WallCluster::WallCluster()
 {
 	NCornPt = 0;
-	CornPt = NULL;
+	CornPt = nullptr;
 	NCells = 0;
-	Cells = NULL;
-	WSys = NULL;
+	Cells = nullptr;
+	WSys = nullptr;
 	LastX = 0;
 	LastY = 0;
 	FinalX = 0;
@@ -42,10 +42,10 @@ WallCluster::~WallCluster()
 {
 	if ( NCornPt )free( CornPt );
 	NCornPt = 0;
-	CornPt = NULL;
+	CornPt = nullptr;
 	NCells = 0;
-	Cells = NULL;
-	WSys = NULL;
+	Cells = nullptr;
+	WSys = nullptr;
 	LastX = 0;
 	LastY = 0;
 	FinalX = 0;
@@ -391,7 +391,7 @@ void WallCluster::CreateByData( word* Data )
 
 WallSystem::WallSystem()
 {
-	WCL = NULL;
+	WCL = nullptr;
 	NClusters = 0;
 	memset( WRefs, 0, MaxLI * 4 );
 };
@@ -407,7 +407,7 @@ WallSystem::~WallSystem()
 		};
 	};
 	free( WCL );
-	WCL = NULL;
+	WCL = nullptr;
 	NClusters = 0;
 	memset( WRefs, 0, MaxLI * 4 );
 }
@@ -544,7 +544,7 @@ char* GetLockData( byte id )
 	case 11:return Clu11;
 	case 12:return CluF;
 	};
-	return NULL;
+	return nullptr;
 };
 bool CheckBuildingsForWalls( int x, int y );
 bool WallCell::CheckPosition()
@@ -1109,7 +1109,7 @@ void WallCluster::View()
 	int y0 = mul3( mapy ) << 3;
 	int Lx = smaplx << 5;
 	int Ly = mul3( smaply ) << 3;
-	OneObject* CUR = NULL;
+	OneObject* CUR = nullptr;
 	if ( TransMode )
 	{
 		for ( int i = 0; i < NCells; i++ )
@@ -1121,7 +1121,7 @@ void WallCluster::View()
 				{
 					CUR = Group[WCL->OIndex];
 					if ( !( CUR && ( !CUR->Sdoxlo ) && CUR->WallX == WCL->x&&CUR->WallY == WCL->y ) )
-						CUR = NULL;
+						CUR = nullptr;
 				};
 				CurDrawNation = WCL->NI;
 				int xx = ( WCL->x << 6 ) - x0;
@@ -1130,33 +1130,33 @@ void WallCluster::View()
 				WallCharacter* WCR = &WChar[WCL->Type];
 				if ( xx > -128 && xx<Lx + 128, yy - dz>-128 - dz&&yy - dz < Ly + 128 - dz )
 				{
-					//AddOptPoint(ZBF_LO,0,0,xx-WCR->dx,yy-WCR->dy-dz,NULL,WCR->GateFile,WCL->Sprite-32,AV_TRANSPARENT|AV_SHADOWONLY);
+					//AddOptPoint(ZBF_LO,0,0,xx-WCR->dx,yy-WCR->dy-dz,nullptr,WCR->GateFile,WCL->Sprite-32,AV_TRANSPARENT|AV_SHADOWONLY);
 					if ( WCL->Sprite >= 32 )
 					{
 						if ( WCL->Sprite < 64 )
 						{
-							AddOptPoint( ZBF_LO, 0, 0, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, NULL, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_SHADOWONLY );
+							AddOptPoint( ZBF_LO, 0, 0, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, nullptr, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_SHADOWONLY );
 							switch ( WCL->Sprite )
 							{
 							case 32:
-								AddOptPoint( ZBF_NORMAL, xx + 32, yy + 16, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, NULL, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
+								AddOptPoint( ZBF_NORMAL, xx + 32, yy + 16, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, nullptr, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
 								break;
 							case 33:
-								AddOptLine( xx + 96, yy - 48, xx - 32, yy + 48, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, NULL, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
+								AddOptLine( xx + 96, yy - 48, xx - 32, yy + 48, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, nullptr, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
 								break;
 							case 34:
-								AddOptPoint( ZBF_NORMAL, xx + 32, yy + 16, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, NULL, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
+								AddOptPoint( ZBF_NORMAL, xx + 32, yy + 16, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, nullptr, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
 								break;
 							case 35:
-								AddOptLine( xx - 32, yy - 16, xx + 96, yy + 48, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, NULL, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
+								AddOptLine( xx - 32, yy - 16, xx + 96, yy + 48, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, nullptr, WCR->GateFile, WCL->Sprite - 32, AV_TRANSPARENT | AV_WITHOUTSHADOW );
 								break;
 							};
 						};
 					}
 					else
 					{
-						AddOptPoint( ZBF_LO, 0, 0, xx - WCR->dx, yy - WCR->dy - dz, NULL, WCR->RIndex, WCL->SprBase + WCL->Sprite, AV_SHADOWONLY );
-						AddOptPoint( ZBF_NORMAL, xx + 32, yy + 16, xx - WCR->dx, yy - WCR->dy - dz, NULL, WCR->RIndex, WCL->SprBase + WCL->Sprite, AV_TRANSPARENT | AV_WITHOUTSHADOW );
+						AddOptPoint( ZBF_LO, 0, 0, xx - WCR->dx, yy - WCR->dy - dz, nullptr, WCR->RIndex, WCL->SprBase + WCL->Sprite, AV_SHADOWONLY );
+						AddOptPoint( ZBF_NORMAL, xx + 32, yy + 16, xx - WCR->dx, yy - WCR->dy - dz, nullptr, WCR->RIndex, WCL->SprBase + WCL->Sprite, AV_TRANSPARENT | AV_WITHOUTSHADOW );
 					};
 				};
 			};
@@ -1174,7 +1174,7 @@ void WallCluster::View()
 				{
 					CUR = Group[WCL->OIndex];
 					if ( !( CUR && ( !CUR->Sdoxlo ) && CUR->WallX == WCL->x&&CUR->WallY == WCL->y ) )
-						CUR = NULL;
+						CUR = nullptr;
 				};
 				CurDrawNation = WCL->NI;
 				int xx = ( WCL->x << 6 ) - x0;
@@ -1192,7 +1192,7 @@ void WallCluster::View()
 						{
 							if ( WCL->Sprite < 64 )
 							{
-								AddOptPoint( ZBF_LO, 0, 0, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, NULL, WCR->GateFile, WCL->Sprite - 32, AV_SHADOWONLY );
+								AddOptPoint( ZBF_LO, 0, 0, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16, nullptr, WCR->GateFile, WCL->Sprite - 32, AV_SHADOWONLY );
 								RegisterVisibleGP( CUR->Index, WCR->GateFile, WCL->Sprite - 32, xx - WCR->GateDx + 32, yy - WCR->GateDy - dz + 16 );
 								int gs = Gates[WCL->GateIndex].State + ( WCL->Sprite & 15 )*NGOpen + 4;
 								switch ( WCL->Sprite )
@@ -1266,14 +1266,14 @@ void WallCluster::Preview()
 			WallCharacter* WCR = &WChar[WCL->Type];
 			if ( xx > -128 && xx<Lx + 128, yy - dz>-128 && yy - dz < Ly + 128 )
 			{
-				AddOptPoint( ZBF_LO, 0, 0, xx - WCR->dx, yy - WCR->dy - dz, NULL, WCR->RIndex, WCL->Sprite, AV_SHADOWONLY );
+				AddOptPoint( ZBF_LO, 0, 0, xx - WCR->dx, yy - WCR->dy - dz, nullptr, WCR->RIndex, WCL->Sprite, AV_SHADOWONLY );
 				if ( Cells[i].CheckPosition() )
 				{
-					AddOptPoint( ZBF_NORMAL, xx, yy + 320, xx - WCR->dx, yy - WCR->dy - dz, NULL, WCR->RIndex, WCL->Sprite, AV_PULSING | AV_WHITE | AV_WITHOUTSHADOW );
+					AddOptPoint( ZBF_NORMAL, xx, yy + 320, xx - WCR->dx, yy - WCR->dy - dz, nullptr, WCR->RIndex, WCL->Sprite, AV_PULSING | AV_WHITE | AV_WITHOUTSHADOW );
 				}
 				else
 				{
-					AddOptPoint( ZBF_NORMAL, xx, yy + 320, xx - WCR->dx, yy - WCR->dy - dz, NULL, WCR->RIndex, WCL->Sprite, AV_PULSING | AV_RED | AV_WITHOUTSHADOW );
+					AddOptPoint( ZBF_NORMAL, xx, yy + 320, xx - WCR->dx, yy - WCR->dy - dz, nullptr, WCR->RIndex, WCL->Sprite, AV_PULSING | AV_RED | AV_WITHOUTSHADOW );
 
 				}
 			}
@@ -2275,7 +2275,7 @@ bool CheckUnitsInCell( int cell, byte NMask, int x, int y, int R )
 	cell += VAL_MAXCX + 1;
 	if ( cell < 0 || cell >= VAL_MAXCIOFS )return false;
 	int NMon = MCount[cell];
-	if ( !NMon )return NULL;
+	if ( !NMon )return nullptr;
 	int ofs1 = cell << SHFCELL;
 	word MID;
 	for ( int i = 0; i < NMon; i++ )

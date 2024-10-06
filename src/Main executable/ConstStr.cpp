@@ -12,11 +12,11 @@ void LOADSC(char* ID,char** str){
 	if(!strcmp(*str,ID)){
 		char cc[128];
 		sprintf(cc,"Unknown string: %s (see COMMENT.TXT)",ID);
-		MessageBox(NULL,cc,"String not found...",0);
+		MessageBox(nullptr,cc,"String not found...",0);
 	};
 };
 #undef LoadSC
-#define LoadSC(z) char* ##z##=NULL;
+#define LoadSC(z) char* ##z##=nullptr;
 #include "ConstStr.h"
 #undef LoadSC
 #define LoadSC(x) LOADSC(#x,&##x);

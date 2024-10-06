@@ -372,11 +372,11 @@ void GlobalArmyInfo::Clear() {
 	MaxCIN = 0;
 	if (CIN) {
 		free(CIN);
-		CIN = NULL;
+		CIN = nullptr;
 	};
 	if (AINF) {
 		free(AINF);
-		AINF = NULL;
+		AINF = nullptr;
 	};
 	memset(ArmDistr, 0xFF, StratLx*StratLy * 2);
 };
@@ -388,8 +388,8 @@ GlobalArmyInfo::GlobalArmyInfo() {
 	NArmy = 0;
 	MaxArmy = 0;
 	MaxCIN = 0;
-	CIN = NULL;
-	AINF = NULL;
+	CIN = nullptr;
+	AINF = nullptr;
 	//memset(ArmDistr,0xFF,StratLx*StratLy*2);
 };
 GlobalArmyInfo::~GlobalArmyInfo() {

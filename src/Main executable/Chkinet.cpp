@@ -1,4 +1,4 @@
 #include "ddini.h"
 bool CheckInternet(){
-	return gethostbyname("peerchat.gamespy.com")!=NULL;
+	return gethostbyname("peerchat.gamespy.com")!=nullptr;
 };

@@ -84,7 +84,7 @@ void PingEngine::Setup(){
 	int bread; 
 	int timeout = 1; 
  	if (WSAStartup(MAKEWORD(2,1),&wsaData) != 0)return;
- 	sockRaw = WSASocket (AF_INET,SOCK_RAW,IPPROTO_ICMP,NULL,0,0); 
+ 	sockRaw = WSASocket (AF_INET,SOCK_RAW,IPPROTO_ICMP,nullptr,0,0); 
  	if (sockRaw == INVALID_SOCKET)return;
 	bread = setsockopt(sockRaw,SOL_SOCKET,SO_RCVTIMEO,(char*)&timeout,sizeof(timeout)); 
 	if(bread == SOCKET_ERROR)return;

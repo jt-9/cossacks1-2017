@@ -121,7 +121,7 @@ void PerformUpgradeLink( OneObject* OBJ )
 	if (OBJ->LocalOrder->info.PUpgrade.Stage >= OBJ->LocalOrder->info.PUpgrade.NStages)
 	{
 		OBJ->Ready = true;
-		OneObject* OBU = NULL;
+		OneObject* OBU = nullptr;
 		word MID = OBJ->LocalOrder->info.PUpgrade.OldUpgrade;
 		if (MID != 0xFFFF)
 		{

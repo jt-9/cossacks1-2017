@@ -154,7 +154,7 @@ GError ServerListUpdate(GServerList serverlist, gbool async);
 -------------------------
 Identical to ServerListUpdate, except that the server list is filtered
 on the server side by the filter, and you can specify the type of query to perform.
-If you want to specify the type of query, but no filter, simply pass NULL for filter.
+If you want to specify the type of query, but no filter, simply pass nullptr for filter.
 Filter is a SQL-style boolean statement such as:
 "gametype='ctf'"
 "numplayers > 1 and numplayers < 8"
@@ -240,7 +240,7 @@ char *ServerListErrorDesc(GServerList serverlist, GError error);
 
 /* ServerListGetServer
 ----------------------
-Returns the server at the specified index, or NULL if the index is out of bounds */
+Returns the server at the specified index, or nullptr if the index is out of bounds */
 GServer ServerListGetServer(GServerList serverlist, int index);
 
 /* ServerListCount

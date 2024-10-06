@@ -31,7 +31,7 @@ devsupport@gamespy.com
 /************
 ** DEFINES **
 ************/
-#define ASSERT_DATA(data)   assert(data != NULL); assert(data->type >= 0); assert(data->type < CALLBACK_NUM); assert(data->callback != NULL); assert(data->callbackParams != NULL);  assert(data->ID >= 0);
+#define ASSERT_DATA(data)   assert(data != nullptr); assert(data->type >= 0); assert(data->type < CALLBACK_NUM); assert(data->callback != nullptr); assert(data->callbackParams != nullptr);  assert(data->ID >= 0);
 #define RAW                 callbackParams->raw
 #define REASON              callbackParams->reason
 #define USER                callbackParams->user
@@ -66,20 +66,20 @@ devsupport@gamespy.com
 #define VALUE               callbackParams->value
 #define VALUES              callbackParams->values
 #define RESULT              callbackParams->result
-#define COPY(param)         if(srcParams->param != NULL)\
+#define COPY(param)         if(srcParams->param != nullptr)\
 							{\
 								destParams->param = _strdup(srcParams->param);\
-								if(destParams->param == NULL)\
+								if(destParams->param == nullptr)\
 								{\
 									gsifree(destParams);\
 									gsifree(data.channel);\
 					/*ERRCON*/		return CHATFalse;\
 								}\
 							}
-#define COPY_MODE()         if(srcParams->mode != NULL)\
+#define COPY_MODE()         if(srcParams->mode != nullptr)\
 							{\
 								destParams->mode = (CHATChannelMode *)gsimalloc(sizeof(CHATChannelMode));\
-								if(destParams->mode == NULL)\
+								if(destParams->mode == nullptr)\
 								{\
 									gsifree(destParams);\
 									gsifree(data.channel);\
@@ -89,11 +89,11 @@ devsupport@gamespy.com
 							}
 #define COPY_STR_ARRAY(array, num)  assert(srcParams->num >= 0);\
 									if(!srcParams->array)\
-										destParams->array = NULL;\
+										destParams->array = nullptr;\
 									else\
 									{\
 										destParams->array = (char **)gsimalloc(sizeof(char *) * srcParams->num);\
-										if(destParams->array == NULL)\
+										if(destParams->array == nullptr)\
 										{\
 											gsifree(destParams);\
 											gsifree(data.channel);\
@@ -101,12 +101,12 @@ devsupport@gamespy.com
 										}\
 										for(i = 0 ; i < srcParams->num ; i++)\
 										{\
-											if(srcParams->array[i] == NULL)\
-												destParams->array[i] = NULL;\
+											if(srcParams->array[i] == nullptr)\
+												destParams->array[i] = nullptr;\
 											else\
 											{\
 												destParams->array[i] = _strdup(srcParams->array[i]);\
-												if(destParams->array[i] == NULL)\
+												if(destParams->array[i] == nullptr)\
 												{\
 													for(i-- ; i >= 0 ; i--)\
 														gsifree(destParams->array[i]);\
@@ -121,10 +121,10 @@ devsupport@gamespy.com
 #define COPY_INT_ARRAY(array, num)  assert(srcParams->num >= 0);\
                                     if(srcParams->num > 0)\
 									{\
-										assert(srcParams->array != NULL);\
+										assert(srcParams->array != nullptr);\
 										len = (sizeof(int) * srcParams->num);\
 										destParams->array = (int *)gsimalloc(len);\
-										if(destParams->array == NULL)\
+										if(destParams->array == nullptr)\
 										{\
 											gsifree(destParams);\
 											gsifree(data.channel);\
@@ -152,7 +152,7 @@ typedef struct ciCallbackData
 static void ciCallbacksArrayElementFreeFn(void * elem)
 {
 	ciCallbackData * data = (ciCallbackData *)elem;
-	assert(data != NULL);
+	assert(data != nullptr);
 
 	gsifree(data->channel);
 }
@@ -480,7 +480,7 @@ CHATBool ciInitCallbacks(ciConnection * connection)
 	// Setup the darray.
 	////////////////////
 	connection->callbackList = ArrayNew(sizeof(ciCallbackData), 128, ciCallbacksArrayElementFreeFn);
-	if(connection->callbackList == NULL)
+	if(connection->callbackList == nullptr)
 		return CHATFalse;
 
 	return CHATTrue;
@@ -492,7 +492,7 @@ void ciCleanupCallbacks(CHAT chat)
 
 	// Cleanup.
 	///////////
-	if(connection->callbackList != NULL)
+	if(connection->callbackList != nullptr)
 	{
 		ciCallbackData * data;
 		int len;
@@ -529,13 +529,13 @@ CHATBool ciAddCallback_(CHAT chat, int type, void * callback, void * callbackPar
 
 	assert(type >= 0);
 	assert(type < CALLBACK_NUM);
-	assert(connection->callbackList != NULL);
-	assert(callback != NULL);
-	assert(callbackParams != NULL);
+	assert(connection->callbackList != nullptr);
+	assert(callback != nullptr);
+	assert(callbackParams != nullptr);
 	assert(callbackParamsSize > 0);
 	assert(ID >= 0);
 #ifdef _DEBUG
-	if(channel != NULL)
+	if(channel != nullptr)
 		assert(channel[0] != '\0');
 #endif
 
@@ -550,18 +550,18 @@ CHATBool ciAddCallback_(CHAT chat, int type, void * callback, void * callbackPar
 	data.callbackParams = gsimalloc(callbackParamsSize + 64);
 	memset(data.callbackParams, 0xC4, callbackParamsSize + 64);
 #endif
-	if(data.callbackParams == NULL)
+	if(data.callbackParams == nullptr)
 		return CHATFalse; //ERRCON
 	memcpy(data.callbackParams, callbackParams, callbackParamsSize);
 	data.param = param;
 	data.ID = ID;
-	if(channel == NULL)
-		data.channel = NULL;
+	if(channel == nullptr)
+		data.channel = nullptr;
 	else
 	{
 		len = (strlen(channel) + 1);
 		data.channel = (char *)gsimalloc(len);
-		if(data.channel == NULL)
+		if(data.channel == nullptr)
 		{
 			gsifree(data.callbackParams);
 			return CHATFalse; //ERRCON
@@ -1191,7 +1191,7 @@ void ciCallCallbacks(CHAT chat, int ID)
 
 		// Does this depend on a channel we're not in?
 		//////////////////////////////////////////////
-		if((data->channel != NULL) && !ciInChannel(chat, data->channel))
+		if((data->channel != nullptr) && !ciInChannel(chat, data->channel))
 		{
 			// gsifree the data.
 			/////////////////
@@ -1206,7 +1206,7 @@ void ciCallCallbacks(CHAT chat, int ID)
 			// Check if this callback depends on the join callback having been called.
 			// Also, if blocking, only call that callback.
 			//////////////////////////////////////////////////////////////////////////
-			if(((data->channel == NULL) || ciWasJoinCallbackCalled(chat, data->channel)) &&
+			if(((data->channel == nullptr) || ciWasJoinCallbackCalled(chat, data->channel)) &&
 				((ID == 0) || (data->ID == ID)))
 			{
 				// Copy the data so we can gsifree it before calling the callback.

@@ -276,7 +276,7 @@ public:
 	// Послать сообщение всем хостам
 	BOOL SendToAll( LPBYTE lpbBuffer, u_short u_Size, BOOL bSecure = FALSE );
 
-	u_short ReceiveData( LPBYTE lpbBuffer, LPPEER_ID lpPeerId = NULL );	// Извлекает один пакет из очереди
+	u_short ReceiveData( LPBYTE lpbBuffer, LPPEER_ID lpPeerId = nullptr );	// Извлекает один пакет из очереди
 											// должна часто вызываться, во избежание переполнения буфера
 	BOOL SendDropClient( PEER_ID PeerID );	// Сервер просит клиента выйти
 

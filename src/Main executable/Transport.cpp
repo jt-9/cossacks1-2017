@@ -429,7 +429,7 @@ void TransProcess::KillAnyway() {
 		word MID = Units[i];
 		if (MID != 0xFFFF) {
 			OneObject* OB = Group[MID];
-			OB->GlobalOrder = NULL;
+			OB->GlobalOrder = nullptr;
 			if (OnTheWay[i]) {
 				OB->GlobUnlock();
 				int xi = CX + ((R*rando()) >> 15) - R2;
@@ -443,9 +443,9 @@ void TransProcess::KillAnyway() {
 	};
 	if (TransportID != 0xFFFF) {
 		OneObject* TRA = Group[TransportID];
-		TRA->GlobalOrder = NULL;
+		TRA->GlobalOrder = nullptr;
 	};
-	GLOB->Data = NULL;
+	GLOB->Data = nullptr;
 	free(GLOB);
 };
 bool TRP_CheckDisconnectionAbility(OneObject* OB, GOrder* GOR, int LParam, int RParam) {
@@ -474,7 +474,7 @@ int TRP_IconInfo(GOrder* GOR, int IcoIndex, OneObject* OB, GlobalIconInfo* GIN) 
 	if (OB->Index == TRP->TransportID) {
 		GIN->IconSpriteID = -1;
 		GIN->HPLeft = &TRP_LHandle;
-		GIN->HPRight = NULL;
+		GIN->HPRight = nullptr;
 		GIN->LParam = int(TRP);
 		GIN->RParam = 0;
 		GIN->Hint = TransHint;
@@ -591,7 +591,7 @@ void TransProcess::RefreshUnits() {
 			if (OB) {
 				if (OB->Serial != SN || OB->Hidden) {
 					if (OB->GlobalOrder&&OB->GlobalOrder->Disconnect)OB->GlobalOrder->Disconnect(OB, OB->GlobalOrder, 0, 0);
-					OB->GlobalOrder = NULL;
+					OB->GlobalOrder = nullptr;
 					Units[poss] = 0xFFFF;
 				}
 				else poss++;
@@ -813,7 +813,7 @@ void LeaveShipLink(OneObject* OB) {
 			OB->NInside--;
 			if (!OB->NInside) {
 				free(OB->Inside);
-				OB->Inside = NULL;
+				OB->Inside = nullptr;
 			};
 			OneObject* INs = Group[ID];
 			INs->GlobUnlock();
@@ -1089,10 +1089,10 @@ void HandleTransport()
 }
 
 GOrder::GOrder() {
-	CheckDisconnectionAbility = NULL;
-	Disconnect = NULL;
-	KillOrder = NULL;
-	Data = NULL;
+	CheckDisconnectionAbility = nullptr;
+	Disconnect = nullptr;
+	KillOrder = nullptr;
+	Data = nullptr;
 };
 GOrder::~GOrder() {
 };
@@ -1131,24 +1131,24 @@ bool OneObject::GoToTransport(word ID, byte Prio) {
 	if (InArmy&&BrigadeID != 0xFFFF) {
 		Brigade* BR = Nat->CITY->Brigs + BrigadeID;
 		if (BR->Enabled) {
-			OneObject* OB1 = NULL;
-			OneObject* OB2 = NULL;
+			OneObject* OB1 = nullptr;
+			OneObject* OB2 = nullptr;
 			if (BR->WarType) {
 				word M1 = BR->Memb[0];
 				word M2 = BR->Memb[1];
 				if (M1 != 0xFFFF) {
 					OB1 = Group[M1];
 					if (OB1&&OB1->Serial == BR->MembSN[0]) {
-						//if(!OB1->Selected)OB1=NULL;
+						//if(!OB1->Selected)OB1=nullptr;
 					}
-					else OB1 = NULL;
+					else OB1 = nullptr;
 				};
 				if (M2 != 0xFFFF) {
 					OB2 = Group[M2];
 					if (OB2&&OB2->Serial == BR->MembSN[1]) {
-						//if(!OB2->Selected)OB2=NULL;
+						//if(!OB2->Selected)OB2=nullptr;
 					}
-					else OB2 = NULL;
+					else OB2 = nullptr;
 				};
 			};
 			EraseBrigade(BR);
@@ -1302,7 +1302,7 @@ void LeaveTransportLink(OneObject* OBJ) {
 		OBJ->DeleteLastOrder();
 		return;
 	};
-	OneObject* OB = NULL;
+	OneObject* OB = nullptr;
 	word p;
 	word Type = OBJ->LocalOrder->info.BuildObj.ObjIndex;
 	for (int i = 0; i < OBJ->NInside && !OB; i++) {
@@ -1312,7 +1312,7 @@ void LeaveTransportLink(OneObject* OBJ) {
 			if (i + 1 < OBJ->NInside)memcpy(OBJ->Inside + i, OBJ->Inside + i + 1, (OBJ->NInside - i - 1) << 1);
 			OBJ->NInside--;
 		}
-		else OB = NULL;
+		else OB = nullptr;
 	};
 	if (!OB) {
 		OBJ->DeleteLastOrder();
@@ -1320,7 +1320,7 @@ void LeaveTransportLink(OneObject* OBJ) {
 	};
 	if (!OBJ->NInside) {
 		free(OBJ->Inside);
-		OBJ->Inside = NULL;
+		OBJ->Inside = nullptr;
 		//return;
 	};
 	OB->ShowMe();

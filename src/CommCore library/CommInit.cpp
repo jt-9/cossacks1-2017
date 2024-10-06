@@ -37,13 +37,13 @@ CCommCore::CCommCore()
 	m_lpbRecvBuffer = (LPBYTE) malloc( RECV_BUFFER_LENGTH );
 	assert( m_lpbRecvBuffer );
 	m_uMaxMsgSize = 0;
-	lpIdleProc = NULL;
-	lpEnumProc = NULL;
+	lpIdleProc = nullptr;
+	lpEnumProc = nullptr;
 	m_szUserName[0] = '\0';
 	m_szSessionName[0] = '\0';
 	m_paServAddr.s_addr = inet_addr( "0.0.0.0" );
 	m_paServPort = 0;
-	m_lpbUserData = NULL;
+	m_lpbUserData = nullptr;
 	m_uUserDataSize = 0;
 	m_bBlockingCall = FALSE;
 	m_uMaxPeers = MAX_PEERS;
@@ -166,7 +166,7 @@ BOOL CCommCore::InitClient( LPCSTR lpcszServerIP, LPCSTR lpcszUserName, unsigned
 	while (( ( GetTickCount() - dwTime ) < ( RETRY_TIME*( RETRY_COUNT + 3 ) ) ) && m_csState == csWait)
 	{
 
-		ReceiveData( NULL );
+		ReceiveData( nullptr );
 		QueueProcess();
 		if (lpIdleProc)
 			lpIdleProc();
@@ -217,7 +217,7 @@ BOOL CCommCore::DoneServer()
 		SendDropClient( m_PeerList[i].m_Id );
 	/*
 		while(m_uFrameCount>0){
-			ReceiveData(NULL);
+			ReceiveData(nullptr);
 			QueueProcess();
 			if(lpIdleProc)
 				lpIdleProc();
@@ -241,7 +241,7 @@ VOID CCommCore::Cleanup()
 		if (m_PeerList[i].m_lpbUserData)
 		{
 			free( m_PeerList[i].m_lpbUserData );
-			m_PeerList[i].m_lpbUserData = NULL;
+			m_PeerList[i].m_lpbUserData = nullptr;
 			m_PeerList[i].m_uUserDataSize = 0;
 		}
 
@@ -250,7 +250,7 @@ VOID CCommCore::Cleanup()
 	if (m_lpbUserData)
 		free( m_lpbUserData );
 
-	m_lpbUserData = NULL;
+	m_lpbUserData = nullptr;
 	m_uUserDataSize = 0;
 
 	m_dwTxBytes = 0;

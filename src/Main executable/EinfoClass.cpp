@@ -80,7 +80,7 @@ void GlobalEnemyInfo::Clear() {
 			EIN->FREE();
 			free(EIN);
 			for (int j = 0; j < MAXPLAY; j++)
-				if (EINF[j] == EIN)EINF[j] = NULL;
+				if (EINF[j] == EIN)EINF[j] = nullptr;
 		};
 	};
 };
@@ -550,7 +550,7 @@ void EnemyInfo::CreateWallsList() {
 					int TP_R = TopRef[LI + 1];
 					int TP_U = TopRef[LI - MaxLIX];
 					int TP_D = TopRef[LI + MaxLIX];
-					OneObject* WOB = NULL;
+					OneObject* WOB = nullptr;
 					if (CL->OIndex < 0xFFFE)WOB = Group[CL->OIndex];
 					bool NeedDel = false;
 					if (TP_L < 0xFFFE && TP_R < 0xFFFE) {
@@ -945,13 +945,13 @@ SafeCellInfo* EnemyInfo::GetCellInfo(int x, int y) {
 		SafeCellInfo* SCI = SCINF[idx];
 		if (SCI) {
 			SCI += (x&SafeMask) + ((y&SafeMask) << SafeCellSH);
-			if (SCI->Index == 0xFFFF)return NULL;
+			if (SCI->Index == 0xFFFF)return nullptr;
 			else return SCI;
 
 		}
-		else return NULL;
+		else return nullptr;
 	}
-	else return NULL;
+	else return nullptr;
 };
 void EnemyInfo::RegisterSafePoint(OneObject* OB, int x, int y) {
 	if (x > 0 && y > 0 && x < TopLx&&y < TopLx) {

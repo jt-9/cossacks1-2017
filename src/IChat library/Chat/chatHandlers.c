@@ -33,7 +33,7 @@ devsupport@gamespy.com
 #define MAX_PASSWORD          256
 
 #define ASSERT_TYPE(type)     assert((type >= 0) && (type < NUM_TYPES));
-#define ASSERT_STR(str)       assert(str != NULL); assert(str[0] != '\0');
+#define ASSERT_STR(str)       assert(str != nullptr); assert(str[0] != '\0');
 
 #define RPL_WELCOME           "001"
 #define RPL_USRIP             "302"
@@ -315,7 +315,7 @@ static ciServerMessageFilter * ciFindFilter( CHAT chat, int numMatches, ciFilter
 	assert( numMatches > 0 );
 	assert( matches );
 
-	for (filter = connection->filterList; filter != NULL; filter = filter->pnext)
+	for (filter = connection->filterList; filter != nullptr; filter = filter->pnext)
 	{
 		for (i = 0; i < numMatches; i++)
 		{
@@ -339,12 +339,12 @@ static ciServerMessageFilter * ciFindFilter( CHAT chat, int numMatches, ciFilter
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 static void ciDestroyFilter( ciServerMessageFilter * filter )
 {
-	assert( filter != NULL );
+	assert( filter != nullptr );
 
 	gsifree( filter->data );
 	gsifree( filter->name );
@@ -355,12 +355,12 @@ static void ciDestroyFilter( ciServerMessageFilter * filter )
 static void ciRemoveFilter( CHAT chat, ciServerMessageFilter * filter )
 {
 	ciServerMessageFilter * pcurr;
-	ciServerMessageFilter * pprev = NULL;
+	ciServerMessageFilter * pprev = nullptr;
 	CONNECTION;
 
-	assert( filter != NULL );
+	assert( filter != nullptr );
 
-	for (pcurr = connection->filterList; pcurr != NULL; pcurr = pcurr->pnext)
+	for (pcurr = connection->filterList; pcurr != nullptr; pcurr = pcurr->pnext)
 	{
 		if (pcurr == filter)
 		{
@@ -370,7 +370,7 @@ static void ciRemoveFilter( CHAT chat, ciServerMessageFilter * filter )
 			if (connection->lastFilter == pcurr)
 				connection->lastFilter = pprev;
 
-			if (pprev != NULL)
+			if (pprev != nullptr)
 				pprev->pnext = pcurr->pnext;
 
 			ciDestroyFilter( pcurr );
@@ -384,7 +384,7 @@ static void ciRemoveFilter( CHAT chat, ciServerMessageFilter * filter )
 	//ERRCON
 }
 
-// Calls the callback, if not NULL, then removes the filter.
+// Calls the callback, if not nullptr, then removes the filter.
 ////////////////////////////////////////////////////////////
 static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * params )
 {
@@ -400,7 +400,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		LISTData * data = (LISTData *) filter->data;
 
 		if (filter->callback2)
-			ciAddCallback_( chat, CALLBACK_ENUM_CHANNELS_ALL, filter->callback2, params, filter->param, filter->ID, NULL, sizeof( ciCallbackEnumChannelsAllParams ) );
+			ciAddCallback_( chat, CALLBACK_ENUM_CHANNELS_ALL, filter->callback2, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackEnumChannelsAllParams ) );
 
 		for (i = 0; i < data->numChannels; i++)
 		{
@@ -413,8 +413,8 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 	}
 	else if (filter->type == TYPE_JOIN)
 	{
-		if (filter->callback != NULL)
-			ciAddCallback_( chat, CALLBACK_ENTER_CHANNEL, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackEnterChannelParams ) );
+		if (filter->callback != nullptr)
+			ciAddCallback_( chat, CALLBACK_ENTER_CHANNEL, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackEnterChannelParams ) );
 	}
 	else if (filter->type == TYPE_TOPIC)
 	{
@@ -428,7 +428,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		NAMESData * data = (NAMESData *) filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_ENUM_USERS, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackEnumUsersParams ) );
+			ciAddCallback_( chat, CALLBACK_ENUM_USERS, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackEnumUsersParams ) );
 
 		for (i = 0; i < data->numUsers; i++)
 			gsifree( data->users[i] );
@@ -440,7 +440,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		WHOISData * data = filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_USER_INFO, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetUserInfoParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_USER_INFO, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetUserInfoParams ) );
 
 		for (i = 0; i < data->numChannels; i++)
 			gsifree( data->channels[i] );
@@ -452,22 +452,22 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 	else if (filter->type == TYPE_WHO)
 	{
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_BASIC_USER_INFO, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetBasicUserInfoParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_BASIC_USER_INFO, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetBasicUserInfoParams ) );
 	}
 	else if (filter->type == TYPE_CWHO)
 	{
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_BASIC_USER_INFO, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetBasicUserInfoParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_BASIC_USER_INFO, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetBasicUserInfoParams ) );
 	}
 	else if (filter->type == TYPE_CMODE)
 	{
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_MODE, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetChannelModeParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_MODE, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetChannelModeParams ) );
 	}
 	else if (filter->type == TYPE_UMODE)
 	{
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_USER_MODE, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetUserModeParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_USER_MODE, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetUserModeParams ) );
 	}
 	else if (filter->type == TYPE_BAN)
 	{
@@ -480,7 +480,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		GETBANData * data = filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_ENUM_CHANNEL_BANS, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackEnumChannelBansParams ) );
+			ciAddCallback_( chat, CALLBACK_ENUM_CHANNEL_BANS, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackEnumChannelBansParams ) );
 
 		// gsifree the filter.
 		///////////////////
@@ -490,14 +490,14 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 	else if (filter->type == TYPE_NICK)
 	{
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_CHANGE_NICK, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackChangeNickParams ) );
+			ciAddCallback_( chat, CALLBACK_CHANGE_NICK, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackChangeNickParams ) );
 	}
 	else if (filter->type == TYPE_GETKEY)
 	{
 		GETKEYData * data = (GETKEYData *) filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_GLOBAL_KEYS, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetGlobalKeysParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_GLOBAL_KEYS, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetGlobalKeysParams ) );
 
 		for (i = 0; i < data->num; i++)
 			gsifree( data->keys[i] );
@@ -508,7 +508,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		GETCKEYData * data = (GETCKEYData *) filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_KEYS, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetChannelKeysParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_KEYS, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetChannelKeysParams ) );
 
 		for (i = 0; i < data->num; i++)
 			gsifree( data->keys[i] );
@@ -519,7 +519,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		GETCHANKEYData * data = (GETCHANKEYData *) filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_KEYS, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackGetChannelKeysParams ) );
+			ciAddCallback_( chat, CALLBACK_GET_CHANNEL_KEYS, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackGetChannelKeysParams ) );
 
 		for (i = 0; i < data->num; i++)
 			gsifree( data->keys[i] );
@@ -530,7 +530,7 @@ static void ciFinishFilter( CHAT chat, ciServerMessageFilter * filter, void * pa
 		NAMESData * data = (NAMESData *) filter->data;
 
 		if (filter->callback)
-			ciAddCallback_( chat, CALLBACK_NEW_USER_LIST, filter->callback, params, filter->param, filter->ID, NULL, sizeof( ciCallbackNewUserListParams ) );
+			ciAddCallback_( chat, CALLBACK_NEW_USER_LIST, filter->callback, params, filter->param, filter->ID, nullptr, sizeof( ciCallbackNewUserListParams ) );
 
 		for (i = 0; i < data->numUsers; i++)
 			gsifree( data->users[i] );
@@ -561,9 +561,9 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		ciCallbackEnumChannelsAllParams params;
 		params.success = CHATFalse;
 		params.numChannels = 0;
-		params.channels = NULL;
-		params.topics = NULL;
-		params.numUsers = NULL;
+		params.channels = nullptr;
+		params.topics = nullptr;
+		params.numUsers = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -581,7 +581,7 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		ciCallbackGetChannelTopicParams params;
 		params.success = CHATFalse;
 		params.channel = filter->name;
-		params.topic = NULL;
+		params.topic = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -591,8 +591,8 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		params.success = CHATFalse;
 		params.channel = filter->name;
 		params.numUsers = 0;
-		params.users = NULL;
-		params.modes = NULL;
+		params.users = nullptr;
+		params.modes = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -601,11 +601,11 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		ciCallbackGetUserInfoParams params;
 		params.success = CHATFalse;
 		params.nick = filter->name;
-		params.user = NULL;
-		params.name = NULL;
-		params.address = NULL;
+		params.user = nullptr;
+		params.name = nullptr;
+		params.address = nullptr;
 		params.numChannels = 0;
-		params.channels = NULL;
+		params.channels = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -614,8 +614,8 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		ciCallbackGetBasicUserInfoParams params;
 		params.success = CHATFalse;
 		params.nick = filter->name;
-		params.user = NULL;
-		params.address = NULL;
+		params.user = nullptr;
+		params.address = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -624,9 +624,9 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		ciCallbackGetChannelBasicUserInfoParams params;
 		params.success = CHATFalse;
 		params.channel = filter->name;
-		params.nick = NULL;
-		params.user = NULL;
-		params.address = NULL;
+		params.nick = nullptr;
+		params.user = nullptr;
+		params.address = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -635,7 +635,7 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 		ciCallbackGetChannelModeParams params;
 		params.success = CHATFalse;
 		params.channel = filter->name;
-		params.mode = NULL;
+		params.mode = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -651,14 +651,14 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 	}
 	else if (filter->type == TYPE_BAN)
 	{
-		ciFinishFilter( chat, filter, NULL );
+		ciFinishFilter( chat, filter, nullptr );
 	}
 	else if (filter->type == TYPE_GETBAN)
 	{
 		ciCallbackEnumChannelBansParams params;
 		params.channel = filter->name;
 		params.numBans = 0;
-		params.bans = NULL;
+		params.bans = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -675,10 +675,10 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 	{
 		ciCallbackGetGlobalKeysParams params;
 		params.success = CHATFalse;
-		params.user = NULL;
+		params.user = nullptr;
 		params.num = 0;
-		params.keys = NULL;
-		params.values = NULL;
+		params.keys = nullptr;
+		params.values = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -686,11 +686,11 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 	{
 		ciCallbackGetChannelKeysParams params;
 		params.success = CHATFalse;
-		params.channel = NULL;
-		params.user = NULL;
+		params.channel = nullptr;
+		params.user = nullptr;
 		params.num = 0;
-		params.keys = NULL;
-		params.values = NULL;
+		params.keys = nullptr;
+		params.values = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -698,11 +698,11 @@ static void ciFilterTimedout( CHAT chat, ciServerMessageFilter * filter )
 	{
 		ciCallbackGetChannelKeysParams params;
 		params.success = CHATFalse;
-		params.channel = NULL;
-		params.user = NULL;
+		params.channel = nullptr;
+		params.user = nullptr;
 		params.num = 0;
-		params.keys = NULL;
-		params.values = NULL;
+		params.keys = nullptr;
+		params.values = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -727,7 +727,7 @@ void ciFilterThink( CHAT chat )
 	now = 2;
 	now = current_time();
 
-	for (filter = connection->filterList; filter != NULL; filter = pnext)
+	for (filter = connection->filterList; filter != nullptr; filter = pnext)
 	{
 		pnext = filter->pnext;
 		if (now > filter->timeout)
@@ -763,7 +763,7 @@ CHATBool ciCheckFiltersForID( CHAT chat, int ID )
 
 	assert( ID > 0 );
 
-	for (filter = connection->filterList; filter != NULL; filter = filter->pnext)
+	for (filter = connection->filterList; filter != nullptr; filter = filter->pnext)
 	{
 		// Check for a matching ID.
 		///////////////////////////
@@ -792,7 +792,7 @@ static int ciAddFilter( CHAT chat, int type, const char * name, const char * nam
 	// Create the filter.
 	/////////////////////
 	filter = (ciServerMessageFilter *) gsimalloc( sizeof( ciServerMessageFilter ) );
-	if (filter == NULL)
+	if (filter == nullptr)
 		return 0; //ERRCON
 
 	// Setup the filter.
@@ -807,16 +807,16 @@ static int ciAddFilter( CHAT chat, int type, const char * name, const char * nam
 	if (name)
 		filter->name = _strdup( name );
 	else
-		filter->name = NULL;
+		filter->name = nullptr;
 	if (name2)
 		filter->name2 = _strdup( name2 );
 	else
-		filter->name2 = NULL;
+		filter->name2 = nullptr;
 	filter->ID = ciGetNextID( chat );
 
 	// Add the filter to the end of the list.
 	/////////////////////////////////////////
-	if (connection->filterList == NULL)
+	if (connection->filterList == nullptr)
 		connection->filterList = filter;
 	else
 		connection->lastFilter->pnext = filter;
@@ -828,11 +828,11 @@ static int ciAddFilter( CHAT chat, int type, const char * name, const char * nam
 int ciAddLISTFilter( CHAT chat, chatEnumChannelsCallbackEach callbackEach, chatEnumChannelsCallbackAll callbackAll, void * param )
 {
 	LISTData * data = (LISTData *) gsimalloc( sizeof( LISTData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( LISTData ) );
 
-	return ciAddFilter( chat, TYPE_LIST, NULL, NULL, callbackEach, callbackAll, param, data );
+	return ciAddFilter( chat, TYPE_LIST, nullptr, nullptr, callbackEach, callbackAll, param, data );
 }
 
 int ciAddJOINFilter( CHAT chat, const char * channel, chatEnterChannelCallback callback, void * param, chatChannelCallbacks * callbacks, const char * password )
@@ -840,17 +840,17 @@ int ciAddJOINFilter( CHAT chat, const char * channel, chatEnterChannelCallback c
 	int rcode;
 	JOINData * data;
 
-	assert( password != NULL );
+	assert( password != nullptr );
 	assert( strlen( password ) < MAX_PASSWORD );
 
 	data = (JOINData *) gsimalloc( sizeof( JOINData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( JOINData ) );
 	data->callbacks = *callbacks;
 	strcpy( data->password, password );
 
-	rcode = ciAddFilter( chat, TYPE_JOIN, channel, NULL, callback, NULL, param, data );
+	rcode = ciAddFilter( chat, TYPE_JOIN, channel, nullptr, callback, nullptr, param, data );
 	if (rcode == 0)
 		gsifree( data );
 
@@ -859,28 +859,28 @@ int ciAddJOINFilter( CHAT chat, const char * channel, chatEnterChannelCallback c
 
 int ciAddTOPICFilter( CHAT chat, const char * channel, chatGetChannelTopicCallback callback, void * param )
 {
-	return ciAddFilter( chat, TYPE_TOPIC, channel, NULL, callback, NULL, param, NULL );
+	return ciAddFilter( chat, TYPE_TOPIC, channel, nullptr, callback, nullptr, param, nullptr );
 }
 
 int ciAddNAMESFilter( CHAT chat, const char * channel, chatEnumUsersCallback callback, void * param )
 {
 	NAMESData * data = (NAMESData *) gsimalloc( sizeof( NAMESData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( NAMESData ) );
 
-	return ciAddFilter( chat, TYPE_NAMES, channel, NULL, callback, NULL, param, data );
+	return ciAddFilter( chat, TYPE_NAMES, channel, nullptr, callback, nullptr, param, data );
 }
 
 int ciAddWHOISFilter( CHAT chat, const char * user, chatGetUserInfoCallback callback, void * param )
 {
 	int rcode;
 	WHOISData * data = (WHOISData *) gsimalloc( sizeof( WHOISData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( WHOISData ) );
 
-	rcode = ciAddFilter( chat, TYPE_WHOIS, user, NULL, callback, NULL, param, data );
+	rcode = ciAddFilter( chat, TYPE_WHOIS, user, nullptr, callback, nullptr, param, data );
 	if (rcode == 0)
 		gsifree( data );
 	return rcode;
@@ -888,53 +888,53 @@ int ciAddWHOISFilter( CHAT chat, const char * user, chatGetUserInfoCallback call
 
 int ciAddWHOFilter( CHAT chat, const char * user, chatGetBasicUserInfoCallback callback, void * param )
 {
-	return ciAddFilter( chat, TYPE_WHO, user, NULL, callback, NULL, param, NULL );
+	return ciAddFilter( chat, TYPE_WHO, user, nullptr, callback, nullptr, param, nullptr );
 }
 
 int ciAddCWHOFilter( CHAT chat, const char * channel, chatGetChannelBasicUserInfoCallback callback, void * param )
 {
-	return ciAddFilter( chat, TYPE_CWHO, channel, NULL, callback, NULL, param, NULL );
+	return ciAddFilter( chat, TYPE_CWHO, channel, nullptr, callback, nullptr, param, nullptr );
 }
 
 int ciAddCMODEFilter( CHAT chat, const char * channel, chatGetChannelModeCallback callback, void * param )
 {
-	return ciAddFilter( chat, TYPE_CMODE, channel, NULL, callback, NULL, param, NULL );
+	return ciAddFilter( chat, TYPE_CMODE, channel, nullptr, callback, nullptr, param, nullptr );
 }
 
 int ciAddUMODEFilter( CHAT chat, const char * user, const char * channel, chatGetUserModeCallback callback, void * param )
 {
-	return ciAddFilter( chat, TYPE_UMODE, user, channel, callback, NULL, param, NULL );
+	return ciAddFilter( chat, TYPE_UMODE, user, channel, callback, nullptr, param, nullptr );
 }
 
 int ciAddBANFilter( CHAT chat, const char * user, const char * channel )
 {
 	BANData * data = (BANData *) gsimalloc( sizeof( BANData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( BANData ) );
 	data->channel = _strdup( channel );
-	if (data->channel == NULL)
+	if (data->channel == nullptr)
 	{
 		gsifree( data );
 		return 0; //ERRCON
 	}
 
-	return ciAddFilter( chat, TYPE_BAN, user, NULL, NULL, NULL, NULL, data );
+	return ciAddFilter( chat, TYPE_BAN, user, nullptr, nullptr, nullptr, nullptr, data );
 }
 
 int ciAddGETBANFilter( CHAT chat, const char * channel, chatEnumChannelBansCallback callback, void * param )
 {
 	GETBANData * data = (GETBANData *) gsimalloc( sizeof( GETBANData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( GETBANData ) );
 
-	return ciAddFilter( chat, TYPE_GETBAN, channel, NULL, callback, NULL, param, data );
+	return ciAddFilter( chat, TYPE_GETBAN, channel, nullptr, callback, nullptr, param, data );
 }
 
 int ciAddNICKFilter( CHAT chat, const char * oldNick, const char * newNick, chatChangeNickCallback callback, void * param )
 {
-	return ciAddFilter( chat, TYPE_NICK, oldNick, newNick, callback, NULL, param, NULL );
+	return ciAddFilter( chat, TYPE_NICK, oldNick, newNick, callback, nullptr, param, nullptr );
 }
 
 int ciAddGETKEYFilter( CHAT chat, const char * cookie, int num, const char ** keys, CHATBool channel, chatGetGlobalKeysCallback callback, void * param )
@@ -966,7 +966,7 @@ int ciAddGETKEYFilter( CHAT chat, const char * cookie, int num, const char ** ke
 		}
 	}
 
-	return ciAddFilter( chat, TYPE_GETKEY, cookie, NULL, callback, NULL, param, data );
+	return ciAddFilter( chat, TYPE_GETKEY, cookie, nullptr, callback, nullptr, param, data );
 }
 
 int ciAddGETCKEYFilter( CHAT chat, const char * cookie, int num, const char ** keys, CHATBool channel, CHATBool getBroadcastKeys, chatGetChannelKeysCallback callback, void * param )
@@ -1007,7 +1007,7 @@ int ciAddGETCKEYFilter( CHAT chat, const char * cookie, int num, const char ** k
 	}
 	data->num = dest;
 
-	return ciAddFilter( chat, TYPE_GETCKEY, cookie, NULL, callback, NULL, param, data );
+	return ciAddFilter( chat, TYPE_GETCKEY, cookie, nullptr, callback, nullptr, param, data );
 }
 
 int ciAddGETCHANKEYFilter( CHAT chat, const char * cookie, int num, const char ** keys, CHATBool getBroadcastKeys, chatGetChannelKeysCallback callback, void * param )
@@ -1050,7 +1050,7 @@ int ciAddGETCHANKEYFilter( CHAT chat, const char * cookie, int num, const char *
 		data->num = dest;
 	}
 
-	return ciAddFilter( chat, TYPE_GETCHANKEY, cookie, NULL, callback, NULL, param, data );
+	return ciAddFilter( chat, TYPE_GETCHANKEY, cookie, nullptr, callback, nullptr, param, data );
 }
 
 int ciAddUNQUIETFilter( CHAT chat, const char * channel )
@@ -1063,11 +1063,11 @@ int ciAddUNQUIETFilter( CHAT chat, const char * channel )
 		return 0;
 
 	data = (NAMESData *) gsimalloc( sizeof( NAMESData ) );
-	if (data == NULL)
+	if (data == nullptr)
 		return 0; //ERRCON
 	memset( data, 0, sizeof( NAMESData ) );
 
-	return ciAddFilter( chat, TYPE_UNQUIET, channel, NULL, callbacks->newUserList, NULL, callbacks->param, data );
+	return ciAddFilter( chat, TYPE_UNQUIET, channel, nullptr, callbacks->newUserList, nullptr, callbacks->param, data );
 }
 
 /*****************
@@ -1077,14 +1077,14 @@ ciModeChange * ciParseMode( char * mode, char ** params, int numParams )
 {
 	CHATBool enable;
 	int c;
-	ciModeChange * changes = NULL;
+	ciModeChange * changes = nullptr;
 	int numChanges = 0;
 	ciModeChange * change;
 	int modeChange;
 	CHATBool addParam = CHATFalse;
 	void * tempPtr;
 
-	assert( mode != NULL );
+	assert( mode != nullptr );
 
 	// Check the initial enable mode.
 	/////////////////////////////////
@@ -1093,7 +1093,7 @@ ciModeChange * ciParseMode( char * mode, char ** params, int numParams )
 	else if (*mode == '-')
 		enable = CHATFalse;
 	else
-		return NULL; //ERRCON
+		return nullptr; //ERRCON
 	mode++;
 
 	// Go through the mode string.
@@ -1200,10 +1200,10 @@ ciModeChange * ciParseMode( char * mode, char ** params, int numParams )
 		if (modeChange != -1)
 		{
 			tempPtr = gsirealloc( changes, sizeof( ciModeChange ) * ( numChanges + 1 ) );
-			if (tempPtr == NULL)
+			if (tempPtr == nullptr)
 			{
 				gsifree( changes );
-				return NULL; //ERRCON
+				return nullptr; //ERRCON
 			}
 			changes = (ciModeChange *) tempPtr;
 			change = &changes[numChanges++];
@@ -1222,7 +1222,7 @@ ciModeChange * ciParseMode( char * mode, char ** params, int numParams )
 					numParams--;
 				}
 				else
-					change->param = NULL;
+					change->param = nullptr;
 			}
 		}
 	} while (c != '\0');
@@ -1312,7 +1312,7 @@ void ciNickError( CHAT chat, int type )
 		memset( &params, 0, sizeof( ciCallbackNickErrorParams ) );
 		params.type = type;
 		params.nick = connection->nick;
-		ciAddCallback( chat, CALLBACK_NICK_ERROR, connection->nickErrorCallback, &params, connection->connectParam, 0, NULL );
+		ciAddCallback( chat, CALLBACK_NICK_ERROR, connection->nickErrorCallback, &params, connection->connectParam, 0, nullptr );
 	}
 	else
 	{
@@ -1322,7 +1322,7 @@ void ciNickError( CHAT chat, int type )
 
 		// Call the callback.
 		/////////////////////
-		if (connection->connectCallback != NULL)
+		if (connection->connectCallback != nullptr)
 			connection->connectCallback( chat, CHATFalse, connection->connectParam );
 	}
 }
@@ -1363,7 +1363,7 @@ void ciPrivmsgHandler( CHAT chat, ciServerMessage * message )
 		// End the command.
 		///////////////////
 		str = strchr( msg, ' ' );
-		if (str != NULL)
+		if (str != nullptr)
 		{
 			// The start of the CTCP command.
 			/////////////////////////////////
@@ -1396,7 +1396,7 @@ void ciPrivmsgHandler( CHAT chat, ciServerMessage * message )
 	///////////////////////////
 	if (strcasecmp( target, connection->nick ) == 0)
 	{
-		if (connection->globalCallbacks.privateMessage != NULL)
+		if (connection->globalCallbacks.privateMessage != nullptr)
 		{
 			ciCallbackPrivateMessageParams params;
 			params.user = from;
@@ -1405,7 +1405,7 @@ void ciPrivmsgHandler( CHAT chat, ciServerMessage * message )
 				params.type = CHAT_ACTION;
 			else
 				params.type = CHAT_MESSAGE;
-			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, NULL );
+			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, nullptr );
 		}
 	}
 	else
@@ -1413,7 +1413,7 @@ void ciPrivmsgHandler( CHAT chat, ciServerMessage * message )
 		// Get the channel callbacks.
 		/////////////////////////////
 		chatChannelCallbacks * callbacks = ciGetChannelCallbacks( chat, target );
-		if (( callbacks != NULL ) && ( callbacks->channelMessage != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->channelMessage != nullptr ))
 		{
 			ciCallbackChannelMessageParams params;
 			params.channel = target;
@@ -1444,16 +1444,16 @@ void ciNoticeHandler( CHAT chat, ciServerMessage * message )
 	///////////////////////////
 	if (strcasecmp( target, connection->nick ) == 0)
 	{
-		if (connection->globalCallbacks.privateMessage != NULL)
+		if (connection->globalCallbacks.privateMessage != nullptr)
 		{
 			ciCallbackPrivateMessageParams params;
-			if (message->nick != NULL)
+			if (message->nick != nullptr)
 				params.user = message->nick;
 			else
-				params.user = NULL;
+				params.user = nullptr;
 			params.message = msg;
 			params.type = CHAT_NOTICE;
-			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, NULL );
+			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, nullptr );
 		}
 	}
 	else
@@ -1461,14 +1461,14 @@ void ciNoticeHandler( CHAT chat, ciServerMessage * message )
 		// Get the channel callbacks.
 		/////////////////////////////
 		chatChannelCallbacks * callbacks = ciGetChannelCallbacks( chat, target );
-		if (( callbacks != NULL ) && ( callbacks->channelMessage != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->channelMessage != nullptr ))
 		{
 			ciCallbackChannelMessageParams params;
 			params.channel = target;
-			if (message->nick != NULL)
+			if (message->nick != nullptr)
 				params.user = message->nick;
 			else
-				params.user = NULL;
+				params.user = nullptr;
 			params.message = msg;
 			params.type = CHAT_NOTICE;
 			ciAddCallback( chat, CALLBACK_CHANNEL_MESSAGE, callbacks->channelMessage, &params, callbacks->param, 0, target );
@@ -1497,16 +1497,16 @@ void ciUTMHandler( CHAT chat, ciServerMessage * message )
 	///////////////////////////
 	if (strcasecmp( target, connection->nick ) == 0)
 	{
-		if (connection->globalCallbacks.privateMessage != NULL)
+		if (connection->globalCallbacks.privateMessage != nullptr)
 		{
 			ciCallbackPrivateMessageParams params;
-			if (message->nick != NULL)
+			if (message->nick != nullptr)
 				params.user = message->nick;
 			else
-				params.user = NULL;
+				params.user = nullptr;
 			params.message = msg;
 			params.type = CHAT_UTM;
-			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, NULL );
+			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, nullptr );
 		}
 	}
 	else
@@ -1514,14 +1514,14 @@ void ciUTMHandler( CHAT chat, ciServerMessage * message )
 		// Get the channel callbacks.
 		/////////////////////////////
 		chatChannelCallbacks * callbacks = ciGetChannelCallbacks( chat, target );
-		if (( callbacks != NULL ) && ( callbacks->channelMessage != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->channelMessage != nullptr ))
 		{
 			ciCallbackChannelMessageParams params;
 			params.channel = target;
-			if (message->nick != NULL)
+			if (message->nick != nullptr)
 				params.user = message->nick;
 			else
-				params.user = NULL;
+				params.user = nullptr;
 			params.message = msg;
 			params.type = CHAT_UTM;
 			ciAddCallback( chat, CALLBACK_CHANNEL_MESSAGE, callbacks->channelMessage, &params, callbacks->param, 0, target );
@@ -1550,16 +1550,16 @@ void ciATMHandler( CHAT chat, ciServerMessage * message )
 	///////////////////////////
 	if (strcasecmp( target, connection->nick ) == 0)
 	{
-		if (connection->globalCallbacks.privateMessage != NULL)
+		if (connection->globalCallbacks.privateMessage != nullptr)
 		{
 			ciCallbackPrivateMessageParams params;
-			if (message->nick != NULL)
+			if (message->nick != nullptr)
 				params.user = message->nick;
 			else
-				params.user = NULL;
+				params.user = nullptr;
 			params.message = msg;
 			params.type = CHAT_ATM;
-			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, NULL );
+			ciAddCallback( chat, CALLBACK_PRIVATE_MESSAGE, connection->globalCallbacks.privateMessage, &params, connection->globalCallbacks.param, 0, nullptr );
 		}
 	}
 	else
@@ -1567,14 +1567,14 @@ void ciATMHandler( CHAT chat, ciServerMessage * message )
 		// Get the channel callbacks.
 		/////////////////////////////
 		chatChannelCallbacks * callbacks = ciGetChannelCallbacks( chat, target );
-		if (( callbacks != NULL ) && ( callbacks->channelMessage != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->channelMessage != nullptr ))
 		{
 			ciCallbackChannelMessageParams params;
 			params.channel = target;
-			if (message->nick != NULL)
+			if (message->nick != nullptr)
 				params.user = message->nick;
 			else
-				params.user = NULL;
+				params.user = nullptr;
 			params.message = msg;
 			params.type = CHAT_ATM;
 			ciAddCallback( chat, CALLBACK_CHANNEL_MESSAGE, callbacks->channelMessage, &params, callbacks->param, 0, target );
@@ -1714,7 +1714,7 @@ void ciJoinHandler( CHAT chat, ciServerMessage * message )
 		// Look for a matching filter.
 		//////////////////////////////
 		filter = ciFindFilter( chat, 1, &match );
-		if (filter != NULL)
+		if (filter != nullptr)
 		{
 			JOINData * data;
 
@@ -1758,9 +1758,9 @@ void ciJoinHandler( CHAT chat, ciServerMessage * message )
 		// Call the join callback.
 		//////////////////////////
 		callbacks = ciGetChannelCallbacks( chat, channel );
-		if (callbacks != NULL)
+		if (callbacks != nullptr)
 		{
-			if (callbacks->userJoined != NULL)
+			if (callbacks->userJoined != nullptr)
 			{
 				ciCallbackUserJoinedParams params;
 				params.channel = channel;
@@ -1771,7 +1771,7 @@ void ciJoinHandler( CHAT chat, ciServerMessage * message )
 
 			// Call the user list updated callback.
 			///////////////////////////////////////
-			if (callbacks->userListUpdated != NULL)
+			if (callbacks->userListUpdated != nullptr)
 			{
 				ciCallbackUserListUpdatedParams params;
 				params.channel = channel;
@@ -1817,22 +1817,22 @@ void ciPartHandler( CHAT chat, ciServerMessage * message )
 			// Call the left callback.
 			//////////////////////////
 			callbacks = ciGetChannelCallbacks( chat, channel );
-			if (callbacks != NULL)
+			if (callbacks != nullptr)
 			{
-				if (callbacks->userParted != NULL)
+				if (callbacks->userParted != nullptr)
 				{
 					ciCallbackUserPartedParams params;
 					params.channel = channel;
 					params.user = nick;
 					params.why = CHAT_LEFT;
 					params.reason = reason;
-					params.kicker = NULL;
+					params.kicker = nullptr;
 					ciAddCallback( chat, CALLBACK_USER_PARTED, callbacks->userParted, &params, callbacks->param, 0, channel );
 				}
 
 				// Call the user list updated callback.
 				///////////////////////////////////////
-				if (callbacks->userListUpdated != NULL)
+				if (callbacks->userListUpdated != nullptr)
 				{
 					ciCallbackUserListUpdatedParams params;
 					params.channel = channel;
@@ -1875,7 +1875,7 @@ void ciKickHandler( CHAT chat, ciServerMessage * message )
 	// Get the callbacks.
 	/////////////////////
 	callbacks = ciGetChannelCallbacks( chat, channel );
-	if (callbacks != NULL)
+	if (callbacks != nullptr)
 	{
 		// Check if we were kicked.
 		///////////////////////////
@@ -1883,13 +1883,13 @@ void ciKickHandler( CHAT chat, ciServerMessage * message )
 		{
 			// Add the callback.
 			////////////////////
-			if (callbacks->kicked != NULL)
+			if (callbacks->kicked != nullptr)
 			{
 				ciCallbackKickedParams params;
 				params.channel = channel;
 				params.user = kicker;
 				params.reason = reason;
-				ciAddCallback( chat, CALLBACK_KICKED, callbacks->kicked, &params, callbacks->param, 0, NULL );
+				ciAddCallback( chat, CALLBACK_KICKED, callbacks->kicked, &params, callbacks->param, 0, nullptr );
 			}
 
 			// Left the channel.
@@ -1904,7 +1904,7 @@ void ciKickHandler( CHAT chat, ciServerMessage * message )
 			{
 				// Add the callback.
 				////////////////////
-				if (callbacks->userParted != NULL)
+				if (callbacks->userParted != nullptr)
 				{
 					ciCallbackUserPartedParams params;
 					params.channel = channel;
@@ -1917,7 +1917,7 @@ void ciKickHandler( CHAT chat, ciServerMessage * message )
 
 				// Call the user list updated callback.
 				///////////////////////////////////////
-				if (callbacks->userListUpdated != NULL)
+				if (callbacks->userListUpdated != nullptr)
 				{
 					ciCallbackUserListUpdatedParams params;
 					params.channel = channel;
@@ -1934,7 +1934,7 @@ void ciQuitEnumChannelsCallback( CHAT chat, const char * user, const char * chan
 
 	ASSERT_STR( user );
 	ASSERT_STR( channel );
-	assert( reason != NULL );
+	assert( reason != nullptr );
 
 	// Remove the user from the channel.
 	////////////////////////////////////
@@ -1947,24 +1947,24 @@ void ciQuitEnumChannelsCallback( CHAT chat, const char * user, const char * chan
 		// Get the channel callbacks.
 		/////////////////////////////
 		callbacks = ciGetChannelCallbacks( chat, channel );
-		if (callbacks != NULL)
+		if (callbacks != nullptr)
 		{
 			// Call the quit callback.
 			//////////////////////////
-			if (callbacks->userParted != NULL)
+			if (callbacks->userParted != nullptr)
 			{
 				ciCallbackUserPartedParams params;
 				params.channel = (char *) channel;
 				params.user = (char *) user;
 				params.why = CHAT_QUIT;
 				params.reason = (char *) reason;
-				params.kicker = NULL;
+				params.kicker = nullptr;
 				ciAddCallback( chat, CALLBACK_USER_PARTED, callbacks->userParted, &params, callbacks->param, 0, channel );
 			}
 
 			// Call the user list updated callback.
 			///////////////////////////////////////
-			if (callbacks->userListUpdated != NULL)
+			if (callbacks->userListUpdated != nullptr)
 			{
 				ciCallbackUserListUpdatedParams params;
 				params.channel = (char *) channel;
@@ -2000,7 +2000,7 @@ void ciKillEnumChannelsCallback( CHAT chat, const char * user, const char * chan
 	char *reason = (char *) param;
 	ASSERT_STR( user );
 	ASSERT_STR( channel );
-	assert( reason != NULL );
+	assert( reason != nullptr );
 
 	// Remove the user from the channel.
 	////////////////////////////////////
@@ -2013,22 +2013,22 @@ void ciKillEnumChannelsCallback( CHAT chat, const char * user, const char * chan
 		// Get the channel callbacks.
 		/////////////////////////////
 		callbacks = ciGetChannelCallbacks( chat, channel );
-		if (callbacks != NULL)
+		if (callbacks != nullptr)
 		{
-			if (callbacks->userParted != NULL)
+			if (callbacks->userParted != nullptr)
 			{
 				ciCallbackUserPartedParams params;
 				params.channel = (char *) channel;
 				params.user = (char *) user;
 				params.why = CHAT_KILLED;
 				params.reason = (char *) reason;
-				params.kicker = NULL;
+				params.kicker = nullptr;
 				ciAddCallback( chat, CALLBACK_USER_PARTED, callbacks->userParted, &params, callbacks->param, 0, channel );
 			}
 
 			// Call the user list updated callback.
 			///////////////////////////////////////
-			if (callbacks->userListUpdated != NULL)
+			if (callbacks->userListUpdated != nullptr)
 			{
 				ciCallbackUserListUpdatedParams params;
 				params.channel = (char *) channel;
@@ -2084,7 +2084,7 @@ void ciTopicHandler( CHAT chat, ciServerMessage * message )
 	// Get the callbacks.
 	/////////////////////
 	callbacks = ciGetChannelCallbacks( chat, channel );
-	if (( callbacks != NULL ) && ( callbacks->topicChanged != NULL ))
+	if (( callbacks != nullptr ) && ( callbacks->topicChanged != nullptr ))
 	{
 		ciCallbackTopicChangedParams params;
 		params.channel = channel;
@@ -2120,7 +2120,7 @@ void ciModeHandler( CHAT chat, ciServerMessage * message )
 	// Parse the changes.
 	/////////////////////
 	changes = ciParseMode( mode, message->params + 2, message->numParams - 2 );
-	if (changes == NULL)
+	if (changes == nullptr)
 		return; //ERRCON
 
 	// Go through all the changes.
@@ -2148,7 +2148,7 @@ void ciModeHandler( CHAT chat, ciServerMessage * message )
 			if (change->enable)
 				ciSetChannelPassword( chat, channel, change->param );
 			else
-				ciSetChannelPassword( chat, channel, NULL );
+				ciSetChannelPassword( chat, channel, nullptr );
 			break;
 
 		case MODE_MODERATED:
@@ -2216,7 +2216,7 @@ void ciErrorHandler( CHAT chat, ciServerMessage * message )
 
 		// Call the callback.
 		/////////////////////
-		if (connection->connectCallback != NULL)
+		if (connection->connectCallback != nullptr)
 			connection->connectCallback( chat, CHATFalse, connection->connectParam );
 	}
 	else
@@ -2246,12 +2246,12 @@ void ciInviteHandler( CHAT chat, ciServerMessage * message )
 
 	// Call the invite callback.
 	////////////////////////////
-	if (connection->globalCallbacks.invited != NULL)
+	if (connection->globalCallbacks.invited != nullptr)
 	{
 		ciCallbackInvitedParams params;
 		params.channel = channel;
 		params.user = nick;
-		ciAddCallback( chat, CALLBACK_INVITED, connection->globalCallbacks.invited, &params, connection->globalCallbacks.param, 0, NULL );
+		ciAddCallback( chat, CALLBACK_INVITED, connection->globalCallbacks.invited, &params, connection->globalCallbacks.param, 0, nullptr );
 	}
 }
 
@@ -2260,7 +2260,7 @@ void ciNameReplyHandler( CHAT chat, ciServerMessage * message )
 	ciFilterMatch matches[4];
 	ciServerMessageFilter * filter;
 	char * channel;
-	NAMESData * data = NULL;
+	NAMESData * data = nullptr;
 	char * names;
 	char * nick;
 	char * str;
@@ -2304,7 +2304,7 @@ void ciNameReplyHandler( CHAT chat, ciServerMessage * message )
 	// Parse out the names.
 	///////////////////////
 	nick = strtok( names, " " );
-	while (nick != NULL)
+	while (nick != nullptr)
 	{
 		assert( nick[0] != '\0' );
 
@@ -2332,14 +2332,14 @@ void ciNameReplyHandler( CHAT chat, ciServerMessage * message )
 			if (data->numUsers == data->len)
 			{
 				tempPtr = gsirealloc( data->users, sizeof( char * ) * ( data->len + NAMES_ARRAY_INC ) );
-				if (tempPtr == NULL)
+				if (tempPtr == nullptr)
 				{
 					assert( 0 );
 					return; //ERRCON
 				}
 				data->users = (char **) tempPtr;
 				tempPtr = gsirealloc( data->modes, sizeof( int ) * ( data->len + NAMES_ARRAY_INC ) );
-				if (tempPtr == NULL)
+				if (tempPtr == nullptr)
 				{
 					assert( 0 );
 					return; //ERRCON
@@ -2352,7 +2352,7 @@ void ciNameReplyHandler( CHAT chat, ciServerMessage * message )
 			/////////////////////////////
 			len = ( strlen( nick ) + 1 );
 			str = (char *) gsimalloc( len );
-			if (str == NULL)
+			if (str == nullptr)
 			{
 				assert( 0 );
 				return; //ERRCON
@@ -2370,12 +2370,12 @@ void ciNameReplyHandler( CHAT chat, ciServerMessage * message )
 		{
 			// Add the nick to the channel.
 			///////////////////////////////
-			ciUserEnteredChannel( chat, nick, channel, mode, NULL, NULL );
+			ciUserEnteredChannel( chat, nick, channel, mode, nullptr, nullptr );
 		}
 
 		// Get the next nick.
 		/////////////////////
-		nick = strtok( NULL, " " );
+		nick = strtok( nullptr, " " );
 	}
 }
 
@@ -2401,7 +2401,7 @@ void ciEndOfNamesHandler( CHAT chat, ciServerMessage * message )
 	// Check for the special case "all channels".
 	/////////////////////////////////////////////
 	if (strcmp( channel, "*" ) == 0)
-		channel = NULL;
+		channel = nullptr;
 
 	// Setup the filter matches.
 	////////////////////////////
@@ -2506,7 +2506,7 @@ void ciRplTopicHandler( CHAT chat, ciServerMessage * message )
 	// Find the filter.
 	///////////////////
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackGetChannelTopicParams params;
 		params.success = CHATTrue;
@@ -2521,7 +2521,7 @@ void ciRplTopicHandler( CHAT chat, ciServerMessage * message )
 		//////////////////////////////////////////////////
 		chatChannelCallbacks * callbacks;
 		callbacks = ciGetChannelCallbacks( chat, channel );
-		if (( callbacks != NULL ) && ( callbacks->topicChanged != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->topicChanged != nullptr ))
 		{
 			ciCallbackTopicChangedParams params;
 			params.channel = channel;
@@ -2558,7 +2558,7 @@ void ciRplNoTopicHandler( CHAT chat, ciServerMessage * message )
 	// Find the filter.
 	///////////////////
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackGetChannelTopicParams params;
 		params.success = CHATTrue;
@@ -2573,7 +2573,7 @@ void ciRplNoTopicHandler( CHAT chat, ciServerMessage * message )
 		//////////////////////////////////////////////////
 		chatChannelCallbacks * callbacks;
 		callbacks = ciGetChannelCallbacks( chat, channel );
-		if (( callbacks != NULL ) && ( callbacks->topicChanged != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->topicChanged != nullptr ))
 		{
 			ciCallbackTopicChangedParams params;
 			params.channel = channel;
@@ -2613,7 +2613,7 @@ void ciErrNickInUseHandler( CHAT chat, ciServerMessage * message )
 	// Find the filter.
 	///////////////////
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		// Add the callback.
 		////////////////////
@@ -2730,7 +2730,7 @@ void ciRplWhoReplyHandler( CHAT chat, ciServerMessage * message )
 		params.user = user;
 		params.address = address;
 
-		ciAddCallback( chat, CALLBACK_GET_CHANNEL_BASIC_USER_INFO, filter->callback, &params, filter->param, filter->ID, NULL );
+		ciAddCallback( chat, CALLBACK_GET_CHANNEL_BASIC_USER_INFO, filter->callback, &params, filter->param, filter->ID, nullptr );
 
 		return;
 	}
@@ -2774,8 +2774,8 @@ void ciRplEndOfWhoHandler( CHAT chat, ciServerMessage * message )
 
 		params.success = CHATFalse;
 		params.nick = name;
-		params.user = NULL;
-		params.address = NULL;
+		params.user = nullptr;
+		params.address = nullptr;
 
 		FINISH_FILTER;
 
@@ -2790,9 +2790,9 @@ void ciRplEndOfWhoHandler( CHAT chat, ciServerMessage * message )
 
 		params.success = CHATTrue;
 		params.channel = name;
-		params.nick = NULL;
-		params.user = NULL;
-		params.address = NULL;
+		params.nick = nullptr;
+		params.user = nullptr;
+		params.address = nullptr;
 
 		FINISH_FILTER;
 
@@ -2811,7 +2811,7 @@ static char * ciParseValue( const char * flags, int * len )
 	// First should be a '\'.
 	/////////////////////////
 	if (!flags || ( flags[0] != '\\' ))
-		return NULL;
+		return nullptr;
 
 	// Skip it.
 	///////////
@@ -2825,7 +2825,7 @@ static char * ciParseValue( const char * flags, int * len )
 	///////////////
 	str = (char *) malloc( i + 1 );
 	if (!str)
-		return NULL;
+		return nullptr;
 
 	// Copy it in.
 	//////////////
@@ -2912,7 +2912,7 @@ void ciRplGetKeyHandler( CHAT chat, ciServerMessage * message )
 		}
 		else
 		{
-			ciAddCallback( chat, CALLBACK_GET_GLOBAL_KEYS, filter->callback, &params, filter->param, filter->ID, NULL );
+			ciAddCallback( chat, CALLBACK_GET_GLOBAL_KEYS, filter->callback, &params, filter->param, filter->ID, nullptr );
 		}
 
 		for (i = 0; i < num; i++)
@@ -2956,10 +2956,10 @@ void ciRplEndGetKeyHandler( CHAT chat, ciServerMessage * message )
 		// Setup the callback parameters.
 		/////////////////////////////////
 		params.success = CHATTrue;
-		params.user = NULL;
+		params.user = nullptr;
 		params.num = data->num;
 		params.keys = data->keys;
-		params.values = NULL;
+		params.values = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -3139,7 +3139,7 @@ void ciRplGetCKeyHandler( CHAT chat, ciServerMessage * message )
 		}
 		else
 		{
-			ciAddCallback( chat, CALLBACK_GET_CHANNEL_KEYS, filter->callback, &params, filter->param, filter->ID, NULL );
+			ciAddCallback( chat, CALLBACK_GET_CHANNEL_KEYS, filter->callback, &params, filter->param, filter->ID, nullptr );
 		}
 
 		for (i = 0; i < num; i++)
@@ -3186,10 +3186,10 @@ void ciRplEndGetCKeyHandler( CHAT chat, ciServerMessage * message )
 		/////////////////////////////////
 		params.success = CHATTrue;
 		params.channel = (char *) channel;
-		params.user = NULL;
+		params.user = nullptr;
 		params.num = data->num;
 		params.keys = data->keys;
-		params.values = NULL;
+		params.values = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -3231,7 +3231,7 @@ void ciRplGetChanKeyHandler( CHAT chat, ciServerMessage * message )
 		{
 			memset( &params, 0, sizeof( ciCallbackBroadcastKeyChangedParams ) );
 			params.channel = (char *) channel;
-			params.user = NULL;
+			params.user = nullptr;
 
 			while (*flags)
 			{
@@ -3275,7 +3275,7 @@ void ciRplGetChanKeyHandler( CHAT chat, ciServerMessage * message )
 		GETCHANKEYData * data;
 		ciCallbackGetChannelKeysParams params;
 		char ** values;
-		char ** keys = NULL;
+		char ** keys = nullptr;
 		char * key;
 		char * value;
 		int i;
@@ -3358,8 +3358,8 @@ void ciRplGetChanKeyHandler( CHAT chat, ciServerMessage * message )
 			char ** keysTemp;
 			char ** valuesTemp;
 
-			keys = NULL;
-			values = NULL;
+			keys = nullptr;
+			values = nullptr;
 			num = 0;
 			while (1)
 			{
@@ -3412,7 +3412,7 @@ void ciRplGetChanKeyHandler( CHAT chat, ciServerMessage * message )
 		/////////////////////////////////
 		params.success = CHATTrue;
 		params.channel = (char *) channel;
-		params.user = NULL;
+		params.user = nullptr;
 		params.num = num;
 		params.keys = data->keys;
 		params.values = values;
@@ -3466,10 +3466,10 @@ void ciRplListStartHandler( CHAT chat, ciServerMessage * message )
 	memset( &match, 0, sizeof( ciFilterMatch ) );
 	match.type = TYPE_LIST;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		LISTData * data = (LISTData *) filter->data;
-		assert( data != NULL );
+		assert( data != nullptr );
 		//assert(!data->gotStart);
 
 		data->gotStart = CHATTrue;
@@ -3492,9 +3492,9 @@ void ciRplListHandler( CHAT chat, ciServerMessage * message )
 	memset( &match, 0, sizeof( ciFilterMatch ) );
 	match.type = TYPE_LIST;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
-		if (filter->callback != NULL)
+		if (filter->callback != nullptr)
 		{
 			ciCallbackEnumChannelsEachParams params;
 			int index;
@@ -3505,14 +3505,14 @@ void ciRplListHandler( CHAT chat, ciServerMessage * message )
 			void * tempPtr;
 			LISTData * data = (LISTData *) filter->data;
 
-			assert( data != NULL );
+			assert( data != nullptr );
 			//assert(data->gotStart);
 
 			// Get the channel.
 			///////////////////
 			len = ( strlen( message->params[1] ) + 1 );
 			channel = (char *) gsimalloc( len );
-			if (channel == NULL)
+			if (channel == nullptr)
 				return; //ERRCON
 			memcpy( channel, message->params[1], len );
 
@@ -3524,7 +3524,7 @@ void ciRplListHandler( CHAT chat, ciServerMessage * message )
 			/////////////////
 			len = ( strlen( message->params[3] ) + 1 );
 			topic = (char *) gsimalloc( len );
-			if (topic == NULL)
+			if (topic == nullptr)
 			{
 				gsifree( channel );
 				return; //ERRCON
@@ -3542,12 +3542,12 @@ void ciRplListHandler( CHAT chat, ciServerMessage * message )
 			params.channel = channel;
 			params.topic = topic;
 			params.numUsers = numUsers;
-			ciAddCallback( chat, CALLBACK_ENUM_CHANNELS_EACH, filter->callback, &params, filter->param, filter->ID, NULL );
+			ciAddCallback( chat, CALLBACK_ENUM_CHANNELS_EACH, filter->callback, &params, filter->param, filter->ID, nullptr );
 
 			// Add the channel.
 			///////////////////
 			tempPtr = gsirealloc( data->channels, sizeof( char * ) * ( data->numChannels + 1 ) );
-			if (tempPtr == NULL)
+			if (tempPtr == nullptr)
 			{
 				gsifree( channel );
 				gsifree( topic );
@@ -3559,7 +3559,7 @@ void ciRplListHandler( CHAT chat, ciServerMessage * message )
 			// Add the numUsers.
 			////////////////////
 			tempPtr = gsirealloc( data->numUsers, sizeof( int ) * ( data->numChannels + 1 ) );
-			if (tempPtr == NULL)
+			if (tempPtr == nullptr)
 			{
 				gsifree( channel );
 				gsifree( topic );
@@ -3571,7 +3571,7 @@ void ciRplListHandler( CHAT chat, ciServerMessage * message )
 			// Add the topic.
 			/////////////////
 			tempPtr = gsirealloc( data->topics, sizeof( char * ) * ( data->numChannels + 1 ) );
-			if (tempPtr == NULL)
+			if (tempPtr == nullptr)
 			{
 				gsifree( channel );
 				gsifree( topic );
@@ -3599,7 +3599,7 @@ void ciRplListEndHandler( CHAT chat, ciServerMessage * message )
 	memset( &match, 0, sizeof( ciFilterMatch ) );
 	match.type = TYPE_LIST;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		LISTData * data = (LISTData *) filter->data;
 		ciCallbackEnumChannelsAllParams params;
@@ -3637,7 +3637,7 @@ void ciRplChannelModeIsHandler( CHAT chat, ciServerMessage * message )
 	// Parse the mode.
 	//////////////////
 	changes = ciParseMode( modes, message->params + 3, message->numParams - 3 );
-	if (changes == NULL)
+	if (changes == nullptr)
 		return; //ERRCON
 
 	// Fill the mode struct.
@@ -3658,7 +3658,7 @@ void ciRplChannelModeIsHandler( CHAT chat, ciServerMessage * message )
 		// Mode changed callback?
 		/////////////////////////
 		callbacks = ciGetChannelCallbacks( chat, channel );
-		if (( callbacks != NULL ) && ( callbacks->channelModeChanged != NULL ))
+		if (( callbacks != nullptr ) && ( callbacks->channelModeChanged != nullptr ))
 		{
 			ciCallbackChannelModeChangedParams params;
 			params.channel = channel;
@@ -3673,7 +3673,7 @@ void ciRplChannelModeIsHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_CMODE;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackGetChannelModeParams params;
 		params.success = CHATTrue;
@@ -3740,21 +3740,21 @@ void ciRplWhoisUserHandler( CHAT chat, ciServerMessage * message )
 		// Copy the user.
 		/////////////////
 		data->user = (char *) gsimalloc( strlen( user ) + 1 );
-		if (data->user == NULL)
+		if (data->user == nullptr)
 			return; //ERRCON
 		strcpy( data->user, user );
 
 		// Copy the name.
 		/////////////////
 		data->name = (char *) gsimalloc( strlen( name ) + 1 );
-		if (data->name == NULL)
+		if (data->name == nullptr)
 			return; //ERRCON
 		strcpy( data->name, name );
 
 		// Copy the address.
 		////////////////////
 		data->address = (char *) gsimalloc( strlen( address ) + 1 );
-		if (data->address == NULL)
+		if (data->address == nullptr)
 			return; //ERRCON
 		strcpy( data->address, address );
 
@@ -3768,7 +3768,7 @@ void ciRplWhoisUserHandler( CHAT chat, ciServerMessage * message )
 		char * host;
 
 		BANData * data = filter->data;
-		assert( data != NULL );
+		assert( data != nullptr );
 		ASSERT_STR( data->channel );
 
 		host = message->params[3];
@@ -3777,7 +3777,7 @@ void ciRplWhoisUserHandler( CHAT chat, ciServerMessage * message )
 		////////////////
 		ciSocketSendf( &connection->chatSocket, "MODE %s +b *!*@%s", data->channel, host );
 
-		ciFinishFilter( chat, filter, NULL );
+		ciFinishFilter( chat, filter, nullptr );
 	}
 }
 
@@ -3803,7 +3803,7 @@ void ciRplWhoisChannelsHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_WHOIS;
 	match.name = nick;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		char * channels;
 		char * str;
@@ -3813,7 +3813,7 @@ void ciRplWhoisChannelsHandler( CHAT chat, ciServerMessage * message )
 
 		channels = message->params[2];
 		str = strtok( channels, " " );
-		while (str != NULL)
+		while (str != nullptr)
 		{
 			// Check for deaf mode.
 			///////////////////////
@@ -3828,11 +3828,11 @@ void ciRplWhoisChannelsHandler( CHAT chat, ciServerMessage * message )
 			// Add it to the list.
 			//////////////////////
 			channel = (char *) gsimalloc( strlen( str ) + 1 );
-			if (channel == NULL)
+			if (channel == nullptr)
 				return; //ERRCON
 			strcpy( channel, str );
 			tempPtr = (char **) gsirealloc( data->channels, sizeof( char * ) * ( data->numChannels + 1 ) );
-			if (tempPtr == NULL)
+			if (tempPtr == nullptr)
 			{
 				gsifree( channel );
 				return; //ERRCON
@@ -3843,7 +3843,7 @@ void ciRplWhoisChannelsHandler( CHAT chat, ciServerMessage * message )
 
 			// Get the next channel.
 			////////////////////////
-			str = strtok( NULL, " " );
+			str = strtok( nullptr, " " );
 		}
 	}
 }
@@ -3870,11 +3870,11 @@ void ciRplEndOfWhoisHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_WHOIS;
 	match.name = nick;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		WHOISData * data = filter->data;
 		ciCallbackGetUserInfoParams params;
-		params.success = ( data->user != NULL );  //PANTS|08.21.00 - false if nothing found
+		params.success = ( data->user != nullptr );  //PANTS|08.21.00 - false if nothing found
 		params.nick = nick;
 		params.user = data->user;
 		params.name = data->name;
@@ -3910,18 +3910,18 @@ void ciRplBanListHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_GETBAN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		int len;
 		void * tempPtr;
 		GETBANData * data = filter->data;
-		assert( data != NULL );
+		assert( data != nullptr );
 		assert( data->numBans >= 0 );
 
 		// Increase the ban list.
 		/////////////////////////
 		tempPtr = gsirealloc( data->bans, sizeof( char * ) * ( data->numBans + 1 ) );
-		if (tempPtr == NULL)
+		if (tempPtr == nullptr)
 			return; //ERRCON
 		data->bans = (char **) tempPtr;
 
@@ -3929,7 +3929,7 @@ void ciRplBanListHandler( CHAT chat, ciServerMessage * message )
 		///////////////////
 		len = ( strlen( ban ) + 1 );
 		tempPtr = gsimalloc( len );
-		if (tempPtr == NULL)
+		if (tempPtr == nullptr)
 			return; //ERRCON
 		memcpy( tempPtr, ban, len );
 		data->bans[data->numBans] = tempPtr;
@@ -3959,7 +3959,7 @@ void ciRplEndOfBanListHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_GETBAN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		GETBANData * data = filter->data;
 		ciCallbackEnumChannelBansParams params;
@@ -4000,7 +4000,7 @@ void ciRplWelcomeHandler( CHAT chat, ciServerMessage * message )
 
 	// Call the callback.
 	/////////////////////
-	if (connection->connectCallback != NULL)
+	if (connection->connectCallback != nullptr)
 		connection->connectCallback( chat, CHATTrue, connection->connectParam );
 }
 
@@ -4057,7 +4057,7 @@ void ciErrNoSuchChannelHandler( CHAT chat, ciServerMessage * message )
 		ciCallbackGetChannelModeParams params;
 		params.success = CHATFalse;
 		params.channel = channel;
-		params.mode = NULL;
+		params.mode = nullptr;
 
 		FINISH_FILTER;
 	}
@@ -4087,7 +4087,7 @@ void ciErrTooManyChannelsHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_JOIN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackEnterChannelParams params;
 		params.success = CHATFalse;
@@ -4122,7 +4122,7 @@ void ciErrChannelIsFullHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_JOIN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackEnterChannelParams params;
 		params.success = CHATFalse;
@@ -4157,7 +4157,7 @@ void ciErrInviteOnlyChanHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_JOIN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackEnterChannelParams params;
 		params.success = CHATFalse;
@@ -4192,7 +4192,7 @@ void ciErrBannedFromChanHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_JOIN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackEnterChannelParams params;
 		params.success = CHATFalse;
@@ -4227,7 +4227,7 @@ void ciErrBadChannelKeyHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_JOIN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackEnterChannelParams params;
 		params.success = CHATFalse;
@@ -4262,7 +4262,7 @@ void ciErrBadChanMaskHandler( CHAT chat, ciServerMessage * message )
 	match.type = TYPE_JOIN;
 	match.name = channel;
 	filter = ciFindFilter( chat, 1, &match );
-	if (filter != NULL)
+	if (filter != nullptr)
 	{
 		ciCallbackEnterChannelParams params;
 		params.success = CHATFalse;

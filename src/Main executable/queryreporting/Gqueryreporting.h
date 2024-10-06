@@ -56,7 +56,7 @@ same for each query type.
 
 Simply fill outbuf with the correct data for the query type (consult the sample
 apps and the GameSpy Developer Spec). 
-outbuf should be a NULL terminated ANSI string.
+outbuf should be a nullptr terminated ANSI string.
 ********/
 typedef void (*qr_querycallback_t)(char *outbuf, int maxlen, void *userdata);	
 
@@ -66,7 +66,7 @@ qr_t
 This abstract type is used to instantiate multiple instances of the
 Query & Reporting SDK (for example, if you are running multiple servers
 in the same process).
-For most games, you can ignore this value and pass NULL in to all functions
+For most games, you can ignore this value and pass nullptr in to all functions
 that require it. A single global instance will be used, similar to how the
 original Developer SDK worked
 ************/
@@ -79,9 +79,9 @@ QR_INIT
 This creates/binds the sockets needed for heartbeats and queries/replies.
 [qrec] if not null, will be filled with the qr_t instance for this server.
 	If you are not using more than one instance of the Query & Reporting SDK you
-	can pass in NULL for this value.
+	can pass in nullptr for this value.
 [ip] is an optional parameter that determines which dotted IP address to bind to on
-	a multi-homed machine. You can pass NULL to bind to all IP addresses.
+	a multi-homed machine. You can pass nullptr to bind to all IP addresses.
 [baseport] is the port to accept queries on. If baseport is not available, the
 	Query and Reporting SDK will scan for an available port in the range of 
 	baseport -> baseport + NUM_PORTS_TO_TRY
@@ -89,7 +89,7 @@ This creates/binds the sockets needed for heartbeats and queries/replies.
 	(makes it harder for debugging/testing).
 [gamename] is the unique gamename that you were given
 [secretkey] is your unique secret key
-[qr_*_callback] are your data callback functions, this cannot be NULL
+[qr_*_callback] are your data callback functions, this cannot be nullptr
 [userdata] is an optional, implementation specific parameter that will be
 	passed to all callback functions. Use it to store an object or structure
 	pointer if needed.
@@ -142,8 +142,8 @@ This function closes the sockets created in qr_init and takes care of
 any misc. cleanup. You should try to call it when before exiting the server
 if qr_init was called.
 If you pass in a qrec that was returned from qr_init, all resources associated
-with that qrec will be freed. If you passed NULL into qr_int, you can pass
-NULL in here as well.
+with that qrec will be freed. If you passed nullptr into qr_int, you can pass
+nullptr in here as well.
 ******************/
 void qr_shutdown(qr_t qrec);
 

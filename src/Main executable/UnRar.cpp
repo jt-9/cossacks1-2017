@@ -24,7 +24,7 @@ void* LoadF(char* Name)
 	{
 		char ccc[256];
 		sprintf(ccc, "UNRAR.DLL does not contain function: %s", Name);
-		MessageBox(NULL, ccc, "DLL init error.", 0);
+		MessageBox(nullptr, ccc, "DLL init error.", 0);
 	}
 	return fn;
 }
@@ -35,7 +35,7 @@ void LoadRARLib()
 	hLib = LoadLibrary("unrar.dll");
 	if (!hLib) 
 	{
-		MessageBox(NULL, "Could not load unrar.dll", "ERROR!", 0);
+		MessageBox(nullptr, "Could not load unrar.dll", "ERROR!", 0);
 		return;
 	}
 	else 
@@ -87,12 +87,12 @@ void ExtractArchive(char *ArcName, int Mode, char* Dest)
 	if (Mode == PRINT)
 		RARSetProcessDataProc(hArcData, ProcessDataProc);
 
-	HeaderData.CmtBuf = NULL;
+	HeaderData.CmtBuf = nullptr;
 
 	while ((RHCode = RARReadHeader(hArcData, &HeaderData)) == 0)
 	{
 		PFCode = RARProcessFile(hArcData, (Mode == EXTRACT) ? RAR_EXTRACT : RAR_TEST,
-			NULL, Dest);
+			nullptr, Dest);
 		if (PFCode != 0)
 		{
 			OutProcessFileError(PFCode);
@@ -142,7 +142,7 @@ void ListArchive(char *ArcName)
 		printf("\n%-20s %10d ", HeaderData.FileName, HeaderData.UnpSize);
 		if (HeaderData.CmtState == 1)
 			ShowComment(CmtBuf);
-		if ((PFCode = RARProcessFile(hArcData, RAR_SKIP, NULL, NULL)) != 0)
+		if ((PFCode = RARProcessFile(hArcData, RAR_SKIP, nullptr, nullptr)) != 0)
 		{
 			OutProcessFileError(PFCode);
 			break;
@@ -244,13 +244,13 @@ int ProcessDataProc(unsigned char *Addr, int Size)
 	fflush(stdout);
 	return(1);
 }
-tpRAROpenArchive* lpRAROpenArchive = NULL;
-tpRARCloseArchive* lpRARCloseArchive = NULL;
-tpRARReadHeader* lpRARReadHeader = NULL;
-tpRARProcessFile* lpRARProcessFile = NULL;
-tpRARSetChangeVolProc* lpRARSetChangeVolProc = NULL;
-tpRARSetProcessDataProc* lpRARSetProcessDataProc = NULL;
-tpRARSetPassword* lpRARSetPassword = NULL;
+tpRAROpenArchive* lpRAROpenArchive = nullptr;
+tpRARCloseArchive* lpRARCloseArchive = nullptr;
+tpRARReadHeader* lpRARReadHeader = nullptr;
+tpRARProcessFile* lpRARProcessFile = nullptr;
+tpRARSetChangeVolProc* lpRARSetChangeVolProc = nullptr;
+tpRARSetProcessDataProc* lpRARSetProcessDataProc = nullptr;
+tpRARSetPassword* lpRARSetPassword = nullptr;
 HANDLE PASCAL RAROpenArchive(struct RAROpenArchiveData *ArchiveData) {
 	return lpRAROpenArchive(ArchiveData);
 };

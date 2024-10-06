@@ -621,8 +621,8 @@ void ProcessNature()
 };
 OrderClassDescription::OrderClassDescription()
 {
-	ID = NULL;
-	Message = NULL;
+	ID = nullptr;
+	Message = nullptr;
 };
 OrderClassDescription::~OrderClassDescription()
 {
@@ -631,13 +631,13 @@ OrderClassDescription::~OrderClassDescription()
 };
 OrderDescription::OrderDescription()
 {
-	ID = NULL;
+	ID = nullptr;
 	NLines = 0;
-	Lines = NULL;
-	LineNU = NULL;
+	Lines = nullptr;
+	LineNU = nullptr;
 	NCom = 0;
-	ComX = NULL;
-	ComY = NULL;
+	ComX = nullptr;
+	ComY = nullptr;
 };
 OrderDescription::~OrderDescription()
 {
@@ -677,7 +677,7 @@ bool ReadFLine( GFILE* f, char* c )
 FormGroupDescription::FormGroupDescription()
 {
 	NGrp = 0;
-	Grp = NULL;
+	Grp = nullptr;
 };
 FormGroupDescription::~FormGroupDescription()
 {
@@ -937,7 +937,7 @@ void LoadOrders()
 											char c[128];
 											sprintf( c, "orders.lst:Order %s has no symmetry SYM2", ODE->ID );
 											ErrM( c );
-											ODE->SymInv = NULL;
+											ODE->SymInv = nullptr;
 										}
 										/*
 										//1.checking
@@ -954,7 +954,7 @@ void LoadOrders()
 											char c[128];
 											sprintf(c,"orders.lst:Order %s has no symmetry SYM2.",ODE->ID);
 											ErrM(c);
-											ODE->SymInv=NULL;
+											ODE->SymInv=nullptr;
 										}else{
 											//accepting
 											//1.Creating index collection
@@ -1074,8 +1074,8 @@ void LoadOrders()
 											char c[128];
 											sprintf( c, "orders.lst:Order %s has no symmetry SYM4", ODE->ID );
 											ErrM( c );
-											ODE->Sym4f = NULL;
-											ODE->Sym4i = NULL;
+											ODE->Sym4f = nullptr;
+											ODE->Sym4i = nullptr;
 										}
 									}
 								}
@@ -1124,9 +1124,9 @@ void LoadOrders()
 										{
 											if (!strcmp( SY, "SYM0" ))
 											{
-												ODE->SymInv = NULL;
-												ODE->Sym4i = NULL;
-												ODE->Sym4f = NULL;
+												ODE->SymInv = nullptr;
+												ODE->Sym4i = nullptr;
+												ODE->Sym4f = nullptr;
 											}
 											else
 											{
@@ -1139,9 +1139,9 @@ void LoadOrders()
 								}
 								else
 								{
-									ODE->SymInv = NULL;
-									ODE->Sym4i = NULL;
-									ODE->Sym4f = NULL;
+									ODE->SymInv = nullptr;
+									ODE->Sym4i = nullptr;
+									ODE->Sym4f = nullptr;
 								}
 								ODE->AddDamage1 = p1;
 								ODE->AddDamage2 = p3;
@@ -1179,7 +1179,7 @@ void LoadOrders()
 							ODE->LineNU = (word*) realloc( ODE->LineNU, ( nL + 1 ) << 2 );
 							ODE->Lines = (short**) realloc( ODE->Lines, ( nL + 1 ) << 2 );
 							ODE->LineNU[nL] = nz;
-							ODE->Lines[nL] = NULL;
+							ODE->Lines[nL] = nullptr;
 							if (nz)
 							{
 								ODE->Lines[nL] = new short[nz];

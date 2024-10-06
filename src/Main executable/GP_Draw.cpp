@@ -180,7 +180,7 @@ byte* GP_System::GetCash( int Size )
 		if (ptr)
 		{
 			ptr[0] = 0xFFFFFFFF;
-			INTV( Cash + tpos ) = NULL;
+			INTV( Cash + tpos ) = nullptr;
 		};
 		tpos += sz;
 	};
@@ -248,7 +248,7 @@ int GP_System::PreLoadGPImage( char* Name, bool Shadow )
 	RLCNSpr[NGP]=GPNFrames[NGP];
 	GPNames[NGP]=new char[strlen(Name)+1];
 	strcpy(GPNames[NGP],Name);
-	GPH[NGP]=NULL;
+	GPH[NGP]=nullptr;
 	GPLastTime[NGP]=0;
 	GPSize[NGP]=0;
 	NGP++;
@@ -278,7 +278,7 @@ void GP_System::SetOptionalColor( int n, int c )
 void GP_System::UnLoadGP( int i )
 {
 	if (i >= NGP)return;
-	UNITBL[i] = NULL;
+	UNITBL[i] = nullptr;
 	switch (ImageType[i] & 7)
 	{
 	case 1:
@@ -288,20 +288,20 @@ void GP_System::UnLoadGP( int i )
 			GPSize[i] = 0;
 			FreeRefs( i );
 			if (!Mapping[i])free( GPH[i] );
-			GPH[i] = NULL;
+			GPH[i] = nullptr;
 			Mapping[i] = 0;
 			free( ImLx[i] );
 			free( ImLy[i] );
-			ImLx[i] = NULL;
-			ImLy[i] = NULL;
+			ImLx[i] = nullptr;
+			ImLy[i] = nullptr;
 			free( CASHREF[i] );
-			CASHREF[i] = NULL;
+			CASHREF[i] = nullptr;
 			if (ItDX[i])
 			{
 				free( ItDX[i] );
 				free( ItLX[i] );
-				ItDX[i] = NULL;
-				ItLX[i] = NULL;
+				ItDX[i] = nullptr;
+				ItLX[i] = nullptr;
 			};
 		};
 		GPNames[i][0] = '*';
@@ -640,7 +640,7 @@ bool GP_System::LoadGP( int i )
 }
 
 //cache format:
-//DWORD Pack reference offset(PRefOfs)[=NULL if not assigned]
+//DWORD Pack reference offset(PRefOfs)[=nullptr if not assigned]
 //DWORD Unpacked data size+8(UDataSize)
 
 //Draw units in shadows and menu effects
@@ -8349,7 +8349,7 @@ void GP_System::ShowGP(//IMPORTANT: show sprite with color masking
 		LoadGP( FileIndex );
 	}
 
-	//TODO: Fix access violation (lpGH points to nothin', but is itself not NULL)
+	//TODO: Fix access violation (lpGH points to nothin', but is itself not nullptr)
 	GP_GlobalHeader* lpGH = GPH[FileIndex];
 
 	/*
@@ -8421,9 +8421,9 @@ void GP_System::ShowGP(//IMPORTANT: show sprite with color masking
 			}
 
 			if (SprIndex >= 4096)
-				GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, NULL );
+				GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, nullptr );
 			else
-				GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, NULL );
+				GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, nullptr );
 
 			//GP_ShowMaskedMirrorPict(x,y,lpGPCUR,PACKOFS,XShift);
 			break;
@@ -8471,26 +8471,26 @@ void GP_System::ShowGP(//IMPORTANT: show sprite with color masking
 			switch (imt)
 			{
 			case 1://white
-				GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, Bright + 7936 );
+				GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, Bright + 7936 );
 				break;
 			case 2://red
-				GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, yfog + 7936 );
+				GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, yfog + 7936 );
 				break;
 			case 3:
-				GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, Optional1 + 7936 );
+				GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, Optional1 + 7936 );
 				break;
 			case 4:
-				GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, Optional2 + 7936 );
+				GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, Optional2 + 7936 );
 				break;
 			case 5:
-				GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, Optional3 + 7936 );
+				GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, Optional3 + 7936 );
 				break;
 
 			default:
 				if (SprIndex >= 4096)
-					GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, NULL, fog + 4096 );
+					GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, nullptr, fog + 4096 );
 				else 
-					GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, fog + 4096 );
+					GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, fog + 4096 );
 			};
 			break;
 		case 6://AlphaRY
@@ -8595,8 +8595,8 @@ void GP_System::ShowGP(//IMPORTANT: show sprite with color masking
 			};
 			break;
 		case 41:
-			if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, NULL );
-			else GP_ShowMaskedPict( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, NULL );
+			if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, nullptr );
+			else GP_ShowMaskedPict( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, nullptr );
 			break;
 		case 43:
 		case 44:
@@ -8610,8 +8610,8 @@ void GP_System::ShowGP(//IMPORTANT: show sprite with color masking
 				*PAK = (DWORD) PACKOFS;
 				LZUnpack( PACKOFS, ( (byte*) lpGPCUR ) + CDOffs, UnpackLen );
 			};
-			if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, NULL );
-			else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, NULL );
+			if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, nullptr );
+			else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, nullptr );
 			break;
 		};
 		DIFF = lpGPCUR->NextPict;
@@ -8707,8 +8707,8 @@ void GP_System::ShowGPLayers(//IMPORTANT: color masking for units and buildings
 				};
 				if (mask & 512)
 				{
-					if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, NULL );
-					else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, NULL );
+					if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, nullptr );
+					else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, nullptr );
 				}
 				else
 				{
@@ -8755,8 +8755,8 @@ void GP_System::ShowGPLayers(//IMPORTANT: color masking for units and buildings
 			}
 			else if (mask & 2048)
 			{
-				if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, NULL );
-				else GP_ShowMaskedPict( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, NULL );
+				if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, nullptr );
+				else GP_ShowMaskedPict( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, nullptr );
 			};
 			break;
 		case 5://Shadow
@@ -8764,13 +8764,13 @@ void GP_System::ShowGPLayers(//IMPORTANT: color masking for units and buildings
 			{
 				if (mask & 64)
 				{
-					if (SprIndex >= 4096)GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, NULL, fog + 4096 );
-					else GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, fog + 4096 );
+					if (SprIndex >= 4096)GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, nullptr, fog + 4096 );
+					else GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, fog + 4096 );
 				}
 				else
 				{
-					if (SprIndex >= 4096)GP_ShowMaskedPictOverpointInv( x, y, lpGPCUR, NULL, fog + 4096 );
-					else GP_ShowMaskedPictOverpoint( x, y, lpGPCUR, NULL, fog + 4096 );
+					if (SprIndex >= 4096)GP_ShowMaskedPictOverpointInv( x, y, lpGPCUR, nullptr, fog + 4096 );
+					else GP_ShowMaskedPictOverpoint( x, y, lpGPCUR, nullptr, fog + 4096 );
 				};
 			};
 			break;
@@ -8872,8 +8872,8 @@ void GP_System::ShowGPLayers(//IMPORTANT: color masking for units and buildings
 		case 41:
 			if (mask & 512)
 			{
-				if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, NULL );
-				else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, NULL );
+				if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, nullptr );
+				else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, nullptr );
 			}
 			else
 			{
@@ -8899,8 +8899,8 @@ void GP_System::ShowGPLayers(//IMPORTANT: color masking for units and buildings
 				};
 				if (mask & 512)
 				{
-					if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, NULL );
-					else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, NULL );
+					if (SprIndex >= 4096)GP_ShowMaskedPictInv( x, y, lpGPCUR, PACKOFS, nullptr );
+					else GP_ShowMaskedPict( x, y, lpGPCUR, PACKOFS, nullptr );
 				}
 				else
 				{
@@ -9004,8 +9004,8 @@ void GP_System::ShowGPTransparent( int x, int y, int FileIndex, int SprIndex, by
 			else GP_ShowMaskedMultiPalPict( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, trans8 );
 			break;
 		case 5://Shadow
-			if (SprIndex >= 4096)GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, NULL, fog + 4096 );
-			else GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, fog + 4096 );
+			if (SprIndex >= 4096)GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, nullptr, fog + 4096 );
+			else GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, fog + 4096 );
 			break;
 		case 41:
 			if (SprIndex >= 4096)GP_ShowMaskedMultiPalPictInv( x, y, lpGPCUR, ( (byte*) lpGPCUR ) + CDOffs, trans8 );
@@ -9146,13 +9146,13 @@ void GP_System::ShowGPTransparentLayers( int x, int y, int FileIndex, int SprInd
 			{
 				if (mask & 64)
 				{
-					if (SprIndex >= 4096)GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, NULL, fog + 4096 );
-					else GP_ShowMaskedPictShadow( x, y, lpGPCUR, NULL, fog + 4096 );
+					if (SprIndex >= 4096)GP_ShowMaskedPictShadowInv( x, y, lpGPCUR, nullptr, fog + 4096 );
+					else GP_ShowMaskedPictShadow( x, y, lpGPCUR, nullptr, fog + 4096 );
 				}
 				else
 				{
-					if (SprIndex >= 4096)GP_ShowMaskedPictOverpointInv( x, y, lpGPCUR, NULL, fog + 4096 );
-					else GP_ShowMaskedPictOverpoint( x, y, lpGPCUR, NULL, fog + 4096 );
+					if (SprIndex >= 4096)GP_ShowMaskedPictOverpointInv( x, y, lpGPCUR, nullptr, fog + 4096 );
+					else GP_ShowMaskedPictOverpoint( x, y, lpGPCUR, nullptr, fog + 4096 );
 				};
 			};
 			break;
@@ -9239,7 +9239,7 @@ void GP_System::FreeRefs( int FileIndex )
 				INTV( PACKOFS - 8 ) = 0;
 			}
 
-			//lpGPCUR->Pack=NULL;
+			//lpGPCUR->Pack=nullptr;
 
 			*PAK = 0xFFFFFFFF;
 			DIFF = lpGPCUR->NextPict;
@@ -10074,17 +10074,17 @@ UNIFONTS UFONTS;
 UNIFONTS::UNIFONTS()
 {
 	NFonts = 0;
-	UFONTS = NULL;
+	UFONTS = nullptr;
 };
 UNIFONTS::~UNIFONTS()
 {
 	if (UFONTS)free( UFONTS );
 	NFonts = 0;
-	UFONTS = NULL;
+	UFONTS = nullptr;
 };
 void FONERR()
 {
-	MessageBox( NULL, "Invalid Unicode.dat", "ERROR!", 0 );
+	MessageBox( nullptr, "Invalid Unicode.dat", "ERROR!", 0 );
 	assert( 0 );
 };
 

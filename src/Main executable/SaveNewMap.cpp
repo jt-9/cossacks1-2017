@@ -281,7 +281,7 @@ void DeleteAllUnits()
 			{
 				free( OB->Inside );
 			}
-			Group[i] = NULL;
+			Group[i] = nullptr;
 		}
 	}
 }
@@ -457,7 +457,7 @@ OneObject* CreateNewUnitAt3( byte NI, int x, int y, word Type, word Life, word S
 		}
 		return OB;
 	}
-	return NULL;
+	return nullptr;
 }
 
 void LoadUnits( ResFile f1 )
@@ -1150,9 +1150,9 @@ void LoadTopology( ResFile f1 )
 		Area* Ar1 = TopMap + j;
 		RBlockRead( f1, Ar1, sizeof Area );
 		if ( Ar1->NMines )Ar1->MinesIdx = new word[Ar1->NMines];
-		else Ar1->MinesIdx = NULL;
+		else Ar1->MinesIdx = nullptr;
 		if ( Ar1->NLinks )Ar1->Link = new word[Ar1->NLinks];
-		else Ar1->Link = NULL;
+		else Ar1->Link = nullptr;
 		if ( Ar1->NMines )RBlockRead( f1, Ar1->MinesIdx, Ar1->NMines << 1 );
 		if ( Ar1->NLinks )RBlockRead( f1, Ar1->Link, Ar1->NLinks << 1 );
 	};
@@ -1199,9 +1199,9 @@ void LoadTopology1( ResFile f1 )
 		Area* Ar1 = TopMap + j;
 		RBlockRead( f1, Ar1, sizeof Area );
 		if ( Ar1->NMines )Ar1->MinesIdx = new word[Ar1->NMines];
-		else Ar1->MinesIdx = NULL;
+		else Ar1->MinesIdx = nullptr;
 		if ( Ar1->NLinks )Ar1->Link = new word[Ar1->MaxLink << 1];
-		else Ar1->Link = NULL;
+		else Ar1->Link = nullptr;
 		if ( Ar1->NMines )RBlockRead( f1, Ar1->MinesIdx, Ar1->NMines << 1 );
 		if ( Ar1->NLinks )RBlockRead( f1, Ar1->Link, Ar1->NLinks << 2 );
 	};
@@ -1222,9 +1222,9 @@ void LoadWTopology1( ResFile f1 )
 		Area* Ar1 = WTopMap + j;
 		RBlockRead( f1, Ar1, sizeof Area );
 		if ( Ar1->NMines )Ar1->MinesIdx = new word[Ar1->NMines];
-		else Ar1->MinesIdx = NULL;
+		else Ar1->MinesIdx = nullptr;
 		if ( Ar1->NLinks )Ar1->Link = new word[Ar1->MaxLink << 1];
-		else Ar1->Link = NULL;
+		else Ar1->Link = nullptr;
 		if ( Ar1->NMines )RBlockRead( f1, Ar1->MinesIdx, Ar1->NMines << 1 );
 		if ( Ar1->NLinks )RBlockRead( f1, Ar1->Link, Ar1->NLinks << 2 );
 	};

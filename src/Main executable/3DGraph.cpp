@@ -633,7 +633,7 @@ void RenderSmartTriangle64(int xs1, int ys1,
 
 	int D = dxs2*dys3 - dys2*dxs3;
 	if (!D) {
-		Dest = NULL;
+		Dest = nullptr;
 		return;
 	};
 	int Axx = dys3*dxb2 - dxb3*dys2;
@@ -1232,7 +1232,7 @@ int RenderBestTriangle64(int xs1, int ys1,
 
 	int D = dxs2*dys3 - dys2*dxs3;
 	if (!D) {
-		Dest = NULL;
+		Dest = nullptr;
 		return -1;
 	};
 	int Axx = dys3*dxb2 - dxb3*dys2;
@@ -1280,7 +1280,7 @@ int RenderBestTriangle128(int xs1, int ys1,
 
 	int D = dxs2*dys3 - dys2*dxs3;
 	if (!D) {
-		Dest = NULL;
+		Dest = nullptr;
 		return -1;
 	};
 	int Axx = dys3*dxb2 - dxb3*dys2;
@@ -1486,7 +1486,7 @@ void DirectRenderTriangle64(int xs1, int ys1,
 
 	int D = dxs2*dys3 - dys2*dxs3;
 	if (!D) {
-		Dest = NULL;
+		Dest = nullptr;
 		return;
 	};
 	int Axx = dys3*dxb2 - dxb3*dys2;
@@ -2098,7 +2098,7 @@ void OverTriangle::AddTriangle(int i)
 		TRIANG[v] = (VertOver*)realloc(TRIANG[v], int(NTRIANG[v] + 1) * sizeof VertOver);
 		VertOver* VO = TRIANG[v] + NTRIANG[v];
 		NTRIANG[v]++;
-		VO->Data = NULL;
+		VO->Data = nullptr;
 		VO->xs = x;
 		VO->ys = (zmin + zmax) >> 1;
 		VO->xz = ymin;
@@ -2475,7 +2475,7 @@ void OverTriangle::Show() {
 						int xs = VO->xs;
 						int ys = VO->ys;
 						if (xs >= xs0&&xs <= xs1&&ys >= ys0&&ys <= ys1) {
-							AddPoint(VO->xs - x0, (VO->xz >> 1) - y0 + dy - 16, 0, 0, NULL, sq, p, 0xFFFF, 0xFFFF);
+							AddPoint(VO->xs - x0, (VO->xz >> 1) - y0 + dy - 16, 0, 0, nullptr, sq, p, 0xFFFF, 0xFFFF);
 						};
 					};
 					VO++;

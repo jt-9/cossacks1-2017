@@ -217,8 +217,8 @@ bool RecordGame::Extract()
 				{
 					free( ImSerN[i] );
 				}
-				ImSelm[i] = NULL;
-				ImSerN[i] = NULL;
+				ImSelm[i] = nullptr;
+				ImSerN[i] = nullptr;
 			}
 			int N = ImNSL[i];
 			for ( int j = 0; j < N; j++ )
@@ -955,7 +955,7 @@ bool InternetStream::Open( char* Name )
 void ProcessScreen();
 bool ProcessMessages();
 void GSYSDRAW();
-char* DOWNLOADING = NULL;
+char* DOWNLOADING = nullptr;
 void ShowCentralMessage4( char* Message, int GPIDX, int DX );
 extern int LastKey;
 extern int CurPalette;

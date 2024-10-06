@@ -106,7 +106,7 @@ typedef void (* chatDisconnected)(CHAT chat,
 								  void * param);
 
 // Called when a private message from another user is received.
-// If user==NULL, this is a message from the server.
+// If user==nullptr, this is a message from the server.
 ///////////////////////////////////////////////////////////////
 typedef void (* chatPrivateMessage)(CHAT chat,
 									const char * user,
@@ -588,7 +588,7 @@ CHATBool chatGetBasicUserInfoNoWait(CHAT chat,
 									const char ** address);
 
 // Called with a user's basic info for everyone in a channel.
-// Called with a NULL nick/user/address at the end.
+// Called with a nullptr nick/user/address at the end.
 /////////////////////////////////////////////////////////////
 typedef void (* chatGetChannelBasicUserInfoCallback)(CHAT chat,
 													 CHATBool success,
@@ -661,7 +661,7 @@ CHATBool chatGetUserModeNoWait(CHAT chat,
 ** KEYS **
 *********/
 // Sets global key/values for the local user.
-// Set a value to NULL or "" to clear that key.
+// Set a value to nullptr or "" to clear that key.
 ///////////////////////////////////////////////
 void chatSetGlobalKeys(CHAT chat,
 					   int num,
@@ -670,7 +670,7 @@ void chatSetGlobalKeys(CHAT chat,
 
 // Called with a user's global key/values.
 // If used for a set of users, will be
-// called with user==NULL when done.
+// called with user==nullptr when done.
 //////////////////////////////////////////
 typedef void (* chatGetGlobalKeysCallback)(CHAT chat,
 										   CHATBool success,
@@ -693,10 +693,10 @@ void chatGetGlobalKeys(CHAT chat,
 					   CHATBool blocking);
 
 // Sets channel key/values.
-// If user is NULL or "", the keys will be set on the channel.
+// If user is nullptr or "", the keys will be set on the channel.
 // Otherwise, they will be set on the user,
 // Only ops can set channel keys on other users.
-// Set a value to NULL or "" to clear that key.
+// Set a value to nullptr or "" to clear that key.
 //////////////////////////////////////////////////////////////
 void chatSetChannelKeys(CHAT chat,
 						const char * channel,
@@ -706,8 +706,8 @@ void chatSetChannelKeys(CHAT chat,
 						const char ** values);
 
 // Called with a user's channel key/values, or a channel's key/values.
-// If used for a set of users, will be called with user==NULL when done.
-// If used for a channel, will be called once with user==NULL.
+// If used for a set of users, will be called with user==nullptr when done.
+// If used for a channel, will be called once with user==nullptr.
 ////////////////////////////////////////////////////////////////////////
 typedef void (* chatGetChannelKeysCallback)(CHAT chat,
 											CHATBool success,
@@ -720,7 +720,7 @@ typedef void (* chatGetChannelKeysCallback)(CHAT chat,
 // Gets channel key/values for a user or users, or for a channel.
 // To get the channel key/values for every user in
 // a channel, pass in "*" as the user.  To get the keys for a channel,
-// pass in NULL or "".
+// pass in nullptr or "".
 //////////////////////////////////////////////////////////////////////
 void chatGetChannelKeys(CHAT chat,
 						const char * channel,

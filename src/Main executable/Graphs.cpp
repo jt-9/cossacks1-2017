@@ -64,11 +64,11 @@ public:
 	void Draw(int x0, int y0, int Lx, int Ly);
 };
 Graph::Graph() {
-	Header = NULL;
+	Header = nullptr;
 };
 OneGraph::OneGraph() {
-	T = NULL;
-	V = NULL;
+	T = nullptr;
+	V = nullptr;
 	NMax = 0;
 	N = 0;
 	Color = -1;
@@ -80,8 +80,8 @@ void OneGraph::Clear() {
 		free(T);
 		free(V);
 	};
-	T = NULL;
-	V = NULL;
+	T = nullptr;
+	V = nullptr;
 	NMax = 0;
 };
 OneGraph::~OneGraph() {

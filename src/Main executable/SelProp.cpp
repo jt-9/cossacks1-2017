@@ -903,7 +903,7 @@ void ShowProp()
 
 int GetRLCStrWidth( char* str, lpRLCFont lpf );
 extern byte PlayGameMode;
-char* ARTCAPS[8] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
+char* ARTCAPS[8] = { nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr };
 void ShowTextDiscription()
 {
 	if (PlayGameMode == 1)return;

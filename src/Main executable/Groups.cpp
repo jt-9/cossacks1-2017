@@ -14,9 +14,9 @@ word GetDir(int, int);
 SortClass::SortClass() {
 	NUids = 0;
 	MaxUID = 0;
-	Uids = NULL;
-	//Usn=NULL;
-	Parms = NULL;
+	Uids = nullptr;
+	//Usn=nullptr;
+	Parms = nullptr;
 };
 SortClass::~SortClass() {
 	if (MaxUID) {
@@ -268,9 +268,9 @@ word SortUnitsByR(word* urefs, word* snrefs, int nu, int x, int y) {
 PositionOrder::PositionOrder() {
 	NUnits = 0;
 	MaxUnit = 0;
-	Ids = NULL;
-	px = NULL;
-	py = NULL;
+	Ids = nullptr;
+	px = nullptr;
+	py = nullptr;
 };
 PositionOrder::~PositionOrder() {
 	if (MaxUnit) {
@@ -280,9 +280,9 @@ PositionOrder::~PositionOrder() {
 	};
 	NUnits = 0;
 	MaxUnit = 0;
-	Ids = NULL;
-	px = NULL;
-	py = NULL;
+	Ids = nullptr;
+	px = nullptr;
+	py = nullptr;
 };
 void PositionOrder::CheckSize(int Size) {
 	if (Size > MaxUnit) {

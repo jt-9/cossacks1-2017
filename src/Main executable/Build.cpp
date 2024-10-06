@@ -205,7 +205,7 @@ void OneObject::Produce( word ID, word GroupID )
 	if ( GroupID == 0xFFFE )
 	{
 		OR2 = LocalOrder;
-		Order1* ORP = NULL;
+		Order1* ORP = nullptr;
 		while ( OR2 )
 		{
 			if ( OR2->DoLink == &ProduceObjLink&&OR2->info.Produce.ObjIndex == ID

@@ -14,7 +14,7 @@ static char THIS_FILE[]=__FILE__;
 
 void CMixer::ZeroAll()
 {
-	m_HMixer = NULL;
+	m_HMixer = nullptr;
 	m_iMixerControlID = 0;
 	mmr = MMSYSERR_NOERROR;
 	m_dwChannels = 0;

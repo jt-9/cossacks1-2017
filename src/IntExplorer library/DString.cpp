@@ -76,19 +76,19 @@ bool DString::operator == (DString& ds){
 };
 //---------------
 DString::DString(){
-	str=NULL;
+	str=nullptr;
 	L=0;
 	MaxL=0;
 };
 DString::DString(char* s){
-	str=NULL;
+	str=nullptr;
 	L=0;
 	MaxL=0;
 	Assign(s);
 };
 DString::~DString(){
 	if(str)free(str);
-	str=NULL;
+	str=nullptr;
 	L=0;
 	MaxL=0;
 };
@@ -161,7 +161,7 @@ void DString::Assign(DString& Str){
 };
 void DString::Free(){
 	if(str)free(str);
-	str=NULL;
+	str=nullptr;
 	L=0;
 	MaxL=0;
 };

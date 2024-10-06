@@ -33,7 +33,7 @@ public:
 	void Show(int x, int y, int N);
 };
 Blob::Blob() {
-	Data = NULL;
+	Data = nullptr;
 	Lx = 0;
 	Ly = 0;
 };

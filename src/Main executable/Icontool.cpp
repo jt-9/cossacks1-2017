@@ -33,11 +33,11 @@ void OneIcon::InitIcon()
 	SpriteID = 0xFFFF;
 	Type = 0;
 	Disabled = false;
-	Hint = NULL;
-	HintLo = NULL;
-	RPro = NULL;
-	LPro = NULL;
-	MoveOver = NULL;
+	Hint = nullptr;
+	HintLo = nullptr;
+	RPro = nullptr;
+	LPro = nullptr;
+	MoveOver = nullptr;
 	Level = 0;
 	Selected = false;
 	MoreSprite = 0xFFFF;
@@ -46,9 +46,9 @@ void OneIcon::AssignIcon( word FID, word SID )
 {
 	Type = 0;
 	Disabled = false;
-	RPro = NULL;
-	LPro = NULL;
-	MoveOver = NULL;
+	RPro = nullptr;
+	LPro = nullptr;
+	MoveOver = nullptr;
 	Level = 0;
 
 	FileID = FID;
@@ -72,7 +72,7 @@ void OneIcon::CreateHint( char* str )
 	if (Hint)
 	{
 		//free(Hint);
-		//Hint=NULL;
+		//Hint=nullptr;
 	};
 	//Hint=new char[strlen(str)+1];
 	if (!Hint)Hint = new char[512];
@@ -80,7 +80,7 @@ void OneIcon::CreateHint( char* str )
 	if (HintLo)
 	{
 		free( HintLo );
-		HintLo = NULL;
+		HintLo = nullptr;
 	};
 	if (( !EditMapMode ) && SpriteID != -1 && KeyCodes[SpriteID][0])
 	{
@@ -100,7 +100,7 @@ void OneIcon::CreateHintLo( char* str )
 	if (HintLo)
 	{
 		//free(HintLo);
-		//HintLo=NULL;
+		//HintLo=nullptr;
 	};
 	//HintLo=new char[strlen(str)+1];
 	if (!HintLo)HintLo = new char[512];
@@ -165,9 +165,9 @@ void OneIcon::Disable()
 {
 	Disabled = true;
 	Type &= ~( 32 | 64 );
-	LPro = NULL;
-	RPro = NULL;
-	MoveOver = NULL;
+	LPro = nullptr;
+	RPro = nullptr;
+	MoveOver = nullptr;
 };
 void OneIcon::AssignLevel( byte L )
 {
@@ -304,8 +304,8 @@ IconSet::IconSet()
 	for (int i = 0; i < Space; i++)
 	{
 		Icons[i].Visible = false;
-		Icons[i].Hint = NULL;
-		Icons[i].HintLo = NULL;
+		Icons[i].Hint = nullptr;
+		Icons[i].HintLo = nullptr;
 	};
 };
 IconSet::~IconSet()
@@ -327,12 +327,12 @@ void IconSet::ClearIconSet()
 		if (OI->Hint)
 		{
 			//free(OI->Hint);
-			//OI->Hint=NULL;
+			//OI->Hint=nullptr;
 		};
 		if (OI->HintLo)
 		{
 			//free(OI->HintLo);
-			//OI->HintLo=NULL;
+			//OI->HintLo=nullptr;
 		};
 		OI->Visible = false;
 	};

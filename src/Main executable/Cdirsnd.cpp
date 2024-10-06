@@ -14,25 +14,25 @@ void CDirSound::CreateDirSound(HWND hWnd)
 {
 	// Initialize class data members.
 	m_hWindow = hWnd;
-	m_pDirectSoundObj = NULL;
+	m_pDirectSoundObj = nullptr;
 	m_currentBufferNum = 0;
 
 	for (UINT x = 0; x < MAXSND1; ++x)
 	{
-		m_bufferPointers[x] = NULL;
+		m_bufferPointers[x] = nullptr;
 		m_bufferSizes[x] = 0;
 	}
 
 	// Create the main DirectSound object.
 	HRESULT result =
-		DirectSoundCreate(NULL, &m_pDirectSoundObj, NULL);
+		DirectSoundCreate(nullptr, &m_pDirectSoundObj, nullptr);
 	if (result == DS_OK)
 	{
 		// Set the priority level.
 		result = m_pDirectSoundObj->
 			SetCooperativeLevel(m_hWindow, DSSCL_EXCLUSIVE);//NORMAL);
 		if (result != DS_OK)
-			m_pDirectSoundObj = NULL;
+			m_pDirectSoundObj = nullptr;
 		// Set up DSBUFFERDESC structure. 
 
 		DSBUFFERDESC dsbdesc;
@@ -41,9 +41,9 @@ void CDirSound::CreateDirSound(HWND hWnd)
 		dsbdesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
 		// Buffer size is determined by sound hardware. 
 		dsbdesc.dwBufferBytes = 0;
-		dsbdesc.lpwfxFormat = NULL; // Must be NULL for primary buffers. 
-		LPDIRECTSOUNDBUFFER lpDsb = NULL;
-		HRESULT hr = m_pDirectSoundObj->CreateSoundBuffer(&dsbdesc, &lpDsb, NULL);
+		dsbdesc.lpwfxFormat = nullptr; // Must be nullptr for primary buffers. 
+		LPDIRECTSOUNDBUFFER lpDsb = nullptr;
+		HRESULT hr = m_pDirectSoundObj->CreateSoundBuffer(&dsbdesc, &lpDsb, nullptr);
 		/*
 		int v;
 		switch(hr){
@@ -95,7 +95,7 @@ void CDirSound::CreateDirSound(HWND hWnd)
 ///////////////////////////////////////////////////////////
 CDirSound::~CDirSound()
 {
-	if (m_pDirectSoundObj != NULL)
+	if (m_pDirectSoundObj != nullptr)
 		ReleaseAll();
 }
 
@@ -112,7 +112,7 @@ void CDirSound::ReleaseAll()
 		m_bufferPointers[x]->Release();
 
 	// Release the DirectSound object.
-	if (m_pDirectSoundObj != NULL)
+	if (m_pDirectSoundObj != nullptr)
 		m_pDirectSoundObj->Release();
 	memset(BufIsRun, 0, sizeof BufIsRun);
 }
@@ -145,7 +145,7 @@ UINT CDirSound::CreateSoundBuffer(CWave* pWave)
 
 	// Create the secondary sound buffer.
 	hResult = m_pDirectSoundObj->CreateSoundBuffer(&dsBufferDesc,
-		&m_bufferPointers[m_currentBufferNum], NULL);
+		&m_bufferPointers[m_currentBufferNum], nullptr);
 	if (hResult != DS_OK)
 		return 0;
 
@@ -226,7 +226,7 @@ BOOL CDirSound::CopyWaveToBuffer(CWave* pWave, UINT bufferNum)
 ///////////////////////////////////////////////////////////
 BOOL CDirSound::DirectSoundOK()
 {
-	if (m_pDirectSoundObj == NULL)
+	if (m_pDirectSoundObj == nullptr)
 		return FALSE;
 
 	return TRUE;
@@ -386,7 +386,7 @@ int CDirSound::GetPos(UINT bufferNum)
 
 	// Make sure the buffer is set to play from the beginning.
 	DWORD pos;
-	result = pSoundBuffer->GetCurrentPosition(&pos, NULL);
+	result = pSoundBuffer->GetCurrentPosition(&pos, nullptr);
 	return pos;
 
 }

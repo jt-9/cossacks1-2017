@@ -40,7 +40,7 @@ devsupport@gamespy.com
 ** MACROS **
 ***********/
 #define ASSERT_SOCK(sock)   {\
-								assert((sock) != NULL);\
+								assert((sock) != nullptr);\
 								assert(((sock)->connectState == ciNotConnected) ||\
 									((sock)->connectState == ciConnected) ||\
 									((sock)->connectState == ciDisconnected));\
@@ -51,13 +51,13 @@ devsupport@gamespy.com
 #define ASSERT_CONNECTED(sock)  assert((sock)->connectState == ciConnected)
 
 #define ASSERT_BUFFER(buffer)   {\
-									assert((buffer) != NULL);\
+									assert((buffer) != nullptr);\
 									assert((buffer)->size >= 0);\
 									assert(((buffer)->size % BUFFER_INC) == 0);\
 									assert((buffer)->length >= 0);\
 									assert((buffer)->length <= (buffer)->size);\
 								}
-#define RESET(ptr)  {if (ptr) {gsifree(ptr); ptr = NULL;} }
+#define RESET(ptr)  {if (ptr) {gsifree(ptr); ptr = nullptr;} }
 
 
 /*********
@@ -72,7 +72,7 @@ const char * ciGetTime(void)
 	time_t timer;
 	struct tm * now;
 
-	timer = time(NULL);
+	timer = time(nullptr);
 	now = localtime(&timer);
 	if(now->tm_year > 99)
 		now->tm_year -= 100;
@@ -88,12 +88,12 @@ const char * ciGetTime(void)
 ***********/
 static CHATBool ciBufferInit(ciBuffer * buffer)
 {
-	assert(buffer != NULL);
+	assert(buffer != nullptr);
 
 	buffer->length = 0;
 	buffer->size = BUFFER_INC;
 	buffer->buffer = (char *)gsimalloc(buffer->size + 1);
-	if(buffer->buffer == NULL)
+	if(buffer->buffer == nullptr)
 		return CHATFalse;
 
 	// Just for fun.
@@ -131,7 +131,7 @@ static CHATBool ciBufferPreAppend(ciBuffer * buffer, int len)
 	// Allocate the memory.
 	///////////////////////
 	tempPtr = (char *)gsirealloc(buffer->buffer, total + 1);
-	if(tempPtr == NULL)
+	if(tempPtr == nullptr)
 		return CHATFalse;
 
 	// Update the buffer.
@@ -162,7 +162,7 @@ CHATBool ciSocketInit(ciSocket * sock)
 	FILE * log;
 #endif
 
-	assert(sock != NULL);
+	assert(sock != nullptr);
 
 	memset(sock, 0, sizeof(ciSocket));
 
@@ -176,7 +176,7 @@ CHATBool ciSocketInit(ciSocket * sock)
 	}
 #ifdef IRC_LOG
 	log = fopen("irc.log", "at");
-	if(log != NULL)
+	if(log != nullptr)
 	{
 		fprintf(log, "\n\n\n\n\nCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n");
 		fclose(log);
@@ -196,7 +196,7 @@ CHATBool ciSocketConnect(ciSocket * sock,
 	int keepalive;
 
 	ASSERT_SOCK(sock);
-	assert(serverAddress != NULL);
+	assert(serverAddress != nullptr);
 	assert(port >= 0);
 	assert(port <= USHRT_MAX);
 	assert(sock->connectState == ciNotConnected);
@@ -213,7 +213,7 @@ CHATBool ciSocketConnect(ciSocket * sock,
 		// Try resolving with DNS.
 		//////////////////////////
 		host = gethostbyname((char *)serverAddress);
-		if(host == NULL)
+		if(host == nullptr)
 			return CHATFalse;
 
 		// Get the ip.
@@ -309,7 +309,7 @@ static void ciSocketSelect(SOCKET sock, CHATBool * readFlag, CHATBool * writeFla
 
 	// Setup the parameters.
 	////////////////////////
-	if(readFlag != NULL)
+	if(readFlag != nullptr)
 	{
 		FD_ZERO(&readSet);
 		FD_SET(sock, &readSet);
@@ -317,9 +317,9 @@ static void ciSocketSelect(SOCKET sock, CHATBool * readFlag, CHATBool * writeFla
 	}
 	else
 	{
-		readfds = NULL;
+		readfds = nullptr;
 	}
-	if(writeFlag != NULL)
+	if(writeFlag != nullptr)
 	{
 		FD_ZERO(&writeSet);
 		FD_SET(sock, &writeSet);
@@ -327,9 +327,9 @@ static void ciSocketSelect(SOCKET sock, CHATBool * readFlag, CHATBool * writeFla
 	}
 	else
 	{
-		writefds = NULL;
+		writefds = nullptr;
 	}
-	if(exceptFlag != NULL)
+	if(exceptFlag != nullptr)
 	{
 		FD_ZERO(&exceptSet);
 		FD_SET(sock, &exceptSet);
@@ -337,7 +337,7 @@ static void ciSocketSelect(SOCKET sock, CHATBool * readFlag, CHATBool * writeFla
 	}
 	else
 	{
-		exceptfds = NULL;
+		exceptfds = nullptr;
 	}
 
 	timeout.tv_sec = 0;
@@ -351,21 +351,21 @@ static void ciSocketSelect(SOCKET sock, CHATBool * readFlag, CHATBool * writeFla
 
 	// Check results.
 	/////////////////
-	if(readFlag != NULL)
+	if(readFlag != nullptr)
 	{
 		if(rcode > 0 && FD_ISSET(sock, readfds))
 			*readFlag = CHATTrue;
 		else
 			*readFlag = CHATFalse;
 	}
-	if(writeFlag != NULL)
+	if(writeFlag != nullptr)
 	{
 		if(rcode > 0 && FD_ISSET(sock, writefds))
 			*writeFlag = CHATTrue;
 		else
 			*writeFlag = CHATFalse;
 	}
-	if(exceptFlag != NULL)
+	if(exceptFlag != nullptr)
 	{
 		if(rcode > 0 && FD_ISSET(sock, exceptfds))
 			*exceptFlag = CHATTrue;
@@ -390,7 +390,7 @@ static void ciSocketThinkSend(ciSocket * sock)
 		
 		// Can we send?
 		///////////////
-		ciSocketSelect(sock->sock, NULL, &writeFlag, NULL);
+		ciSocketSelect(sock->sock, nullptr, &writeFlag, nullptr);
 		if(!writeFlag)
 			return;
 
@@ -422,7 +422,7 @@ static void ciSocketThinkRecv(ciSocket * sock)
 	{
 		// Check the read flag.
 		///////////////////////
-		ciSocketSelect(sock->sock, &readFlag, NULL, NULL);
+		ciSocketSelect(sock->sock, &readFlag, nullptr, nullptr);
 
 		// Nothing to read?
 		///////////////////
@@ -458,7 +458,7 @@ static void ciSocketThinkRecv(ciSocket * sock)
 		char * buffer;
 		int i;
 		buffer = (char *)gsimalloc(len + 2);
-		assert(buffer != NULL);
+		assert(buffer != nullptr);
 		memcpy(buffer, &sock->inputQueue.buffer[sock->inputQueue.length], len);
 		buffer[len] = '\0';
 		OutputDebugString("--->>>XXXRECV\n");
@@ -507,7 +507,7 @@ CHATBool ciSocketSend(ciSocket * sock,
 
 	ASSERT_SOCK(sock);
 	ASSERT_CONNECTED(sock);
-	assert(buffer != NULL);
+	assert(buffer != nullptr);
 
 	// Disconnected?
 	////////////////
@@ -540,7 +540,7 @@ CHATBool ciSocketSend(ciSocket * sock,
 	// Write it to the log.
 	///////////////////////
 	log = fopen("irc.log", "at");
-	if(log != NULL)
+	if(log != nullptr)
 	{
 		fprintf(log, "%s | OUT | %s\n", ciGetTime(), buffer);
 		fclose(log);
@@ -560,7 +560,7 @@ CHATBool ciSocketSendf(ciSocket * sock,
 
 	ASSERT_SOCK(sock);
 	ASSERT_CONNECTED(sock);
-	assert(buffer != NULL);
+	assert(buffer != nullptr);
 
 	// Disconnected?
 	////////////////
@@ -583,11 +583,11 @@ CHATBool ciSocketSendf(ciSocket * sock,
 
 static CHATBool ciParseUser(const char *pText, ciServerMessage * message)
 {
-	char *pTmpNick = NULL, *pTmpUsername = NULL, *pTmpHost = NULL;
+	char *pTmpNick = nullptr, *pTmpUsername = nullptr, *pTmpHost = nullptr;
 	int    nNick = 0, nUsername = 0, nHost = 0;
 	char *p;
 	
-	if(pText == NULL || pText[0] == '\0')
+	if(pText == nullptr || pText[0] == '\0')
 	{
 		assert(0);
 		return CHATFalse; //ERRCON
@@ -638,7 +638,7 @@ static CHATBool ciParseUser(const char *pText, ciServerMessage * message)
 		}
 	}
 	else
-		message->nick = NULL;
+		message->nick = nullptr;
 	
 	if(nUsername)
 	{
@@ -651,7 +651,7 @@ static CHATBool ciParseUser(const char *pText, ciServerMessage * message)
 		}
 	}
 	else
-		message->user = NULL;
+		message->user = nullptr;
 	
 	if(nHost)
 	{
@@ -664,7 +664,7 @@ static CHATBool ciParseUser(const char *pText, ciServerMessage * message)
 		}
 	}
 	else
-		message->host = NULL;
+		message->host = nullptr;
 
 	return CHATTrue;
 }
@@ -676,14 +676,14 @@ static CHATBool ciAddParam(const char *param, ciServerMessage * message)
 	// Reallocate the parameter array.
 	//////////////////////////////////
 	tempPtr = gsirealloc(message->params, sizeof(char *) * (message->numParams + 1));
-	if(tempPtr == NULL)
+	if(tempPtr == nullptr)
 		return CHATFalse; //ERRCON
 	message->params = (char **)tempPtr;
 
 	// Allocate mem for the param.
 	//////////////////////////////
 	tempPtr = gsimalloc(strlen(param) + 1);
-	if(tempPtr == NULL)
+	if(tempPtr == nullptr)
 		return CHATFalse; //ERRCON
 
 	// Copy the param.
@@ -700,13 +700,13 @@ CHATBool ciParseParam(const char *pText, ciServerMessage * message)
 	char * str;
 	char * p;
 
-	assert(pText != NULL);
-	assert(message != NULL);
+	assert(pText != nullptr);
+	assert(message != nullptr);
 
 	// Copy off the text.
 	/////////////////////
 	p = (char *)gsimalloc(strlen(pText) + 1);
-	if(p == NULL)
+	if(p == nullptr)
 		return CHATFalse; //ERRCON
 	strcpy(p, pText);
 
@@ -720,7 +720,7 @@ CHATBool ciParseParam(const char *pText, ciServerMessage * message)
 	else
 	{
 		colon = strstr(p, " :");
-		if(colon != NULL)
+		if(colon != nullptr)
 		{
 			*colon = '\0';
 			colon += 2;
@@ -728,7 +728,7 @@ CHATBool ciParseParam(const char *pText, ciServerMessage * message)
 	}
 
 	str = strtok(p, " ");
-	while(str != NULL)
+	while(str != nullptr)
 	{
 		// Add the param.
 		/////////////////
@@ -740,10 +740,10 @@ CHATBool ciParseParam(const char *pText, ciServerMessage * message)
 
 		// Get the next one.
 		////////////////////
-		str = strtok(NULL, " ");
+		str = strtok(nullptr, " ");
 	}
 
-	if(colon != NULL)
+	if(colon != nullptr)
 	{
 		// Add the last param.
 		//////////////////////
@@ -764,7 +764,7 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 	int    nMessage = 0, nServer = 0, nCommand = 0, nMiddle = 0, nParam = 0;
 	char *p, *temp;
 	
-	if(sText == NULL || sText[0] == '\0')
+	if(sText == nullptr || sText[0] == '\0')
 	{
 		assert(0);
 		return CHATFalse; //ERRCON
@@ -772,7 +772,7 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 
 	nMessage = strlen(sText);
 	message->message = gsimalloc(nMessage + 1);
-	if(message->message == NULL)
+	if(message->message == nullptr)
 		return CHATFalse; //ERRCON
 	memcpy(message->message, sText, nMessage);
 	message->message[nMessage] = '\0';
@@ -866,10 +866,10 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 	}
 	else
 	{
-		message->server = NULL;
-		message->nick = NULL;
-		message->user = NULL;
-		message->host = NULL;
+		message->server = nullptr;
+		message->nick = nullptr;
+		message->user = nullptr;
+		message->host = nullptr;
 	}
 
 	if(nMiddle)
@@ -898,7 +898,7 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 	}
 	else
 	{
-		message->params = NULL;
+		message->params = nullptr;
 		message->numParams = 0;
 	}
 	
@@ -915,7 +915,7 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 	}
 	else
 	{
-		message->param = NULL;
+		message->param = nullptr;
 	}
 	
 	if(nCommand)
@@ -930,7 +930,7 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 		}
 	}
 	else
-		message->command = NULL;
+		message->command = nullptr;
 	
 	if(nMiddle)
 	{
@@ -944,7 +944,7 @@ static CHATBool ciParseMessage(const char *sText, ciServerMessage * message)
 		}
 	}
 	else
-		message->middle = NULL;
+		message->middle = nullptr;
 
 	return CHATTrue;
 }
@@ -1025,12 +1025,12 @@ ciServerMessage * ciSocketRecv(ciSocket * sock)
 	ASSERT_SOCK(sock);
 
 	if(sock->connectState == ciDisconnected)
-		return NULL;
+		return nullptr;
 
 	// Check for an empty buffer.
 	/////////////////////////////
 	if(sock->inputQueue.length == 0)
-		return NULL;
+		return nullptr;
 
 	// Check for a message.
 	///////////////////////
@@ -1038,14 +1038,14 @@ ciServerMessage * ciSocketRecv(ciSocket * sock)
 	{
 		// No message.
 		//////////////
-		return NULL;
+		return nullptr;
 	}
 
 #ifdef IRC_LOG
 	// Write it to the log.
 	///////////////////////
 	log = fopen("irc.log", "at");
-	if(log != NULL)
+	if(log != nullptr)
 	{
 		fprintf(log, "%s | IN  | %s\n", ciGetTime(), sock->lastMessage.message);
 		fclose(log);

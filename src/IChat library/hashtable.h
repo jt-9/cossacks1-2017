@@ -111,8 +111,8 @@ extern "C" {
  * in the table when the entire table is being freed (using TableFree).  This 
  * function is your chance to do any deallocation/cleanup required,
  * (such as freeing any pointers contained in the element). The client can pass 
- * NULL for the cleanupFn if the elements don't require any handling on free. 
- * An assert is raised if either the hash or compare functions are NULL.
+ * nullptr for the cleanupFn if the elements don't require any handling on free. 
+ * An assert is raised if either the hash or compare functions are nullptr.
  *
  * nChains is the number of chains to allocate initially in each bucket
  *
@@ -173,7 +173,7 @@ int TableRemove(HashTable table, const void *delElem);
  * ----------
  * Returns a pointer to the table element which matches the elemKey parameter
  * (equality is determined by the comparison function).  If there is no
- * matching element, returns NULL. Calling this function does not 
+ * matching element, returns nullptr. Calling this function does not 
  * re-arrange or change contents of the table or modify elemKey in any way.
  */
 void *TableLookup(HashTable table, const void *elemKey);
@@ -186,8 +186,8 @@ void *TableLookup(HashTable table, const void *elemKey);
  * function fn for that element. The function is called with the address of 
  * the table element and the clientData pointer. The clientData value allows
  * the client to pass extra state information to the client-supplied function,
- * if necessary.  If no client data is required, this argument should be NULL.
- * An assert is raised if the map function is NULL.
+ * if necessary.  If no client data is required, this argument should be nullptr.
+ * An assert is raised if the map function is nullptr.
  */
 void TableMap(HashTable table, TableMapFn fn, void *clientData);
 
@@ -201,7 +201,7 @@ void TableMapSafe(HashTable table, TableMapFn fn, void *clientData);
  * -----------
  * Same as TableMap, but allows the mapping to be stopped by returning 0
  * from the mapping function.  If the mapping was stopped, the element
- * it was stopped at will be returned.  If it wasn't stopped, then NULL
+ * it was stopped at will be returned.  If it wasn't stopped, then nullptr
  * will be returned.
  */
 void * TableMap2(HashTable table, TableMapFn2 fn, void *clientData);

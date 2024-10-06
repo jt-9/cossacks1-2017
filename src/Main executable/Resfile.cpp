@@ -54,8 +54,8 @@ bool GetRarName( LPCSTR Name, char* Dest )
 	}
 	else return 0;
 };
-char** FHNames = NULL;
-ResFile* FHANDLES = NULL;
+char** FHNames = nullptr;
+ResFile* FHANDLES = nullptr;
 int NHNames = 0;
 int MaxNames = 0;
 
@@ -136,8 +136,8 @@ __declspec( dllexport ) ResFile RReset( LPCSTR lpFileName )
 __declspec( dllexport ) ResFile RRewrite( LPCSTR lpFileName )
 {
 	FilesInit();
-	//return CreateFile(lpFileName,GENERIC_WRITE,FILE_SHARE_READ|FILE_SHARE_WRITE,NULL,
-	//	                         CREATE_ALWAYS,0,NULL);
+	//return CreateFile(lpFileName,GENERIC_WRITE,FILE_SHARE_READ|FILE_SHARE_WRITE,nullptr,
+	//	                         CREATE_ALWAYS,0,nullptr);
 	LPGSCfile lpf = GSFILES.gWriteOpen( lpFileName );
 	if ( lpf )
 	{
@@ -157,7 +157,7 @@ __declspec( dllexport ) DWORD RFileSize( ResFile hFile )
 		return 0;
 	}
 	LPGSCfile hf = LPGSCfile( hFile );
-	return GSFILES.gFileSize( hf );//GetFileSize(hFile,NULL);
+	return GSFILES.gFileSize( hf );//GetFileSize(hFile,nullptr);
 }
 
 // Setting file position 

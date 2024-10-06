@@ -22,7 +22,7 @@
 #include "Path.h"
 #include "Transport.h"
 //x,y-real coordinates
-NewMonster* PrevCheckNM = NULL;
+NewMonster* PrevCheckNM = nullptr;
 int PrevCheckX, PrevCheckY, PC_ResX, PC_ResY;
 int PreTime;
 extern MotionField UnitsField;

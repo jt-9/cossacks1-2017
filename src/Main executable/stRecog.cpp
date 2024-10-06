@@ -220,8 +220,8 @@ void LoadWeapon()
 				WPL->MyIndex = nmbm;
 				WPL->Default.InitChild();
 				WPL->NCustomEx = 0;
-				WPL->CustomEx = NULL;
-				WPL->ShadowWeapon = NULL;
+				WPL->CustomEx = nullptr;
+				WPL->ShadowWeapon = nullptr;
 				WPL->NewAnm = GetNewAnimationByName(gx3);
 				if (!WPL->NewAnm) {
 					sprintf(gx, "Weapon.nds, %d, Unknown animation:%s", line, gx3);

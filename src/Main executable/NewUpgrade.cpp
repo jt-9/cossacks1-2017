@@ -149,7 +149,7 @@ void GetWeaponKind( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
 			ErrM( gy );
 		};
 		NU->CtgValue = zz1;
-		NU->CtgGroup = NULL;
+		NU->CtgGroup = nullptr;
 	};
 };
 void GetAttIndex( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
@@ -188,7 +188,7 @@ void GetAttIndex( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
 			z = sscanf( gx, "%d", &p1 );
 			if (z != 1)IncPar( Name, Line, Sect );
 			NU->CtgValue = p1;
-			NU->CtgGroup = NULL;
+			NU->CtgGroup = nullptr;
 		};
 	};
 };
@@ -202,7 +202,7 @@ void GetCtgParam01( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
 	else if (!strcmp( gx, "ALL" ))
 	{
 		NU->CtgType = 3;
-		NU->CtgGroup = NULL;
+		NU->CtgGroup = nullptr;
 		NU->CtgValue = 0;
 	}
 	else
@@ -281,7 +281,7 @@ void GetUnits( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
 					ErrM( gy );
 				};
 				NU->UnitValue = zz1;
-				NU->UnitGroup = NULL;
+				NU->UnitGroup = nullptr;
 				NU->UnitType = 1;
 			};
 		}
@@ -294,7 +294,7 @@ void GetUnits( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
 				ErrM( gy );
 			};
 			NU->UnitValue = zz1;
-			NU->UnitGroup = NULL;
+			NU->UnitGroup = nullptr;
 			NU->UnitType = 0;
 		};
 };
@@ -338,7 +338,7 @@ void GetUnitsAndUpgrades( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int 
 			ErrM( gy );
 		};
 		NU->UnitValue = zz1;
-		NU->UnitGroup = NULL;
+		NU->UnitGroup = nullptr;
 	};
 }
 
@@ -458,7 +458,7 @@ void GetCostValue( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
 			ErrM( gy );
 		};
 		NU->Value = ( ( ValType + ( p2 << 3 ) ) << 26 ) + value;
-		NU->ValGroup = NULL;
+		NU->ValGroup = nullptr;
 	};
 };
 void GetUpgradeCost( GFILE* f, NewUpgrade* NU, Nation* NT, char* Name, int Line )
@@ -757,7 +757,7 @@ bool UnderstandUpgrade( GFILE* f, char* UpgName, Nation* NT, char* name, int* lp
 														sprintf( gy, "%s, Line %d :%s: UNITS or UPGRADES or UNITS&UPGRADES expected after ENABLED", name, line + 1, Sect );
 														ErrM( gy );
 													};
-													NewUpg->ValGroup = NULL;
+													NewUpg->ValGroup = nullptr;
 													line += 2;
 												}
 												else
@@ -815,7 +815,7 @@ bool UnderstandUpgrade( GFILE* f, char* UpgName, Nation* NT, char* name, int* lp
 																			{
 																				NewUpg->CtgUpgrade = 18;
 																				GetUnits( f, NewUpg, NT, name, line + 1 );
-																				NewUpg->ValGroup = NULL;
+																				NewUpg->ValGroup = nullptr;
 																				line += 2;
 																			}
 																			else

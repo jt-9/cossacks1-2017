@@ -740,13 +740,13 @@ void InternetStatsChunks::Init()
 {
 	N = 0;
 	CurIndex = 0;
-	Chunks = NULL;
+	Chunks = nullptr;
 };
 void InternetStatsChunks::Clear()
 {
 	for (int i = 0; i < N; i++)free( Chunks[i] );
 	if (Chunks)free( Chunks );
-	Chunks = NULL;
+	Chunks = nullptr;
 	N = 0;
 };
 
@@ -1381,8 +1381,8 @@ bool CheckGameTime()
 void SetNormAttr()
 {
 	HANDLE H = CreateFile( "cew.dll",
-		GENERIC_WRITE, FILE_SHARE_READ, NULL,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+		GENERIC_WRITE, FILE_SHARE_READ, nullptr,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr );
 	if (H == INVALID_HANDLE_VALUE)
 	{
 		return;

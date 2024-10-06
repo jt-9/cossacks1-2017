@@ -259,7 +259,7 @@ void LeaveMineLink( OneObject* OBJ )
 		OBJ->DeleteLastOrder();
 		return;
 	};
-	OneObject* OB = NULL;
+	OneObject* OB = nullptr;
 	word p;
 	word Type = OBJ->LocalOrder->info.BuildObj.ObjIndex;
 	for (int i = 0; i < OBJ->NInside && !OB; i++)
@@ -271,13 +271,13 @@ void LeaveMineLink( OneObject* OBJ )
 			if (i + 1 < OBJ->NInside)memcpy( OBJ->Inside + i, OBJ->Inside + i + 1, ( OBJ->NInside - i - 1 ) << 1 );
 			OBJ->NInside--;
 		}
-		else OB = NULL;
+		else OB = nullptr;
 	};
 	if (!OB)return;
 	if (!OBJ->NInside)
 	{
 		free( OBJ->Inside );
-		OBJ->Inside = NULL;
+		OBJ->Inside = nullptr;
 	};
 	OB->ShowMe();
 	NewMonster* MiNM = OBJ->newMons;
@@ -377,15 +377,15 @@ bool CheckCloseGate( OneObject* OB );
 
 WallCharacter* GetWChar( OneObject* OB )
 {
-	if (!OB->Wall)return NULL;
+	if (!OB->Wall)return nullptr;
 	int LI = GetLI( OB->WallX, OB->WallY );
-	if (LI < 0 || LI >= MaxLI)return NULL;
+	if (LI < 0 || LI >= MaxLI)return nullptr;
 	WallCell* WC = WRefs[LI];
 	if (WC)
 	{
 		return WChar + WC->Type;
 	}
-	else return NULL;
+	else return nullptr;
 };
 int GetWCharID( OneObject* OB )
 {

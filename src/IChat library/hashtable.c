@@ -135,7 +135,7 @@ void *TableLookup(HashTable table, const void *elemKey)
 	itempos = ArraySearch(table->buckets[hash], elemKey, table->compfn, 0,
 						  0);
 	if (itempos == NOT_FOUND)
-		return NULL;
+		return nullptr;
 	else
 		return ArrayNth(table->buckets[hash], itempos);
 }
@@ -177,7 +177,7 @@ void * TableMap2(HashTable table, TableMapFn2 fn, void *clientData)
 			return pcurr;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void TableClear(HashTable table)

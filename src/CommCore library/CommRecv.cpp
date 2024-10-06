@@ -161,7 +161,7 @@ u_short CCommCore::ReceiveData(LPBYTE lpbBuffer, LPPEER_ID lpPeerId)
 			m_PeerList[m_uPeerCount].m_ex_Port=SenderAddr.sin_port;
 			m_PeerList[m_uPeerCount].m_Id=++m_piAutoInc;
 			m_PeerList[m_uPeerCount].m_uLatency=0;
-			m_PeerList[m_uPeerCount].m_lpbUserData=NULL;
+			m_PeerList[m_uPeerCount].m_lpbUserData=nullptr;
 			m_PeerList[m_uPeerCount].m_uUserDataSize=0;
 			strcpy(m_PeerList[m_uPeerCount].m_szUserName,lpTryConnect->m_szUserName);
 			memcpy(m_PeerList[m_uPeerCount].m_szCCUID,lpTryConnect->m_szCCUID,22);

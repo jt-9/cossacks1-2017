@@ -591,16 +591,16 @@ void OldPreShowSprites()
 					for (int p = 0; p < OC->Parts; p++)
 					{
 						NewFrame* OF = &NA->Frames[spr + p];
-						AddPoint( rx, ry, XX, YY, NULL, OF->FileID, OF->SpriteID, 0, 0 );
+						AddPoint( rx, ry, XX, YY, nullptr, OF->FileID, OF->SpriteID, 0, 0 );
 						z0 += OC->DZ;
 					};
 				}
 				else
 				{
 					if (SG != &TREES)
-						AddSuperLoPoint( rx - SG->Dx[OS->SGIndex], ry1 - SG->Dy[OS->SGIndex], NULL, SG->FileID, SG->Items[OS->SGIndex], 0, 0 );
+						AddSuperLoPoint( rx - SG->Dx[OS->SGIndex], ry1 - SG->Dy[OS->SGIndex], nullptr, SG->FileID, SG->Items[OS->SGIndex], 0, 0 );
 					else
-						AddPoint( rx, ry, rx - SG->Dx[OS->SGIndex], ry1 - SG->Dy[OS->SGIndex], NULL, SG->FileID, SG->Items[OS->SGIndex], 0, 0 );
+						AddPoint( rx, ry, rx - SG->Dx[OS->SGIndex], ry1 - SG->Dy[OS->SGIndex], nullptr, SG->FileID, SG->Items[OS->SGIndex], 0, 0 );
 				};
 			};
 		};
@@ -2165,15 +2165,15 @@ TimeReq::TimeReq()
 {
 	NMembers = 0;
 	MaxMembers = 0;
-	IDS = NULL;
-	Kinds = NULL;
+	IDS = nullptr;
+	Kinds = nullptr;
 };
 TimeReq::~TimeReq()
 {
 	if (IDS)free( IDS );
 	if (Kinds)free( Kinds );
-	IDS = NULL;
-	Kinds = NULL;
+	IDS = nullptr;
+	Kinds = nullptr;
 	NMembers = 0;
 	Kinds = 0;
 	MaxMembers = 0;

@@ -40,7 +40,7 @@ time_t time(time_t *timer)
 	GetLocalTime(&systime);
 	SystemTimeToFileTime(&systime, &ftime);
 	holder = (ftime.dwHighDateTime << 32) + ftime.dwLowDateTime;
-	if (timer == NULL)
+	if (timer == nullptr)
 		timer = &ret;
 	*timer = (time_t)((holder - 116444736000000000) / 10000000);
 	return *timer; 
@@ -80,7 +80,7 @@ time_t time(time_t *timer)
 	Uint32 count;
 	syRtcGetDate(&date);
 	syRtcDateToCount(&date, &count);
-	if (timer == NULL)
+	if (timer == nullptr)
 		timer = & ret;
 	*timer = (time_t)(count - 631152000);	
 }
@@ -90,7 +90,7 @@ void *fixed_realloc(void *ptr, int newsize)
 	if (ptr && newsize == 0)
 	{
 		gsifree(ptr);
-		return NULL;
+		return nullptr;
 	}
 	else if (ptr)
 		return realloc(ptr, newsize);
@@ -180,7 +180,7 @@ unsigned long current_time()  //returns current time in msec
 #ifdef UNDER_UNIX
 	struct timeval time;
 	
-	gettimeofday(&time, NULL);
+	gettimeofday(&time, nullptr);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 #endif
 }
@@ -206,7 +206,7 @@ void msleep(unsigned long msec)
 #endif
 #ifdef _MACOS
 //	EventRecord rec;
-	WaitNextEvent(everyEvent,/*&rec*/NULL, (msec*1000)/60, NULL);
+	WaitNextEvent(everyEvent,/*&rec*/nullptr, (msec*1000)/60, nullptr);
 #endif
 #ifdef __mips64
 	sn_delay(msec);
@@ -239,10 +239,10 @@ void SocketShutDown()
 char * goastrdup(const char *src)
 {
 	char *res;
-	if(src == NULL)      //PANTS|02.11.00|check for NULL before strlen
-		return NULL;
+	if(src == nullptr)      //PANTS|02.11.00|check for nullptr before strlen
+		return nullptr;
 	res = (char *)gsimalloc(strlen(src) + 1);
-	if(res != NULL)      //PANTS|02.02.00|check for NULL before strcpy
+	if(res != nullptr)      //PANTS|02.02.00|check for nullptr before strcpy
 		strcpy(res, src);
 	return res;
 }
@@ -418,18 +418,18 @@ void *grealloc(void *ptr, int newlen)
 {
 	return realloc(ptr,newlen);
 	/*void *outptr;
-	if (ptr == NULL &&  newlen == 0)
-		return NULL;
-	if (ptr == NULL)
+	if (ptr == nullptr &&  newlen == 0)
+		return nullptr;
+	if (ptr == nullptr)
 		return malloc(newlen);
 	if (newlen == 0)
 	{
 		free(ptr);
-		return NULL;		
+		return nullptr;		
 	}	
 	outptr = malloc(newlen);
 	if (!outptr)
-		return NULL;
+		return nullptr;
 	//note: this is NOT optimal, since we may copy more than we need to
 	memcpy(outptr, ptr, newlen);
 	return outptr;	*/
@@ -440,30 +440,30 @@ void *grealloc(void *ptr, int newlen)
 #define MAX_HOST_ADDRS 16
 struct hostent *pwgethostbyname(const char *name)
 {
-	static char *aliases = NULL;
+	static char *aliases = nullptr;
 	static struct in_addr *paddrs[MAX_HOST_ADDRS];
 	static struct hostent hent;
 	int i;
 	int err;
-	static struct addrinfo *ai = NULL;
-	struct addrinfo *curai = NULL;
+	static struct addrinfo *ai = nullptr;
+	struct addrinfo *curai = nullptr;
 	
-	if (ai != NULL)
+	if (ai != nullptr)
 		freeaddrinfo(ai);
-	ai = NULL;
-	err = getaddrinfo(name, NULL, NULL, &ai);
-	if (err != 0 || ai == NULL)
+	ai = nullptr;
+	err = getaddrinfo(name, nullptr, nullptr, &ai);
+	if (err != 0 || ai == nullptr)
 	{
-		return NULL;
+		return nullptr;
 	}
 	hent.h_name = ai->ai_canonname;
 	hent.h_aliases = &aliases;
 	hent.h_addrtype = 2;
 	hent.h_length = 4;
 	
-	for (i = 0, curai = ai ; i < MAX_HOST_ADDRS - 1, curai != NULL ; i++, curai = curai->ai_next)
+	for (i = 0, curai = ai ; i < MAX_HOST_ADDRS - 1, curai != nullptr ; i++, curai = curai->ai_next)
 		paddrs[i] = &((struct sockaddr_in *)curai->ai_addr)->sin_addr;
-	paddrs[i] = NULL;
+	paddrs[i] = nullptr;
 	hent.h_addr_list = (char **)paddrs;
 	 
 	return &hent;
@@ -589,7 +589,7 @@ static void GenerateID(char *keyval)
 		seed = 0;
 	Util_RandSeed(seed ^ GetTickCount() ^ (unsigned long) time(0) ^ clock());
 #else
-	Util_RandSeed(time(NULL) ^ clock());
+	Util_RandSeed(time(nullptr) ^ clock());
 #endif
 	for (i = 0; i < 19; i++)
 		if (i == 4 || i == 9 || i == 14)
@@ -643,7 +643,7 @@ const char * GOAGetUniqueID(void)
 #ifdef _WIN32
 		if (docreate)
 		{
-			ret = RegCreateKeyEx(HKEY_CURRENT_USER, REG_KEY, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &thekey, &disp);
+			ret = RegCreateKeyEx(HKEY_CURRENT_USER, REG_KEY, 0, nullptr, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &thekey, &disp);
 		}
 		RegSetValueEx(thekey, "Crypt", 0, REG_SZ, keyval, strlen(keyval)+1);
 #else

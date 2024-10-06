@@ -26,7 +26,7 @@ LPCSTR CCommCore::GetUserName( PEER_ID PeerId )
 	u_short uPeerNum = GetPeerById( PeerId );
 
 	if (uPeerNum == BAD_PEER_ID)
-		return NULL;
+		return nullptr;
 
 	return m_PeerList[uPeerNum].m_szUserName;
 }
@@ -362,7 +362,7 @@ VOID CCommCore::SetCommCoreUID( LPCSTR lpcszCCUID )
 
 	RegCreateKeyEx( HKEY_CURRENT_USER,
 		"Software\\GSC Game World",
-		0, NULL, 0, KEY_ALL_ACCESS, NULL, &hKey, NULL );
+		0, nullptr, 0, KEY_ALL_ACCESS, nullptr, &hKey, nullptr );
 
 	RegSetValueEx( hKey, "CCUID", 0, REG_SZ, (unsigned char*) lpcszCCUID, strlen( lpcszCCUID ) + 1 );
 
@@ -424,7 +424,7 @@ VOID CCommCore::GetCommCoreUID( LPSTR lpszCCUID )
 	if (RegQueryValueEx( hKey,
 		"CCUID",
 		0,
-		NULL,
+		nullptr,
 		(unsigned char*) szCCUID,
 		&dwSize ) != ERROR_SUCCESS)
 	{
@@ -470,7 +470,7 @@ BOOL CCommCore::SendNewData( PEER_ID PeerId )			// Отсылает информ
 {
 	_log_message( "SendNewData()" );
 
-	LPCC_PK_SEND_NEW_DATA		pSendNewDataPacket = NULL;
+	LPCC_PK_SEND_NEW_DATA		pSendNewDataPacket = nullptr;
 	u_short						uPacketSize = 0;
 	u_short						uPeerNum;
 

@@ -64,16 +64,16 @@ public:
 };
 NetSample::NetSample() {
 	NZ = 0;
-	Danger = NULL;
-	Pretty = NULL;
+	Danger = nullptr;
+	Pretty = nullptr;
 	LastUpdate = 0;
 };
 NetSample::~NetSample() {
 	if (Danger)free(Danger);
 	if (Pretty)free(Pretty);
 	NZ = 0;
-	Danger = NULL;
-	Pretty = NULL;
+	Danger = nullptr;
+	Pretty = nullptr;
 };
 SafeNet::SafeNet() {
 };

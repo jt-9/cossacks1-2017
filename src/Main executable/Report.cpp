@@ -94,7 +94,7 @@ void PrintAttackUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFILE* f 
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 12 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == NULL)
+		if (NU->CtgUpgrade == 12 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == nullptr)
 		{//Upgrade on attack
 			Present = true;
 		};
@@ -107,7 +107,7 @@ void PrintAttackUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFILE* f 
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 12 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == NULL)
+		if (NU->CtgUpgrade == 12 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == nullptr)
 		{//Upgrade on attack
 			Gprintf( f, "%s +%d, Цена:", WPK[NU->CtgValue], NU->Value );
 			int Nr = 0;
@@ -119,7 +119,7 @@ void PrintAttackUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFILE* f 
 				if (Nn < Nr)Gprintf( f, " %s:%d, ", RDS[j].Name, NU->Cost[j] );
 				else Gprintf( f, " %s:%d\n", RDS[j].Name, NU->Cost[j] );
 			};
-			PerformNewUpgrade( NT, i, NULL );
+			PerformNewUpgrade( NT, i, nullptr );
 			sprintAttackInComparison( START, NT->Mon[NIndex]->MoreCharacter, ccc );
 			if (ccc[0])
 			{
@@ -136,7 +136,7 @@ void PrintShieldUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFILE* f 
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 2 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex)
+		if (NU->CtgUpgrade == 2 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex)
 		{//Upgrade on protection
 			Present = true;
 		};
@@ -149,7 +149,7 @@ void PrintShieldUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFILE* f 
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 2 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex)
+		if (NU->CtgUpgrade == 2 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex)
 		{//Upgrade on attack
 			Gprintf( f, "Защита +%d, Цена:", NU->Value );
 			int Nr = 0;
@@ -161,7 +161,7 @@ void PrintShieldUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFILE* f 
 				if (Nn < Nr)Gprintf( f, " %s:%d, ", RDS[j].Name, NU->Cost[j] );
 				else Gprintf( f, " %s:%d\n", RDS[j].Name, NU->Cost[j] );
 			};
-			PerformNewUpgrade( NT, i, NULL );
+			PerformNewUpgrade( NT, i, nullptr );
 			sprintShieldInComp( START, NT->Mon[NIndex]->MoreCharacter, ccc );
 			if (ccc[0])
 			{
@@ -279,7 +279,7 @@ void PrintBriefAttackUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFIL
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 12 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == NULL)
+		if (NU->CtgUpgrade == 12 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == nullptr)
 		{//Upgrade on attack
 			Present = true;
 		};
@@ -288,7 +288,7 @@ void PrintBriefAttackUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFIL
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 12 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == NULL)
+		if (NU->CtgUpgrade == 12 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex&&NU->CtgGroup == nullptr)
 		{//Upgrade on attack
 			Gprintf( f, " +%d;", NU->Value );
 			int Nr = 0;
@@ -300,7 +300,7 @@ void PrintBriefAttackUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFIL
 				if (Nn < Nr)Gprintf( f, "%s:%d,", RSN[j], NU->Cost[j] );
 				else Gprintf( f, "%s:%d", RSN[j], NU->Cost[j] );
 			};
-			PerformNewUpgrade( NT, i, NULL );
+			PerformNewUpgrade( NT, i, nullptr );
 			sprintBriefAttackInComparison( START, NT->Mon[NIndex]->MoreCharacter, ccc );
 			if (ccc[0])
 			{
@@ -319,7 +319,7 @@ void PrintBriefShieldUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFIL
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 2 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex)
+		if (NU->CtgUpgrade == 2 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex)
 		{//Upgrade on protection
 			Present = true;
 		};
@@ -328,7 +328,7 @@ void PrintBriefShieldUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFIL
 	for (int i = 0; i < NT->NUpgrades; i++)
 	{
 		NewUpgrade* NU = NT->UPGRADE[i];
-		if (NU->CtgUpgrade == 2 && NU->UnitGroup == NULL&&NU->UnitType == 0 && NU->UnitValue == NIndex)
+		if (NU->CtgUpgrade == 2 && NU->UnitGroup == nullptr&&NU->UnitType == 0 && NU->UnitValue == NIndex)
 		{//Upgrade on attack
 			Gprintf( f, " +%d;", NU->Value );
 			int Nr = 0;
@@ -340,7 +340,7 @@ void PrintBriefShieldUpgrades( Nation* NT, int NIndex, AdvCharacter* START, GFIL
 				if (Nn < Nr)Gprintf( f, "%s:%d,", RSN[j], NU->Cost[j] );
 				else Gprintf( f, "%s:%d", RSN[j], NU->Cost[j] );
 			};
-			PerformNewUpgrade( NT, i, NULL );
+			PerformNewUpgrade( NT, i, nullptr );
 			sprintBriefShieldInComp( START, NT->Mon[NIndex]->MoreCharacter, ccc );
 			if (ccc[0])
 			{

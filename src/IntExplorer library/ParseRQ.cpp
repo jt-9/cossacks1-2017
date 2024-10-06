@@ -18,8 +18,8 @@ void ParsedRQ::AddComm( char* Name )
 	Comm = (OneComm*) realloc( Comm, ( NComm + 1 ) * sizeof OneComm );
 	strcpy( Comm[NComm].ComID, NAME );
 	Comm[NComm].NParams = 0;
-	Comm[NComm].Params = NULL;
-	Comm[NComm].ParamSize = NULL;
+	Comm[NComm].Params = nullptr;
+	Comm[NComm].ParamSize = nullptr;
 	NComm++;
 };
 void ParsedRQ::AddParam( char* Data, int size )

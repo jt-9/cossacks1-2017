@@ -1268,8 +1268,8 @@ bool OneObject::CreatePrePath2(int x1, int y1) {
 	int LvpDist = 100000;
 	//if(PathX)free(PathX);
 	//if(PathY)free(PathY);
-	//PathX=NULL;
-	//PathY=NULL;
+	//PathX=nullptr;
+	//PathY=nullptr;
 	//NIPoints=0;
 	CurIPoint = 0;
 	NeedPath = false;
@@ -1758,8 +1758,8 @@ bool OneObject::CreatePrePath4(int x1, int y1) {
 	int LvpDist = 100000;
 	//if(PathX)free(PathX);
 	//if(PathY)free(PathY);
-	//PathX=NULL;
-	//PathY=NULL;
+	//PathX=nullptr;
+	//PathY=nullptr;
 	//NIPoints=0;
 	CurIPoint = 0;
 	NeedPath = false;
@@ -2243,8 +2243,8 @@ bool OneObject::CreatePrePathBordered(int x1,int y1,int Border){
 	int LvpDist=100000;
 	//if(PathX)free(PathX);
 	//if(PathY)free(PathY);
-	//PathX=NULL;
-	//PathY=NULL;
+	//PathX=nullptr;
+	//PathY=nullptr;
 	//NIPoints=0;
 	CurIPoint=0;
 	NeedPath=false;
@@ -2726,8 +2726,8 @@ void OneObject::CreatePath(int x1, int y1) {
 						NIPoints = 0;
 						free(PathX);
 						free(PathY);
-						PathX = NULL;
-						PathY = NULL;
+						PathX = nullptr;
+						PathY = nullptr;
 
 						CreateFullPath(x1, y1, this);
 					}
@@ -2739,8 +2739,8 @@ void OneObject::CreatePath(int x1, int y1) {
 				else {
 					free(PathX);
 					free(PathY);
-					PathX = NULL;
-					PathY = NULL;
+					PathX = nullptr;
+					PathY = nullptr;
 
 					CreateFullPath(x1, y1, this);
 					if (NIPoints == 1) {
@@ -2749,8 +2749,8 @@ void OneObject::CreatePath(int x1, int y1) {
 						if (Norma(cx1 - x, cy1 - y) < 3) {
 							free(PathX);
 							free(PathY);
-							PathX = NULL;
-							PathY = NULL;
+							PathX = nullptr;
+							PathY = nullptr;
 							NIPoints = 0;
 						};
 					};
@@ -2771,8 +2771,8 @@ void OneObject::CreatePath(int x1, int y1) {
 			free(PathX);
 			free(PathY);
 			NIPoints = 0;
-			PathX = NULL;
-			PathY = NULL;
+			PathX = nullptr;
+			PathY = nullptr;
 		};
 
 		CreateFullPath(x1, y1, this);

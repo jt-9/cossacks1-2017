@@ -55,7 +55,7 @@ static void *mybsearch(const void *elem, void *base, int num, int elemsize,
  */
 static void FreeElement(DArray array, int n)
 {
-	if (array->elemfreefn != NULL)
+	if (array->elemfreefn != nullptr)
 		array->elemfreefn(ArrayNth(array,n));
 }
 
@@ -205,7 +205,7 @@ int ArraySearch(DArray array, const void *key, ArrayCompareFn comparator,
 	else
 		res=mylsearch(key, ArrayNth(array, fromIndex), 
 					  array->count - fromIndex, array->elemsize, comparator);
-	if (res != NULL && found)
+	if (res != nullptr && found)
 		return (((char *)res - (char *)array->list) / array->elemsize);
 	else
 		return NOT_FOUND;
@@ -248,7 +248,7 @@ void * ArrayMap2(DArray array, ArrayMapFn2 fn, void *clientData)
 			return pcurr;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void ArrayClear(DArray array)
@@ -274,7 +274,7 @@ static void *mylsearch(const void *key, void *base, int count, int size,
 		if (comparator(key, (char *)base + size*i) == 0)
 			return (char *)base + size*i;
 	}
-	return NULL;
+	return nullptr;
 }
 
 /* mybsearch

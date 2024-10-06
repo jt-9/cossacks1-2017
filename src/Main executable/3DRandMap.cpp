@@ -121,9 +121,9 @@ void GenMap::Free()
 	free( GTopRef );
 	free( VertHi );
 	free( VertType );
-	VertHi = NULL;
-	VertType = NULL;
-	GTopRef = NULL;
+	VertHi = nullptr;
+	VertType = nullptr;
+	GTopRef = nullptr;
 }
 
 void GenMap::SetStateAround( int N, byte State )
@@ -147,7 +147,7 @@ bool GenMap::AddGArea( int x, int y )
 	GenArea* GAR = GTopMap + NGAreas;
 	GAR->x = x;
 	GAR->y = y;
-	GAR->Link = NULL;
+	GAR->Link = nullptr;
 	GAR->MaxLink = 0;
 	GAR->NLinks = 0;
 	GAR->State = 0;
@@ -217,7 +217,7 @@ void GenMap::CreateNet()
 	{
 		memset( GTopRef + 1 + y*TopLx, 0xEE, LL );
 	};
-	GTopMap = NULL;
+	GTopMap = nullptr;
 	MaxGArea = 0;
 	NGAreas = 0;
 	int N3 = 0;
@@ -450,7 +450,7 @@ GenMap::GenMap()
 {
 	NGAreas = 0;
 	MaxGArea = 0;
-	GTopMap = NULL;
+	GTopMap = nullptr;
 	//memset(VertHi,0,sizeof VertHi);
 	//memset(VertType,0,sizeof VertType);
 	//CreateNet();
@@ -660,7 +660,7 @@ void GenMap::Clear()
 	if ( GTopMap )
 	{
 		free( GTopMap );
-		GTopMap = NULL;
+		GTopMap = nullptr;
 	};
 	MaxGArea = 0;
 	NGAreas = 0;
@@ -1776,7 +1776,7 @@ public:
 };
 UndoSegment::UndoSegment()
 {
-	Data = NULL;
+	Data = nullptr;
 	MaxData = 0;
 	Size = 0;
 	pos = 0;
@@ -1784,7 +1784,7 @@ UndoSegment::UndoSegment()
 void UndoSegment::Close()
 {
 	if ( Data )free( Data );
-	Data = NULL;
+	Data = nullptr;
 	MaxData = 0;
 	Size = 0;
 	pos = 0;
@@ -2861,8 +2861,8 @@ void ProcessTexPiece( int x, int y, bool press )
 void ClearAllRounds();
 void SetRandomPiece( char* Name )
 {
-	short* vx = NULL;
-	short* vy = NULL;
+	short* vx = nullptr;
+	short* vy = nullptr;
 	int Nv = 0;
 	int t = GetTickCount();
 	RM_LoadVerticesOnly( Name, &vx, &vy, &Nv );
@@ -2909,8 +2909,8 @@ void SetRandomPiece( char* Name )
 };
 void SetPieceInPoints( char* Name, int* xi, int* yi, int N, byte* Used, int NATT )
 {
-	short* vx = NULL;
-	short* vy = NULL;
+	short* vx = nullptr;
+	short* vy = nullptr;
 	int Nv = 0;
 	int t = GetTickCount();
 	RM_LoadVerticesOnly( Name, &vx, &vy, &Nv );
@@ -3036,7 +3036,7 @@ void GenerateInPoints( char* Piece, int* ObjX, int* ObjY, int NObj, int NATT )
 {
 	int NNamesXX = 0;
 	int MaxNames = 0;
-	char** Names = NULL;
+	char** Names = nullptr;
 	GFILE* F1 = Gopen( Piece, "r" );
 	if ( F1 )
 	{
@@ -4005,8 +4005,8 @@ bool GetRandomPoint( short* x, short* y, byte TypeStart, byte TypeEnd )
 };
 bool ConditionalSetRandomPiece( char* Name, byte StartType, byte EndType, int NAttempts )
 {
-	short* vx = NULL;
-	short* vy = NULL;
+	short* vx = nullptr;
+	short* vy = nullptr;
 	int Nv = 0;
 	int Nat = StartType >> 4;
 	short xst = NatX[Nat];
@@ -4086,7 +4086,7 @@ public:
 };
 PieceList::PieceList()
 {
-	Names = NULL;
+	Names = nullptr;
 	NNames = 0;
 	MaxNames = 0;
 };
@@ -4098,7 +4098,7 @@ void PieceList::Clear()
 {
 	for ( int i = 0; i < NNames; i++ )free( Names[i] );
 	if ( Names )free( Names );
-	Names = NULL;
+	Names = nullptr;
 	NNames = 0;
 	MaxNames = 0;
 };
@@ -4130,7 +4130,7 @@ void PieceList::Load( char* Name )
 };
 PieceList::PieceList( char* Name )
 {
-	Names = NULL;
+	Names = nullptr;
 	NNames = 0;
 	MaxNames = 0;
 	Load( Name );
@@ -4596,13 +4596,13 @@ void PictureCordons()
 RandomMapDesc::RandomMapDesc()
 {
 	NMINES = 0;
-	MINES = NULL;
+	MINES = nullptr;
 	NRES = 0;
-	RES = NULL;
+	RES = nullptr;
 	NRelief = 0;
-	Relief = NULL;
+	Relief = nullptr;
 	NSTY = 0;
-	STY = NULL;
+	STY = nullptr;
 }
 
 void RandomMapDesc::Close()
@@ -4610,10 +4610,10 @@ void RandomMapDesc::Close()
 	if ( NMINES )
 		free( MINES );
 
-	MINES = NULL;
+	MINES = nullptr;
 	NMINES = 0;
 	if ( NRES )free( RES );
-	RES = NULL;
+	RES = nullptr;
 	NRES = 0;
 	if ( NRelief )
 	{
@@ -4623,7 +4623,7 @@ void RandomMapDesc::Close()
 		};
 		free( Relief );
 	};
-	Relief = NULL;
+	Relief = nullptr;
 	NRelief = 0;
 	if ( NSTY )
 	{
@@ -4638,7 +4638,7 @@ void RandomMapDesc::Close()
 		};
 		free( STY );
 	};
-	STY = NULL;
+	STY = nullptr;
 	NSTY = 0;
 }
 
@@ -4887,7 +4887,7 @@ void SoftZones( char* Name, byte* VHI )
 {
 	byte* Data;
 	ReadHiMap( Name, &Data, 0 );
-	int* Vertices = NULL;
+	int* Vertices = nullptr;
 	int NVert = 0;
 	int MaxVert = 0;
 
@@ -5312,7 +5312,7 @@ public:
 SamplesSet::SamplesSet()
 {
 	NSmp = 0;
-	SSET = NULL;
+	SSET = nullptr;
 	Passive = 0;
 	CurrentSet[0] = 0;
 };
@@ -5325,7 +5325,7 @@ void SamplesSet::ClearAll()
 		if ( SSET[i].ROOT )free( SSET[i].ROOT );
 	};
 	NSmp = 0;
-	SSET = NULL;
+	SSET = nullptr;
 };
 void SamplesSet::AddSquare( int x, int y )
 {
@@ -5386,31 +5386,31 @@ void SamplesSet::EditRootParam( int x, int y )
 	int y0 = 150;
 	int DD = 40;
 
-	TextButton* U = DSS.addTextButton( NULL, x0, y0 - DD, "U", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* D = DSS.addTextButton( NULL, x0, y0 + DD, "D", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* L = DSS.addTextButton( NULL, x0 - DD, y0, "L", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* R = DSS.addTextButton( NULL, x0 + DD, y0, "R", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* LU = DSS.addTextButton( NULL, x0 - DD, y0 - DD, "LU", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* RU = DSS.addTextButton( NULL, x0 + DD, y0 - DD, "RU", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* LD = DSS.addTextButton( NULL, x0 - DD, y0 + DD, "LD", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* RD = DSS.addTextButton( NULL, x0 + DD, y0 + DD, "RD", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* U = DSS.addTextButton( nullptr, x0, y0 - DD, "U", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* D = DSS.addTextButton( nullptr, x0, y0 + DD, "D", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* L = DSS.addTextButton( nullptr, x0 - DD, y0, "L", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* R = DSS.addTextButton( nullptr, x0 + DD, y0, "R", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* LU = DSS.addTextButton( nullptr, x0 - DD, y0 - DD, "LU", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* RU = DSS.addTextButton( nullptr, x0 + DD, y0 - DD, "RU", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* LD = DSS.addTextButton( nullptr, x0 - DD, y0 + DD, "LD", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* RD = DSS.addTextButton( nullptr, x0 + DD, y0 + DD, "RD", &WhiteFont, &YellowFont, &YellowFont, 1 );
 	TextButton* DIRSET[8] = { U,RU,R,RD,D,LD,L,LU };
 
 	x0 = 300;
-	TextButton* mU = DSS.addTextButton( NULL, x0, y0 - DD, "U", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mD = DSS.addTextButton( NULL, x0, y0 + DD, "D", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mL = DSS.addTextButton( NULL, x0 - DD, y0, "L", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mR = DSS.addTextButton( NULL, x0 + DD, y0, "R", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mLU = DSS.addTextButton( NULL, x0 - DD, y0 - DD, "LU", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mRU = DSS.addTextButton( NULL, x0 + DD, y0 - DD, "RU", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mLD = DSS.addTextButton( NULL, x0 - DD, y0 + DD, "LD", &WhiteFont, &YellowFont, &YellowFont, 1 );
-	TextButton* mRD = DSS.addTextButton( NULL, x0 + DD, y0 + DD, "RD", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mU = DSS.addTextButton( nullptr, x0, y0 - DD, "U", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mD = DSS.addTextButton( nullptr, x0, y0 + DD, "D", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mL = DSS.addTextButton( nullptr, x0 - DD, y0, "L", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mR = DSS.addTextButton( nullptr, x0 + DD, y0, "R", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mLU = DSS.addTextButton( nullptr, x0 - DD, y0 - DD, "LU", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mRU = DSS.addTextButton( nullptr, x0 + DD, y0 - DD, "RU", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mLD = DSS.addTextButton( nullptr, x0 - DD, y0 + DD, "LD", &WhiteFont, &YellowFont, &YellowFont, 1 );
+	TextButton* mRD = DSS.addTextButton( nullptr, x0 + DD, y0 + DD, "RD", &WhiteFont, &YellowFont, &YellowFont, 1 );
 	TextButton* mSET[8] = { mU,mRU,mR,mRD,mD,mLD,mL,mLU };
 
-	TextButton* HDR = DSS.addTextButton( NULL, WNDLX / 2, 20, CurrentSet, &YellowFont, &YellowFont, &YellowFont, 1 );
-	TextButton* Type = DSS.addTextButton( NULL, WNDLX / 2, WNDLY - 35, "Type:", &YellowFont, &YellowFont, &YellowFont, 2 );
+	TextButton* HDR = DSS.addTextButton( nullptr, WNDLX / 2, 20, CurrentSet, &YellowFont, &YellowFont, &YellowFont, 1 );
+	TextButton* Type = DSS.addTextButton( nullptr, WNDLX / 2, WNDLY - 35, "Type:", &YellowFont, &YellowFont, &YellowFont, 2 );
 	char CRT[32] = "0";
-	InputBox* IBT = DSS.addInputBox( NULL, WNDLX / 2, WNDLY - 35, CRT, 8, 80, 20, &YellowFont, &WhiteFont );
+	InputBox* IBT = DSS.addInputBox( nullptr, WNDLX / 2, WNDLY - 35, CRT, 8, 80, 20, &YellowFont, &WhiteFont );
 	ItemChoose = -1;
 	DWORD MASK = 0;
 	byte CurDir = 0;
@@ -5533,10 +5533,10 @@ void SamplesSet::NewSet( char* name )
 	strcpy( SS->Name, name );
 	strcpy( CurrentSet, name );
 	SS->NRoots = 0;
-	SS->ROOT = NULL;
+	SS->ROOT = nullptr;
 	SS->Npt = 0;
-	SS->xi = NULL;
-	SS->yi = NULL;
+	SS->xi = nullptr;
+	SS->yi = nullptr;
 	NSmp++;
 }
 
@@ -5878,9 +5878,9 @@ void LinkSys::Init( int x, int y )
 	memset( Map, 0, Nx*Nx * 2 );
 	Map2 = new word[Nx*Nx];
 	memset( Map2, 0, Nx*Nx * 2 );
-	STM = NULL;
+	STM = nullptr;
 	NStm = 0;
-	LIS = NULL;
+	LIS = nullptr;
 	NLis = 0;
 	MaxLis = 0;
 }
@@ -6324,7 +6324,7 @@ void LinkSys::ClearStamps()
 	};
 	if ( STM )free( STM );
 	NStm = 0;
-	STM = NULL;
+	STM = nullptr;
 	if ( LIS )free( LIS );
 	NLis = 0;
 	MaxLis = 0;

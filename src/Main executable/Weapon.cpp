@@ -183,7 +183,7 @@ void ExplodeAnmObject( AnmObject* AO )
 			ExplMedia = TexMedia[TexMap[tx + ty*( MaxTH + 1 )]];
 		};
 	};
-	ChildWeapon* CWP = NULL;
+	ChildWeapon* CWP = nullptr;
 	int cwtp = -1;
 	if ( ExplMedia != -1 )
 	{
@@ -304,11 +304,11 @@ void ShowExpl()
 				{
 				case 1://DARK
 					//GPS.ShowGPDark(smapx+xs-ScrX,smapy+ys-ScrY,NF->FileID,spr,0);
-					AddOptPoint( ZBF_NORMAL, oxs, ys0, xs, ys, NULL, NF->FileID, spr, AV_DARK | AV_GRADIENT );
+					AddOptPoint( ZBF_NORMAL, oxs, ys0, xs, ys, nullptr, NF->FileID, spr, AV_DARK | AV_GRADIENT );
 					break;
 				case 2://WHITE
 					//GPS.ShowGPMutno(smapx+xs-ScrX,smapy+ys-ScrY,NF->FileID,spr,0);
-					AddOptPoint( ZBF_NORMAL, oxs, ys0, xs, ys, NULL, NF->FileID, spr, AV_WHITE | AV_GRADIENT );
+					AddOptPoint( ZBF_NORMAL, oxs, ys0, xs, ys, nullptr, NF->FileID, spr, AV_WHITE | AV_GRADIENT );
 					break;
 				case 3://RED
 					//GPS.ShowGPFired(smapx+xs-ScrX,smapy+ys-ScrY,NF->FileID,spr,0);
@@ -323,7 +323,7 @@ void ShowExpl()
 					//break;
 				default:
 					//GPS.ShowGP(smapx+xs-ScrX,smapy+ys-ScrY,NF->FileID,spr,0);
-					AddOptPoint( ZBF_NORMAL, oxs, ys0, xs, ys, NULL, NF->FileID, spr, 0 );
+					AddOptPoint( ZBF_NORMAL, oxs, ys0, xs, ys, nullptr, NF->FileID, spr, 0 );
 					break;
 				};
 			};
@@ -359,7 +359,7 @@ void ProcessExpl()
 					Weapon* WP = Weap->TileWeapon[( rando()*Weap->NTileWeapon ) >> 15];
 
 					Create3DAnmObject( WP, xxx >> WEPSH, yyy >> WEPSH, zzz >> WEPSH,
-						AO->xd >> WEPSH, AO->yd >> WEPSH, AO->zd >> WEPSH, NULL );
+						AO->xd >> WEPSH, AO->yd >> WEPSH, AO->zd >> WEPSH, nullptr );
 					xxx -= vdx;
 					yyy -= vdy;
 					zzz -= vdz;

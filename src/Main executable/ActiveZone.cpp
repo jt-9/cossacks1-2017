@@ -31,11 +31,11 @@
 #include "NewMon.h"
 #include "ActiveZone.h"
 
-ActiveGroup* AGroups = NULL;
+ActiveGroup* AGroups = nullptr;
 int NAGroups = 0;
 int MaxAGroups = 0;
 
-ActiveZone* AZones = NULL;
+ActiveZone* AZones = nullptr;
 int NAZones = 0;
 int MaxAZones = 0;
 
@@ -435,7 +435,7 @@ void ClearAllZones()
 			free( AZones[i].Name );
 		};
 		free( AZones );
-		AZones = NULL;
+		AZones = nullptr;
 		NAZones = 0;
 		MaxAZones = 0;
 	};
@@ -451,7 +451,7 @@ void ClearAllZones()
 			};
 		};
 		free( AGroups );
-		AGroups = NULL;
+		AGroups = nullptr;
 		NAGroups = 0;
 		MaxAGroups = 0;
 	};

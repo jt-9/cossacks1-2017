@@ -144,7 +144,7 @@ void OneMap::LoadMapData( sicExplorer* SXP )
 			SCALE[NScales].Ly = BM.biHeight;
 			SCALE[NScales].Scale = i;
 			SCALE[NScales].Colored = 0;
-			SCALE[NScales].ColoredData = NULL;
+			SCALE[NScales].ColoredData = nullptr;
 			SCALE[NScales].FONT[0] = 0;
 			NScales++;
 		};
@@ -158,7 +158,7 @@ void OneMap::LoadMapData( sicExplorer* SXP )
 			int z = fscanf( F, "%s", SCALE[i].FONT );
 			if (z)
 			{
-				SCALE[i].Font = NULL;
+				SCALE[i].Font = nullptr;
 				SCALE[i].Font = SXP->GetFontByName( SCALE[i].FONT );
 			};
 		};
@@ -585,7 +585,7 @@ void OneMap::UpdateMapData( byte* Date )
 		for (int i = 0; i < NScales; i++)
 		{
 			if (SCALE[i].ColoredData)free( SCALE[i].ColoredData );
-			SCALE[i].ColoredData = NULL;
+			SCALE[i].ColoredData = nullptr;
 			SCALE[i].Colored = 0;
 		};
 	};

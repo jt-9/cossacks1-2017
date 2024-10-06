@@ -41,13 +41,13 @@ devsupport@gamespy.com
 								}while(ciCheckForID(chat, ID));\
 							}
 
-#define ASSERT_CHANNEL()    assert(channel != NULL); assert(channel[0] != '\0');
-#define ASSERT_NICK()       assert(nick != NULL); assert(nick[0] != '\0'); assert(strlen(nick) < MAX_NICK);
-#define ASSERT_USER(user)   assert(user != NULL); assert(user[0] != '\0'); assert(strlen(user) < MAX_USER);
-#define ASSERT_MESSAGE()    assert(message != NULL); assert(message[0] != '\0');
+#define ASSERT_CHANNEL()    assert(channel != nullptr); assert(channel[0] != '\0');
+#define ASSERT_NICK()       assert(nick != nullptr); assert(nick[0] != '\0'); assert(strlen(nick) < MAX_NICK);
+#define ASSERT_USER(user)   assert(user != nullptr); assert(user[0] != '\0'); assert(strlen(user) < MAX_USER);
+#define ASSERT_MESSAGE()    assert(message != nullptr); assert(message[0] != '\0');
 #define ASSERT_TYPE(type)   assert((type == CHAT_MESSAGE) || (type == CHAT_ACTION) || (type == CHAT_NOTICE) || (type == CHAT_UTM));
-#define ASSERT_PASSWORD()   assert(password != NULL); assert(password[0] != '\0');
-#define ASSERT_BAN()        assert(ban != NULL); assert(ban [0] != '\0');
+#define ASSERT_PASSWORD()   assert(password != nullptr); assert(password[0] != '\0');
+#define ASSERT_BAN()        assert(ban != nullptr); assert(ban [0] != '\0');
 
 /**********
 ** TYPES **
@@ -66,7 +66,7 @@ static CHATBool ciProcessServerMessage(CHAT chat, ciServerMessage * message)
 {
 	int i;
 
-	assert(message != NULL);
+	assert(message != nullptr);
 
 	// Figure out what type of message this is.
 	///////////////////////////////////////////
@@ -78,7 +78,7 @@ static CHATBool ciProcessServerMessage(CHAT chat, ciServerMessage * message)
 		{
 			// Is there a handler?
 			//////////////////////
-			if(serverMessageTypes[i].handler != NULL)
+			if(serverMessageTypes[i].handler != nullptr)
 			{
 				// Call the handler.
 				////////////////////
@@ -116,11 +116,11 @@ void ciHandleDisconnect(CHAT chat, const char * reason)
 
 	// Call the disconnected callback.
 	//////////////////////////////////
-	if(connection->globalCallbacks.disconnected != NULL)
+	if(connection->globalCallbacks.disconnected != nullptr)
 	{
 		ciCallbackDisconnectedParams params;
 		params.reason = (char *)reason;
-		ciAddCallback(chat, CALLBACK_DISCONNECTED, connection->globalCallbacks.disconnected, &params, connection->globalCallbacks.param, 0, NULL);
+		ciAddCallback(chat, CALLBACK_DISCONNECTED, connection->globalCallbacks.disconnected, &params, connection->globalCallbacks.param, 0, nullptr);
 	}
 }
 
@@ -147,15 +147,15 @@ static void ciThink(CHAT chat, int ID)
 		{
 			// Check received messages.
 			///////////////////////////
-			while((message = ciSocketRecv(&connection->chatSocket)) != NULL)
+			while((message = ciSocketRecv(&connection->chatSocket)) != nullptr)
 			{
 				// Call the raw callback.
 				/////////////////////////
-				if(connection->globalCallbacks.raw != NULL)
+				if(connection->globalCallbacks.raw != nullptr)
 				{
 					ciCallbackRawParams params;
 					params.raw = message->message;
-					ciAddCallback(chat, CALLBACK_RAW, connection->globalCallbacks.raw, &params, connection->globalCallbacks.param, 0, NULL);
+					ciAddCallback(chat, CALLBACK_RAW, connection->globalCallbacks.raw, &params, connection->globalCallbacks.param, 0, nullptr);
 				}
 
 				// Process the message.
@@ -233,10 +233,10 @@ CHAT chatConnectDoit(const char * serverAddress,
 {
 	ciConnection * connection;
 
-	assert(serverAddress != NULL);
+	assert(serverAddress != nullptr);
 	ASSERT_NICK();
-	assert(callbacks != NULL);
-	assert(connectCallback != NULL);
+	assert(callbacks != nullptr);
+	assert(connectCallback != nullptr);
 
 	// Init sockets.
 	////////////////
@@ -245,8 +245,8 @@ CHAT chatConnectDoit(const char * serverAddress,
 	// Create a connection object.
 	//////////////////////////////
 	connection = (ciConnection *)gsimalloc(sizeof(ciConnection));
-	if(connection == NULL)
-		return NULL;  //ERRCON
+	if(connection == nullptr)
+		return nullptr;  //ERRCON
 
 	// Initialize the connection.
 	/////////////////////////////
@@ -270,7 +270,7 @@ CHAT chatConnectDoit(const char * serverAddress,
 	{
 		gsifree(connection);
 		SocketShutDown();
-		return NULL; //ERRCON
+		return nullptr; //ERRCON
 	}
 
 	// Initialize the callbacks list.
@@ -280,7 +280,7 @@ CHAT chatConnectDoit(const char * serverAddress,
 		ciCleanupChannels((CHAT)connection);
 		gsifree(connection);
 		SocketShutDown();
-		return NULL; //ERRCON
+		return nullptr; //ERRCON
 	}
 
 	// Initialize the socket.
@@ -291,7 +291,7 @@ CHAT chatConnectDoit(const char * serverAddress,
 		ciCleanupChannels((CHAT)connection);
 		gsifree(connection);
 		SocketShutDown();
-		return NULL; //ERRCON
+		return nullptr; //ERRCON
 	}
 
 	// Connect the socket.
@@ -303,7 +303,7 @@ CHAT chatConnectDoit(const char * serverAddress,
 		ciCleanupChannels((CHAT)connection);
 		gsifree(connection);
 		SocketShutDown();
-		return NULL; //ERRCON
+		return nullptr; //ERRCON
 	}
 
 	// Special stuff for MS Chat server.
@@ -348,7 +348,7 @@ CHAT chatConnectDoit(const char * serverAddress,
 			// Disconnect the connection.
 			/////////////////////////////
 			chatDisconnect((CHAT)connection);
-			connection = NULL;
+			connection = nullptr;
 		}
 	}
 
@@ -373,7 +373,7 @@ CHAT chatConnect(const char * serverAddress,
 		name,
 		callbacks,
 		nickErrorCallback,
-		NULL,
+		nullptr,
 		connectCallback,
 		param,
 		blocking);
@@ -393,7 +393,7 @@ CHAT chatConnectSpecial(const char * serverAddress,
 	return chatConnectDoit(serverAddress,
 		port,
 		nick,
-		NULL,
+		nullptr,
 		name,
 		callbacks,
 		nickErrorCallback,
@@ -417,7 +417,7 @@ void chatRetryWithNick(CHAT chat,
 	////////////////////////
 	if(!nick || !nick[0] || (strlen(nick) >= MAX_NICK))
 	{
-		if(connection->connectCallback != NULL)
+		if(connection->connectCallback != nullptr)
 			connection->connectCallback(chat, CHATFalse, connection->connectParam);
 
 		return;
@@ -532,7 +532,7 @@ void chatChangeNick(CHAT chat,
 			params.oldNick = connection->nick;
 			params.newNick = (char *)newNick;
 			ID = ciGetNextID(chat);
-			ciAddCallback(chat, CALLBACK_CHANGE_NICK, callback, &params, param, ID, NULL);
+			ciAddCallback(chat, CALLBACK_CHANGE_NICK, callback, &params, param, ID, nullptr);
 
 			CI_DO_BLOCKING;
 		}
@@ -623,7 +623,7 @@ void chatSetQuietMode(CHAT chat,
 
 		// Setup a filter for each joined channel.
 		//////////////////////////////////////////
-		ciEnumJoinedChannels(chat, ciSetQuietModeEnumJoinedChannels, NULL);
+		ciEnumJoinedChannels(chat, ciSetQuietModeEnumJoinedChannels, nullptr);
 	}
 }
 
@@ -641,7 +641,7 @@ void chatEnumChannels(CHAT chat,
 	CONNECTION;
 	CONNECTED;
 
-	assert((callbackAll != NULL) || (callbackEach != NULL));
+	assert((callbackAll != nullptr) || (callbackEach != nullptr));
 
 	if(!filter)
 		filter = "";
@@ -666,9 +666,9 @@ void chatEnterChannel(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(callbacks != NULL);
+	assert(callbacks != nullptr);
 
-	if(password == NULL)
+	if(password == nullptr)
 		password = "";
 
 	ciSocketSendf(&connection->chatSocket, "JOIN %s %s", channel, password);
@@ -731,7 +731,7 @@ void chatSendChannelMessage(CHAT chat,
 	// We don't get these back, so call the callbacks.
 	//////////////////////////////////////////////////
 	callbacks = ciGetChannelCallbacks(chat, channel);
-	if(callbacks != NULL)
+	if(callbacks != nullptr)
 	{
 		ciCallbackChannelMessageParams params;
 		params.channel = (char *)channel;
@@ -751,7 +751,7 @@ void chatSetChannelTopic(CHAT chat,
 
 	ASSERT_CHANNEL();
 
-	if(topic == NULL)
+	if(topic == nullptr)
 		topic = "";
 
 	ciSocketSendf(&connection->chatSocket, "TOPIC %s :%s", channel, topic);
@@ -769,7 +769,7 @@ void chatGetChannelTopic(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	// Check if we already have the topic.
 	//////////////////////////////////////
@@ -806,7 +806,7 @@ void chatSetChannelMode(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(mode != NULL);
+	assert(mode != nullptr);
 
 	// Build the mode string.
 	/////////////////////////
@@ -859,7 +859,7 @@ void chatGetChannelMode(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	// Are we in this channel?
 	//////////////////////////
@@ -882,7 +882,7 @@ void chatGetChannelMode(CHAT chat,
 			params.success = CHATTrue;
 			params.channel = (char *)channel;
 			params.mode = &mode;
-			ciAddCallback(chat, CALLBACK_GET_CHANNEL_MODE, callback, &params, param, ID, NULL);
+			ciAddCallback(chat, CALLBACK_GET_CHANNEL_MODE, callback, &params, param, ID, nullptr);
 
 			CI_DO_BLOCKING;
 
@@ -927,7 +927,7 @@ void chatGetChannelPassword(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	// Check that we're in the channel.
 	///////////////////////////////////
@@ -937,7 +937,7 @@ void chatGetChannelPassword(CHAT chat,
 	// Get the password.
 	////////////////////
 	password = ciGetChannelPassword(chat, channel);
-	assert(password != NULL);
+	assert(password != nullptr);
 
 	// Get an ID.
 	/////////////
@@ -949,7 +949,7 @@ void chatGetChannelPassword(CHAT chat,
 	params.channel = (char *)channel;
 	params.enabled = CHATTrue;
 	params.password = (char *)password;
-	ciAddCallback(chat, CALLBACK_GET_CHANNEL_PASSWORD, callback, &params, param, ID, NULL);
+	ciAddCallback(chat, CALLBACK_GET_CHANNEL_PASSWORD, callback, &params, param, ID, nullptr);
 
 	CI_DO_BLOCKING;
 }
@@ -965,7 +965,7 @@ void chatEnumChannelBans(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	ciSocketSendf(&connection->chatSocket, "MODE %s +b", channel);
 
@@ -1052,8 +1052,8 @@ void ciEnumUsersCallback(CHAT chat, const char * channel, int numUsers, const ch
 	int i;
 	if(numUsers > 0)
 	{
-		assert(users != NULL);
-		assert(modes != NULL);
+		assert(users != nullptr);
+		assert(modes != nullptr);
 	}
 	for(i = 0 ; i < numUsers ; i++)
 	{
@@ -1062,12 +1062,12 @@ void ciEnumUsersCallback(CHAT chat, const char * channel, int numUsers, const ch
 	}
 	}
 #endif
-	assert(param != NULL);
+	assert(param != nullptr);
 
 	// Get the data.
 	////////////////
 	data = (ciEnumUsersData *)param;
-	assert(data->callback != NULL);
+	assert(data->callback != nullptr);
 
 	// Call the callback directly.
 	//////////////////////////////
@@ -1086,9 +1086,9 @@ void chatEnumUsers(CHAT chat,
 	CONNECTED;
 
 	//ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
-	if(channel == NULL)
+	if(channel == nullptr)
 		channel = "";
 
 	// Is there a channel specified?
@@ -1111,10 +1111,10 @@ void chatEnumUsers(CHAT chat,
 
 	ciSocketSendf(&connection->chatSocket, "NAMES %s", channel);
 
-	// Channel needs to be empty, not NULL, for the filter.
+	// Channel needs to be empty, not nullptr, for the filter.
 	///////////////////////////////////////////////////////
 	if(!channel[0])
-		channel = NULL;
+		channel = nullptr;
 
 	ID = ciAddNAMESFilter(chat, channel, callback, param);
 	
@@ -1168,7 +1168,7 @@ void chatGetUserInfo(CHAT chat,
 	CONNECTED;
 
 	ASSERT_USER(user);
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	ciSocketSendf(&connection->chatSocket, "WHOIS %s", user);
 
@@ -1190,7 +1190,7 @@ void chatGetBasicUserInfo(CHAT chat,
 	CONNECTED;
 
 	ASSERT_USER(nick);
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	// Check if we already have it.
 	///////////////////////////////
@@ -1205,7 +1205,7 @@ void chatGetBasicUserInfo(CHAT chat,
 
 		ID = ciGetNextID(chat);
 
-		ciAddCallback(chat, CALLBACK_GET_BASIC_USER_INFO, callback, &params, param, ID, NULL);
+		ciAddCallback(chat, CALLBACK_GET_BASIC_USER_INFO, callback, &params, param, ID, nullptr);
 	}
 	else
 	{
@@ -1242,7 +1242,7 @@ void chatGetChannelBasicUserInfo(CHAT chat,
 	CONNECTED;
 
 	ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	ciSocketSendf(&connection->chatSocket, "WHO %s", channel);
 
@@ -1275,7 +1275,7 @@ void chatKickUser(CHAT chat,
 	ASSERT_CHANNEL();
 	ASSERT_USER(user);
 
-	if(reason == NULL)
+	if(reason == nullptr)
 		reason = "";
 
 	ciSocketSendf(&connection->chatSocket, "KICK %s %s :%s", channel, user, reason);
@@ -1331,7 +1331,7 @@ void chatGetUserMode(CHAT chat,
 
 	ASSERT_CHANNEL();
 	ASSERT_USER(user);
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	// Get the mode.
 	////////////////
@@ -1345,7 +1345,7 @@ void chatGetUserMode(CHAT chat,
 		params.mode = mode;
 
 		ID = ciGetNextID(chat);
-		ciAddCallback(chat, CALLBACK_GET_USER_MODE, callback, &params, param, ID, NULL);
+		ciAddCallback(chat, CALLBACK_GET_USER_MODE, callback, &params, param, ID, nullptr);
 
 		CI_DO_BLOCKING;
 	}

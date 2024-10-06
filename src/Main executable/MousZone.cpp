@@ -27,7 +27,7 @@ extern bool LockMouse;
 MouseZone::MouseZone() 
 {
 	Index = -1;
-	Hint = NULL;
+	Hint = nullptr;
 }
 
 #define NZones 64
@@ -59,7 +59,7 @@ int CreateRZone(int x, int y, int lx, int ly, HandlePro* HPro, HandlePro* RHPro,
 		Z->y1 = y + ly - 1;
 		Z->Pro = HPro;
 		Z->RPro = RHPro;
-		Z->MoveOver = NULL;
+		Z->MoveOver = nullptr;
 		Z->Index = Index;
 		Z->Pressed = false;
 		if (int(Z->Hint))
@@ -95,7 +95,7 @@ int CreateRZone(
 		Z->y1 = y + ly - 1;
 		Z->Pro = HPro;
 		Z->RPro = RHPro;
-		Z->MoveOver = NULL;
+		Z->MoveOver = nullptr;
 		Z->Index = Index;
 		Z->Pressed = false;
 		Z->KeyState = 0;
@@ -104,12 +104,12 @@ int CreateRZone(
 		if (Z->Hint) 
 		{
 			free(Z->Hint);
-			Z->Hint = NULL;
+			Z->Hint = nullptr;
 		}
 		if (Z->HintLo) 
 		{
 			free(Z->HintLo);
-			Z->HintLo = NULL;
+			Z->HintLo = nullptr;
 		}
 		if (Hint) 
 		{
@@ -141,7 +141,7 @@ int CreateZone(int x, int y, int lx, int ly, HandlePro* HPro, int Index, char* H
 		Z->x1 = x + lx - 1;
 		Z->y1 = y + ly - 1;
 		Z->Pro = HPro;
-		Z->RPro = NULL;
+		Z->RPro = nullptr;
 		Z->Index = Index;
 		Z->Pressed = false;
 		Z->KeyState = 0;
@@ -185,19 +185,19 @@ int CreateZone(int x, int y, int lx, int ly, HandlePro* HPro, int Index, char* H
 		Z->x1 = x + lx - 1;
 		Z->y1 = y + ly - 1;
 		Z->Pro = HPro;
-		Z->RPro = NULL;
-		Z->MoveOver = NULL;
+		Z->RPro = nullptr;
+		Z->MoveOver = nullptr;
 		Z->Index = Index;
 		Z->Pressed = false;
 		Z->KeyState = 0;
 		Z->ScanCode = 0xFF;
 		if (int(Z->Hint)) {
 			free(Z->Hint);
-			Z->Hint = NULL;
+			Z->Hint = nullptr;
 		};
 		if (int(Z->HintLo)) {
 			free(Z->HintLo);
-			Z->HintLo = NULL;
+			Z->HintLo = nullptr;
 		};
 		if (Hint) {
 			Z->Hint = new char[strlen(Hint) + 1];

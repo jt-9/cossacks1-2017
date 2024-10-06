@@ -41,7 +41,7 @@ void ClearObjs3()
 		if (OBARS[i])
 		{
 			free( OBARS[i] );
-			OBARS[i] = NULL;
+			OBARS[i] = nullptr;
 		};
 	};
 	for (int i = 0; i < B3SZ; i++)
@@ -99,7 +99,7 @@ STARTA:;
 		if (Obj3Map[Cell] && !NObj3[Cell])
 		{
 			free( Obj3Map[Cell] );
-			Obj3Map[Cell] = NULL;
+			Obj3Map[Cell] = nullptr;
 		};
 	};
 };
@@ -177,7 +177,7 @@ void Delete3DBar( word ID )
 		OneBar* ONB = OBARS[i];
 		if (ONB&&ONB->ID == ID)
 		{
-			OBARS[i] = NULL;
+			OBARS[i] = nullptr;
 			for (int ix = ONB->MinBX; ix <= ONB->MaxBX; ix++)
 				for (int iy = ONB->MinBY; iy <= ONB->MaxBY; iy++)
 				{

@@ -34,9 +34,9 @@ devsupport@gamespy.com
 #define MAX_CACHED_USER     24
 #define MAX_CACHED_ADDRESS  24
 
-#define ASSERT_CHANNEL()   assert(channel != NULL); assert(channel[0] != '\0'); assert(strlen(channel) < MAX_CHANNEL);
-#define ASSERT_USER(user)  assert(user != NULL); assert(user[0] != '\0'); assert(strlen(user) < MAX_NAME);
-#define ASSERT_STR(str)    assert(str != NULL); assert(str[0] != '\0');
+#define ASSERT_CHANNEL()   assert(channel != nullptr); assert(channel[0] != '\0'); assert(strlen(channel) < MAX_CHANNEL);
+#define ASSERT_USER(user)  assert(user != nullptr); assert(user[0] != '\0'); assert(strlen(user) < MAX_NAME);
+#define ASSERT_STR(str)    assert(str != nullptr); assert(str[0] != '\0');
 #define ASSERT_MODE(mode)  assert((mode >= 0) && (mode <= 3));
 
 /**********
@@ -155,7 +155,7 @@ static int ciChannelTableHashFn(const void * elem, int numBuckets)
 {
 	int hash;
 
-	assert(elem != NULL);
+	assert(elem != nullptr);
 	assert(numBuckets > 0);
 
 	hash = ciHashString(((ciChatChannel *)elem)->name);
@@ -168,13 +168,13 @@ static int ciChannelTableCompareFn(const void * elem1, const void * elem2)
 	const char * str1;
 	const char * str2;
 
-	assert(elem1 != NULL);
-	assert(elem2 != NULL);
+	assert(elem1 != nullptr);
+	assert(elem2 != nullptr);
 
 	str1 = ((ciChatChannel *)elem1)->name;
 	str2 = ((ciChatChannel *)elem2)->name;
-	assert(str1 != NULL);
-	assert(str2 != NULL);
+	assert(str1 != nullptr);
+	assert(str2 != nullptr);
 	ASSERT_STR(str1);
 	ASSERT_STR(str2);
 
@@ -185,7 +185,7 @@ static void ciChannelTableElementFreeFn(void * elem)
 {
 	ciChatChannel * channel;
 
-	assert(elem != NULL);
+	assert(elem != nullptr);
 
 	channel = (ciChatChannel *)elem;
 	gsifree(channel->password);
@@ -200,7 +200,7 @@ static int ciUserTableHashFn(const void * elem, int numBuckets)
 {
 	int hash;
 
-	assert(elem != NULL);
+	assert(elem != nullptr);
 	assert(numBuckets > 0);
 
 	hash = ciHashString(((ciChatUser *)elem)->name);
@@ -213,8 +213,8 @@ static int ciUserTableCompareFn(const void * elem1, const void * elem2)
 	const char * str1;
 	const char * str2;
 
-	assert(elem1 != NULL);
-	assert(elem2 != NULL);
+	assert(elem1 != nullptr);
+	assert(elem2 != nullptr);
 
 	str1 = ((ciChatUser *)elem1)->name;
 	str2 = ((ciChatUser *)elem2)->name;
@@ -226,7 +226,7 @@ static int ciUserTableCompareFn(const void * elem1, const void * elem2)
 
 static void ciUserTableElementFreeFn(void * elem)
 {
-	assert(elem != NULL);
+	assert(elem != nullptr);
 
 	// if anything is done in here that changes the structure
 	// ciUserChangeNickMap() must be updated
@@ -238,11 +238,11 @@ static void ciUserTableElementFreeFn(void * elem)
 CHATBool ciInitChannels(ciConnection * connection)
 {
 	connection->channelTable = TableNew(sizeof(ciChatChannel), HASH_BUCKETS, ciChannelTableHashFn, ciChannelTableCompareFn, ciChannelTableElementFreeFn);
-	if(connection->channelTable == NULL)
+	if(connection->channelTable == nullptr)
 		return CHATFalse;
 
-	connection->enteringChannelList = ArrayNew(sizeof(ciChatChannel), 0, NULL);
-	if(connection->enteringChannelList == NULL)
+	connection->enteringChannelList = ArrayNew(sizeof(ciChatChannel), 0, nullptr);
+	if(connection->enteringChannelList == nullptr)
 	{
 		TableFree(connection->channelTable);
 		return CHATFalse;
@@ -255,10 +255,10 @@ void ciCleanupChannels(CHAT chat)
 {
 	CONNECTION;
 
-	if(connection->channelTable != NULL)
+	if(connection->channelTable != nullptr)
 		TableFree(connection->channelTable);
 
-	if(connection->enteringChannelList != NULL)
+	if(connection->enteringChannelList != nullptr)
 		ArrayFree(connection->enteringChannelList);
 }
 
@@ -313,12 +313,12 @@ void ciChannelEntered(CHAT chat, const char * channel, chatChannelCallbacks * ca
 	CONNECTION;
 
 	ASSERT_CHANNEL();
-	assert(callbacks != NULL);
+	assert(callbacks != nullptr);
 
 	// Setup an empty password.
 	///////////////////////////
 	password = (char *)gsimalloc(2);
-	if(password == NULL)
+	if(password == nullptr)
 		return; //ERRCON
 	strcpy(password, "");
 
@@ -328,7 +328,7 @@ void ciChannelEntered(CHAT chat, const char * channel, chatChannelCallbacks * ca
 	chatChannel.callbacks = *callbacks;
 	strcpy(chatChannel.name, channel);
 	chatChannel.users = TableNew(sizeof(ciChatUser), HASH_BUCKETS, ciUserTableHashFn, ciUserTableCompareFn, ciUserTableElementFreeFn);
-	if(chatChannel.users == NULL)
+	if(chatChannel.users == nullptr)
 		return; //ERRCON
 	chatChannel.gotMode = CHATFalse;
 	chatChannel.password = password;
@@ -390,8 +390,8 @@ chatChannelCallbacks * ciGetChannelCallbacks(CHAT chat, const char * channel)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
-		return NULL; //ERRCON
+	if(chatChannel == nullptr)
+		return nullptr; //ERRCON
 
 	return &chatChannel->callbacks;
 }
@@ -402,8 +402,8 @@ static void ciChannelListUsersMap(void * elem, void * clientData)
 	ciChannelListUsersData * data;
 	void * tempPtr;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the user.
 	////////////////
@@ -429,14 +429,14 @@ static void ciChannelListUsersMap(void * elem, void * clientData)
 	// resize in increments.
 	//////////////////////////////
 	tempPtr = gsirealloc(data->users, sizeof(char *) * (data->numUsers + 1));
-	if(tempPtr == NULL)
+	if(tempPtr == nullptr)
 	{
 		assert(0);
 		return; //ERRCON
 	}
 	data->users = (char **)tempPtr;
 	tempPtr = gsirealloc(data->modes, sizeof(int) * (data->numUsers + 1));
-	if(tempPtr == NULL)
+	if(tempPtr == nullptr)
 	{
 		assert(0);
 		return; //ERRCON
@@ -457,20 +457,20 @@ void ciChannelListUsers(CHAT chat, const char * channel, ciChannelListUsersCallb
 	CONNECTION;
 
 	ASSERT_CHANNEL();
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// Enum through the users.
 	//////////////////////////
 	data.chat = chat;
 	data.numUsers = 0;
-	data.users = NULL;
-	data.modes = NULL;
+	data.users = nullptr;
+	data.modes = nullptr;
 	TableMap(chatChannel->users, ciChannelListUsersMap, &data);
 
 	// Call the callback.
@@ -487,7 +487,7 @@ CHATBool ciInChannel(CHAT chat, const char * channel)
 {
 	CONNECTION;
 
-	if(ciGetChannel(connection, channel) == NULL)
+	if(ciGetChannel(connection, channel) == nullptr)
 		return CHATFalse;
 
 	return CHATTrue;
@@ -503,7 +503,7 @@ CHATBool ciGetChannelMode(CHAT chat, const char * channel, CHATChannelMode * mod
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return CHATFalse; //ERRCON
 
 	// Did we get the mode yet?
@@ -528,7 +528,7 @@ void ciSetChannelMode(CHAT chat, const char * channel, CHATChannelMode * mode)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// Set the gotMode flag.
@@ -551,7 +551,7 @@ void ciSetChannelPassword(CHAT chat, const char * channel, const char * password
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// gsifree the old password.
@@ -560,11 +560,11 @@ void ciSetChannelPassword(CHAT chat, const char * channel, const char * password
 
 	// Set the password.
 	////////////////////
-	if(password == NULL)
+	if(password == nullptr)
 		password = "";
 	len = (strlen(password) + 1);
 	chatChannel->password = (char *)gsimalloc(len);
-	if(chatChannel->password == NULL)
+	if(chatChannel->password == nullptr)
 		return; //ERRCON
 	memcpy(chatChannel->password, password, len);
 }
@@ -579,8 +579,8 @@ const char * ciGetChannelPassword(CHAT chat, const char * channel)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
-		return NULL; //ERRCON
+	if(chatChannel == nullptr)
+		return nullptr; //ERRCON
 
 	// Return the password.
 	///////////////////////
@@ -597,7 +597,7 @@ void ciJoinCallbackCalled(CHAT chat, const char * channel)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// Callback was called.
@@ -615,7 +615,7 @@ CHATBool ciWasJoinCallbackCalled(CHAT chat, const char * channel)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return CHATFalse; //ERRCON
 
 	return chatChannel->joinCallbackCalled;
@@ -631,7 +631,7 @@ void ciSetChannelTopic(CHAT chat, const char * channel, const char * topic)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// Set the topic.
@@ -650,8 +650,8 @@ const char * ciGetChannelTopic(CHAT chat, const char * channel)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
-		return NULL; //ERRCON
+	if(chatChannel == nullptr)
+		return nullptr; //ERRCON
 
 	return chatChannel->topic;
 }
@@ -666,7 +666,7 @@ int ciGetChannelNumUsers(CHAT chat, const char * channel)
 	// Find this channel.
 	/////////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return -1;
 
 	return TableCount(chatChannel->users);
@@ -716,7 +716,7 @@ void ciUserEnteredChannel(CHAT chat, const char * name, const char * channel, in
 
 	// Check that we're in.
 	///////////////////////
-	assert(TableLookup(chatChannel->users, &chatUser) != NULL);
+	assert(TableLookup(chatChannel->users, &chatUser) != nullptr);
 }
 
 void ciUserLeftChannel(CHAT chat, const char * user, const char * channel)
@@ -731,7 +731,7 @@ void ciUserLeftChannel(CHAT chat, const char * user, const char * channel)
 	// Get the channel.
 	///////////////////
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// Setup a temp user with the same name.
@@ -749,25 +749,25 @@ static void ciUserEnumChannelsMap(void * elem, void * clientData)
 	ciChatUser * user;
 	ciUserEnumChannelsData * data;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the channel.
 	///////////////////
 	channel = (ciChatChannel *)elem;
-	assert(channel->users != NULL);
+	assert(channel->users != nullptr);
 
 	// Get the user and callback.
 	/////////////////////////////
 	data = (ciUserEnumChannelsData *)clientData;
-	assert(data->user != NULL);
+	assert(data->user != nullptr);
 	assert(data->user->name[0] != '\0');
-	assert(data->callback != NULL);
+	assert(data->callback != nullptr);
 
 	// Check for the user.
 	//////////////////////
 	user = TableLookup(channel->users, data->user);
-	if(user != NULL)
+	if(user != nullptr)
 	{
 		// Call the callback.
 		/////////////////////
@@ -782,7 +782,7 @@ void ciUserEnumChannels(CHAT chat, const char * user, ciUserEnumChannelsCallback
 	CONNECTION;
 
 	ASSERT_USER(user);
-	assert(callback != NULL);
+	assert(callback != nullptr);
 
 	strcpy(chatUser.name, user);
 	data.chat = chat;
@@ -804,13 +804,13 @@ static void ciUserChangeNickMap(void * elem, void * clientData)
 	ciCallbackUserChangedNickParams params;
 	int rcode;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the channel.
 	///////////////////
 	channel = (ciChatChannel *)elem;
-	assert(channel->users != NULL);
+	assert(channel->users != nullptr);
 
 	// Get the data.
 	////////////////
@@ -821,7 +821,7 @@ static void ciUserChangeNickMap(void * elem, void * clientData)
 	// Check for the user.
 	//////////////////////
 	user = TableLookup(channel->users, data->oldNick);
-	if(user != NULL)
+	if(user != nullptr)
 	{
 		memcpy(&tempUser, user, sizeof(ciChatUser));
 
@@ -846,7 +846,7 @@ static void ciUserChangeNickMap(void * elem, void * clientData)
 		{
 			// Add the callback.
 			////////////////////
-			if(channel->callbacks.userChangedNick != NULL)
+			if(channel->callbacks.userChangedNick != nullptr)
 			{
 				params.channel = channel->name;
 				params.oldNick = (char *)data->oldNick;
@@ -891,14 +891,14 @@ void ciUserChangedMode(CHAT chat, const char * user, const char * channel, int m
 	////////////////////
 	strcpy(channelTemp.name, channel);
 	chatChannel = TableLookup(connection->channelTable, &channelTemp);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return; //ERRCON
 
 	// Find the user.
 	/////////////////
 	strcpy(userTemp.name, user);
 	chatUser = TableLookup(chatChannel->users, &userTemp);
-	if(chatUser == NULL)
+	if(chatUser == nullptr)
 		return; //ERRCON
 
 	// Change the mode.
@@ -910,7 +910,7 @@ void ciUserChangedMode(CHAT chat, const char * user, const char * channel, int m
 
 	// Add the callback.
 	////////////////////
-	if(chatChannel->callbacks.userModeChanged != NULL)
+	if(chatChannel->callbacks.userModeChanged != nullptr)
 	{
 		params.channel = (char *)channel;
 		params.user = (char *)user;
@@ -926,11 +926,11 @@ CHATBool ciUserInChannel(CHAT chat, const char * channel, const char * user)
 	CONNECTION;
 
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return CHATFalse;
 
 	strcpy(chatUser.name, user);
-	if(TableLookup(chatChannel->users, &chatUser) == NULL)
+	if(TableLookup(chatChannel->users, &chatUser) == nullptr)
 		return CHATFalse;
 
 	return CHATTrue;
@@ -944,12 +944,12 @@ int ciGetUserMode(CHAT chat, const char * channel, const char * user)
 	CONNECTION;
 
 	chatChannel = ciGetChannel(connection, channel);
-	if(chatChannel == NULL)
+	if(chatChannel == nullptr)
 		return -1; //ERRCON
 
 	strcpy(userTemp.name, user);
 	chatUser = TableLookup(chatChannel->users, &userTemp);
-	if(chatUser == NULL)
+	if(chatUser == nullptr)
 		return -1; //ERRCON
 
 	return chatUser->mode;
@@ -960,8 +960,8 @@ static void ciEnumJoinedChannelsMap(void * elem, void * clientData)
 {
 	ciEnumJoinedChannelsData * data;
 	ciChatChannel * channel;
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the channel.
 	///////////////////
@@ -970,7 +970,7 @@ static void ciEnumJoinedChannelsMap(void * elem, void * clientData)
 	// Get the callback & param
 	/////////////////////////////
 	data = (ciEnumJoinedChannelsData *)clientData;
-	assert(data->callback != NULL);
+	assert(data->callback != nullptr);
 
 	// Call the callback.
 	/////////////////////
@@ -1000,8 +1000,8 @@ static void ciSetUserBasicInfoMap(void * elem, void * clientData)
 	ciChatUser * user;
 	ciSetUserBasicInfoData * data;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the data.
 	////////////////
@@ -1010,12 +1010,12 @@ static void ciSetUserBasicInfoMap(void * elem, void * clientData)
 	// Get the channel.
 	///////////////////
 	channel = (ciChatChannel *)elem;
-	assert(channel->users != NULL);
+	assert(channel->users != nullptr);
 
 	// Check for the user.
 	//////////////////////
 	user = TableLookup(channel->users, data->chatUser);
-	if(user != NULL)
+	if(user != nullptr)
 	{
 		// Found it.
 		////////////
@@ -1051,8 +1051,8 @@ static void ciGetUserBasicInfoMap(void * elem, void * clientData)
 	ciChatUser * user;
 	ciGetUserBasicInfoData * data;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the data.
 	////////////////
@@ -1067,12 +1067,12 @@ static void ciGetUserBasicInfoMap(void * elem, void * clientData)
 	// Get the channel.
 	///////////////////
 	channel = (ciChatChannel *)elem;
-	assert(channel->users != NULL);
+	assert(channel->users != nullptr);
 
 	// Check for the user.
 	//////////////////////
 	user = TableLookup(channel->users, data->chatUser);
-	if(user != NULL)
+	if(user != nullptr)
 	{
 		if(user->gotUserAndAddress)
 		{
@@ -1117,8 +1117,8 @@ static void ciClearAllUsersUsersMap(void * elem, void * clientData)
 	ciChatUser * user;
 	ciChatChannel * channel;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the user.
 	////////////////
@@ -1140,13 +1140,13 @@ static void ciClearAllUsersChannelMap(void * elem, void * clientData)
 	ciClearAllUsersData data;
 	CHAT chat;
 
-	assert(elem != NULL);
-	assert(clientData != NULL);
+	assert(elem != nullptr);
+	assert(clientData != nullptr);
 
 	// Get the channel.
 	///////////////////
 	channel = (ciChatChannel *)elem;
-	assert(channel->users != NULL);
+	assert(channel->users != nullptr);
 
 	// Get the chat object.
 	///////////////////////
@@ -1163,7 +1163,7 @@ static void ciClearAllUsersChannelMap(void * elem, void * clientData)
 
 	// Call the user list updated callback.
 	///////////////////////////////////////
-	if(channel->callbacks.userListUpdated != NULL)
+	if(channel->callbacks.userListUpdated != nullptr)
 	{
 		ciCallbackUserListUpdatedParams params;
 		params.channel = channel->name;

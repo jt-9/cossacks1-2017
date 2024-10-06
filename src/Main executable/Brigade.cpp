@@ -266,8 +266,8 @@ void Brigade::SetIndex()
 
 Brigade* OneObject::GetBrigade()
 {
-	if ( BrigadeID == 0xFFFF )return NULL;
-	Brigade* BRI = NULL;
+	if ( BrigadeID == 0xFFFF )return nullptr;
+	Brigade* BRI = nullptr;
 	switch ( BrigadeID )
 	{
 	case 0://Free
@@ -295,12 +295,12 @@ Brigade* OneObject::GetBrigade()
 	if ( !BRI )
 	{
 		BrigadeID = 0xFFFF;
-		return NULL;
+		return nullptr;
 	};
 	if ( BrIndex >= BRI->NMemb || Group[BRI->Memb[BrIndex]] != this )
 	{
 		BrigadeID = 0xFFFF;
-		return NULL;
+		return nullptr;
 	};
 	return BRI;
 };
@@ -315,7 +315,7 @@ BrigadeOrder* Brigade::CreateOrder( byte Type, int Size )
 		BOrder = OR1;
 		break;
 	case 2:
-		OR1->Next = NULL;
+		OR1->Next = nullptr;
 		if ( BOrder )
 		{
 			OR2 = BOrder;
@@ -327,7 +327,7 @@ BrigadeOrder* Brigade::CreateOrder( byte Type, int Size )
 	default:
 		ClearBOrders();
 		BOrder = OR1;
-		OR1->Next = NULL;
+		OR1->Next = nullptr;
 	};
 	return OR1;
 };
@@ -484,8 +484,8 @@ int Brigade::SelectPeasants( byte NI )
 		};
 		free( Selm[NI] );
 		free( SerN[NI] );
-		Selm[NI] = NULL;
-		SerN[NI] = NULL;
+		Selm[NI] = nullptr;
+		SerN[NI] = nullptr;
 	};
 	NSL[NI] = np;
 	Selm[NI] = new word[np];
@@ -1231,7 +1231,7 @@ void B_CaptureMineLink( Brigade* BR )
 		if ( Top1 == Top || NextTop == Top )
 		{
 			OneObject* MIN = DetermineMineBySprite( OR1->SID );
-			MineBase* BMS = (MineBase*) CT->SearchInform( 0x4519, OR1->SID, NULL );
+			MineBase* BMS = (MineBase*) CT->SearchInform( 0x4519, OR1->SID, nullptr );
 			if ( MIN )
 			{
 				if ( Norma( ( MIN->RealX >> 4 ) - xc, ( MIN->RealY >> 4 ) - yc ) < 350 )
@@ -1249,7 +1249,7 @@ void B_CaptureMineLink( Brigade* BR )
 								if(BR!=BR2)BR->RemoveObjects(BR->NMemb,BR2);
 								//BR->DeleteAll();
 								//BR->Enabled=false;
-								//BR=NULL;
+								//BR=nullptr;
 							};
 						}else{
 						*/
@@ -1276,12 +1276,12 @@ void B_CaptureMineLink( Brigade* BR )
 							BMS->MinersSN = 0xFFFF;//BR1->SN;
 							//BMS->NGates=0;
 							//BMS->NGateProj=0;
-							//BMS->Gates=NULL;
-							//BMS->GateProj=NULL;
+							//BMS->Gates=nullptr;
+							//BMS->GateProj=nullptr;
 							BMS->M_ID = MIN->Index;
 							BMS->M_SN = MIN->Serial;
 							//BMS->NWalls=0;
-							//BMS->Walls=NULL;
+							//BMS->Walls=nullptr;
 							BMS->Size = sizeof MineBase;
 							BMS->topx = MIN->RealX >> 10;
 							BMS->topy = MIN->RealY >> 10;
@@ -1296,7 +1296,7 @@ void B_CaptureMineLink( Brigade* BR )
 							//SprGroup* SG=OS->SG;
 							//ObjCharacter* OC=SG->ObjChar[OS->SGIndex];
 							BMS->ResKind = OC->IntResType;
-							CT->AddInform( BMS, NULL );
+							CT->AddInform( BMS, nullptr );
 						};
 
 						int nn = BR1->SelectPeasants( CT->NI );
@@ -1326,7 +1326,7 @@ void B_CaptureMineLink( Brigade* BR )
 								BMS->MinersID = BR1->ID;
 								BMS->MinersSN = BR1->SN;
 								GoToMineWithSelected( CT->NI, MIN->Index );
-								SendPInform* SIF = (SendPInform*) CT->SearchInform( 0x1256, OR1->SID, NULL );
+								SendPInform* SIF = (SendPInform*) CT->SearchInform( 0x1256, OR1->SID, nullptr );
 								if ( SIF )
 								{
 									SIF->time = tmtmt - SendPTime + 300;
@@ -1559,11 +1559,11 @@ MineBase* CorrectMB( MineBase* MB )
 	{
 		OneObject* OB = Group[MB->M_ID];
 		if ( OB&&OB->Serial == MB->M_SN )return MB;
-		else return NULL;
+		else return nullptr;
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }
 
@@ -1651,7 +1651,7 @@ int FindUnitsInCell( int cell, int x, int y, int r, int Type, byte Nation, int N
 		cell += VAL_MAXCX + 1;
 		if ( cell >= VAL_MAXCIOFS )return 0;
 		int NMon = MCount[cell];
-		if ( !NMon )return NULL;
+		if ( !NMon )return nullptr;
 		int ofs1 = cell << SHFCELL;
 		word MID;
 		for ( int i = 0; i < NMon; i++ )
@@ -2872,7 +2872,7 @@ ChangePos:
 				int y = py[i];
 				int xx = x0;
 				int yy = y0;
-				int v = FindSuperSmartBestPosition( NULL, &xx, &yy, x - xx, y - yy, 0, 0 );
+				int v = FindSuperSmartBestPosition( nullptr, &xx, &yy, x - xx, y - yy, 0, 0 );
 				if ( v )
 				{
 					px[i] = xx;
@@ -3135,8 +3135,8 @@ void EraseBrigade( Brigade* BR )
 	{
 		free( BR->Memb );
 		free( BR->MembSN );
-		BR->Memb = NULL;
-		BR->MembSN = NULL;
+		BR->Memb = nullptr;
+		BR->MembSN = nullptr;
 	};
 	City* CT = BR->CT;
 	int id = BR->ID;
@@ -3403,7 +3403,7 @@ void B_BitvaLink( Brigade* BR )
 							word MID = Mem[t];
 							OneObject* EOB = Group[MID];
 							int dan = DANG[t];
-							NewMonster* ENM = NULL;
+							NewMonster* ENM = nullptr;
 							if ( EOB )ENM = EOB->newMons;
 							if ( EOB && ( ENM->MathMask&mms ) && ( !EOB->Sdoxlo ) && EOB->Serial == MSN[t] )
 							{
@@ -3643,8 +3643,8 @@ int IslandX[MaxIsl];
 int IslandY[MaxIsl];
 byte IslPrs[MaxIsl];
 
-word* TopIslands = NULL;
-word* NearWater = NULL;
+word* TopIslands = nullptr;
+word* NearWater = nullptr;
 void CheckGP();
 void ArrangeAreas( int ID, byte IsID, int Deep )
 {
@@ -4323,7 +4323,7 @@ void LocalSendShipsOld( Brigade* BR, int x, int y, byte Type )
 	LSS_Order* OR = (LSS_Order*) BR->CreateOrder( Type, sizeof( LSS_Order ) - 120 + BR->NMemb * 12 );
 	OR->Size = sizeof( LSS_Order ) - 120 + BR->NMemb * 12;
 	OR->NPos = BR->NMemb;
-	OR->Message = NULL;
+	OR->Message = nullptr;
 	int N1 = 0;
 	int MinX = 1000;
 	int MaxX = -1000;
@@ -4579,7 +4579,7 @@ void LocalSendShips( Brigade* BR, int x, int y, byte Type )
 	LSS_Order* OR = (LSS_Order*) BR->CreateOrder( Type, sizeof( LSS_Order ) - 120 + BR->NMemb * 12 );
 	OR->Size = sizeof( LSS_Order ) - 120 + BR->NMemb * 12;
 	OR->NPos = BR->NMemb;
-	OR->Message = NULL;
+	OR->Message = nullptr;
 	OR->FirstTime = -1;
 	OR->BLink = &LocalSendShipsLink;
 
@@ -5126,7 +5126,7 @@ void MakeShipBattle( Brigade* BR )
 	if ( Top == 0xFFFF )return;
 	Ship_Battle* OR = (Ship_Battle*) BR->CreateOrder( 0, sizeof Ship_Battle );
 	OR->BLink = &MakeShipBattleLink;
-	OR->Message = NULL;
+	OR->Message = nullptr;
 	OR->Size = sizeof Ship_Battle;
 	OR->ComType = 0;
 	OR->Params[0] = -1;
@@ -5233,7 +5233,7 @@ int GetWarInCell( int cell )
 {
 	cell += VAL_MAXCX + 1;
 	int NMon = MCount[cell];
-	if ( !NMon )return NULL;
+	if ( !NMon )return nullptr;
 	int ofs1 = cell << SHFCELL;
 	word MID;
 	int NU = 0;
@@ -5464,13 +5464,13 @@ void MakeDiversionLink( Brigade* BR )
 	if ( BR->NMemb )
 	{
 		OneObject* TRANS = Group[BR->Memb[0]];
-		OneObject* CurTrans = NULL;
+		OneObject* CurTrans = nullptr;
 		if ( CT->TransportID != 0xFFFF )
 		{
 			CurTrans = Group[CT->TransportID];
 			if ( !( CurTrans&&CurTrans->Serial == CT->TransportSN&&CurTrans->DstX > 0 ) )
 			{
-				CurTrans = NULL;
+				CurTrans = nullptr;
 				CT->TransportID = 0xFFFF;
 				CT->TransportSN = 0xFFFF;
 			};
@@ -5506,7 +5506,7 @@ void MakeDiversionLink( Brigade* BR )
 								};
 							};
 						};
-						OneObject* UNI = NULL;
+						OneObject* UNI = nullptr;
 						byte Unitype = 2;
 						if ( NAR > MaxInMy )
 						{
@@ -5586,7 +5586,7 @@ void MakeDiversionLink( Brigade* BR )
 					}
 					else
 					{
-						if ( CurTrans == NULL )
+						if ( CurTrans == nullptr )
 						{
 							CT->TransportID = TRANS->Index;
 							CT->TransportSN = TRANS->Serial;
@@ -5600,7 +5600,7 @@ void MakeDiversionLink( Brigade* BR )
 					{
 						CT->TransportID = 0xFFFF;
 						CT->TransportSN = 0xFFFF;
-						CurTrans = NULL;
+						CurTrans = nullptr;
 					};
 					if ( TRANS->NInside >= DORD->MaxU )
 					{
@@ -5813,7 +5813,7 @@ void CalculateFreeUnits( AI_Army* AIR );
 void SearchArmyLink( OneObject* OBJ )
 {
 	word ArmID = OBJ->LocalOrder->info.BuildObj.ObjIndex;
-	bool OFC = OBJ->Ref.General->OFCR != NULL;
+	bool OFC = OBJ->Ref.General->OFCR != nullptr;
 	if ( ArmID == 0xFFFF )
 	{
 		int Aid = -1;
@@ -6122,7 +6122,7 @@ void SearchArmyLink( OneObject* OBJ )
 						};
 						if ( cidx == -1 )
 						{
-							MessageBox( NULL, "Could not find fomation: #SQUARE36", "ERROR!", 0 );
+							MessageBox( nullptr, "Could not find fomation: #SQUARE36", "ERROR!", 0 );
 							//assert(cidx);
 						};
 						OrderDescription* ODS = ElementaryOrders + cidx;
@@ -6263,7 +6263,7 @@ void CalculateFreeUnits( AI_Army* AIR )
 					if ( OR1->DoLink == &SearchArmyLink )
 					{
 						if ( OR1->info.BuildObj.ObjIndex == id )remove = false;
-						OR1 = NULL;
+						OR1 = nullptr;
 					}
 					else OR1 = OR1->NextOrder;
 				};
@@ -6297,7 +6297,7 @@ void CalculateFreeUnits( AI_Army* AIR )
 					if ( OR1->DoLink == &SearchArmyLink )
 					{
 						if ( OR1->info.BuildObj.ObjIndex == id )remove = false;
-						OR1 = NULL;
+						OR1 = nullptr;
 					}
 					else OR1 = OR1->NextOrder;
 				};

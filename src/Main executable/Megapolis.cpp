@@ -161,7 +161,7 @@ void City::CreateCity( byte N )
 	AllowWood = false;
 	AllowStone = false;
 	AllowMine = false;
-	INFORM = NULL;
+	INFORM = nullptr;
 	FieldReady = false;
 	BestOnField = 60;
 	NDivr = 0;
@@ -212,8 +212,8 @@ void City::CreateCity( byte N )
 	MAX_WORKERS = Nat->DEFAULT_MAX_WORKERS;
 	NDefn = 0;
 	MaxDefn = 0;
-	DefInf = NULL;
-	DefArms = NULL;
+	DefInf = nullptr;
+	DefArms = nullptr;
 	NDefArms = 0;
 	MaxDefArms = 0;
 	for ( int i = 0; i < 128; i++ )WaterBrigs[i] = 0xFFFF;
@@ -334,7 +334,7 @@ int  City::GetFreeBrigade()
 		Brigs[i].CT = this;
 		Brigs[i].ID = i;
 		Brigs[i].SN = rando();
-		Brigs[i].BOrder = NULL;
+		Brigs[i].BOrder = nullptr;
 		Brigs[i].ArmyID = 0xFFFF;
 		Brigs[i].LastTopology = 0xFFFF;
 		Brigs[i].LastEnemyID = 0xFFFF;
@@ -346,7 +346,7 @@ int  City::GetFreeBrigade()
 void City::AddInform( Inform* Inf, I_Clear* ICL )
 {
 	Inf->Next = INFORM;
-	Inf->Previous = NULL;
+	Inf->Previous = nullptr;
 	Inf->CT = this;
 	Inf->IClr = ICL;
 	if ( INFORM )
@@ -514,7 +514,7 @@ int CheckWoodWorker( OneObject* OB, City* CT )
 	if ( CT->NWoodSklads )
 	{
 		//1.Nearest
-		OneObject* OBS = NULL;
+		OneObject* OBS = nullptr;
 		int MinR = 1000000;
 		int Best = -1;
 		for ( int i = 0; i < CT->NWoodSklads; i++ )
@@ -544,7 +544,7 @@ int CheckWoodWorker( OneObject* OB, City* CT )
 	if ( CT->NStoneSklads )
 	{
 		//1.Nearest
-		OneObject* OBS = NULL;
+		OneObject* OBS = nullptr;
 		int MinR = 1000000;
 		int Best = -1;
 		for ( int i = 0; i < CT->NStoneSklads; i++ )
@@ -594,7 +594,7 @@ int CheckStoneWorker( OneObject* OB, City* CT )
 	if ( CT->NStoneSklads )
 	{
 		//1.Nearest
-		OneObject* OBS = NULL;
+		OneObject* OBS = nullptr;
 		int MinR = 1000000;
 		int Best = -1;
 		for ( int i = 0; i < CT->NStoneSklads; i++ )
@@ -624,7 +624,7 @@ int CheckStoneWorker( OneObject* OB, City* CT )
 	if ( CT->NWoodSklads )
 	{
 		//1.Nearest
-		OneObject* OBS = NULL;
+		OneObject* OBS = nullptr;
 		int MinR = 1000000;
 		int Best = -1;
 		for ( int i = 0; i < CT->NWoodSklads; i++ )
@@ -677,7 +677,7 @@ void City::CloseCity()
 		};
 	};
 	if ( DefInf )free( DefInf );
-	DefInf = NULL;
+	DefInf = nullptr;
 	NDefn = 0;
 	MaxDefn = 0;
 	NDivr = 0;
@@ -687,8 +687,8 @@ void City::CloseCity()
 		free( GroupsSet );
 		free( NGroupsInSet );
 	};
-	GroupsSet = NULL;
-	NGroupsInSet = NULL;
+	GroupsSet = nullptr;
+	NGroupsInSet = nullptr;
 	NGroups = 0;
 };
 bool City::TryToFindPlace( int* x, int* y, int Lx, int Ly, byte Kind )
@@ -866,8 +866,8 @@ void City::UnRegisterNewUnit( OneObject* OB )
 				{
 					free( BR->Memb );
 					free( BR->MembSN );
-					BR->Memb = NULL;
-					BR->MembSN = NULL;
+					BR->Memb = nullptr;
+					BR->MembSN = nullptr;
 				};
 				BR->MaxMemb = 0;
 				BR->NMemb = 0;
@@ -1638,7 +1638,7 @@ bool City::FindPreciseBuildingPlace( GeneralObject* GO )
 	BPR.AttemptsToStand++;
 	int xx = ( int( BPR.NearX ) << 11 ) + ( rando() & 4096 ) - 2048;
 	int yy = ( int( BPR.NearY ) << 11 ) + ( rando() & 4096 ) - 2048;
-	if ( CheckCreationAbility( NI, GO->newMons, &xx, &yy, NULL, 0 ) != -1 )
+	if ( CheckCreationAbility( NI, GO->newMons, &xx, &yy, nullptr, 0 ) != -1 )
 	{
 		BPR.x = xx;
 		BPR.y = yy;
@@ -1654,7 +1654,7 @@ int SearchPeasants( int x, int y, bool Workers, byte NI, word* AddTo, int maxpos
 	int cell = ( x + 1 ) + ( ( y + 1 ) << VAL_SHFCX );
 	int pos = 0;
 	int NMon = MCount[cell];
-	if ( !NMon )return NULL;
+	if ( !NMon )return nullptr;
 	int ofs1 = cell << SHFCELL;
 	word MID;
 	int BRID = 0x5432;
@@ -1881,7 +1881,7 @@ void City::HandleConstructions()
 											{
 												nw++;
 											}
-											OR1 = NULL;
+											OR1 = nullptr;
 										}
 										else
 										{
@@ -2755,7 +2755,7 @@ Idea* City::AddIdea( IdeaBrain* IBR, bool Duplicate )
 		{
 			if ( ID->Brain == IBR )
 			{
-				return NULL;
+				return nullptr;
 			};
 			ID = ID->NextIdea;
 		};
@@ -2764,7 +2764,7 @@ Idea* City::AddIdea( IdeaBrain* IBR, bool Duplicate )
 	{
 		ID = new Idea;
 		IDEA = ID;
-		ID->PrevIdea = NULL;
+		ID->PrevIdea = nullptr;
 	}
 	else
 	{
@@ -2774,12 +2774,12 @@ Idea* City::AddIdea( IdeaBrain* IBR, bool Duplicate )
 		ID->NextIdea->PrevIdea = ID;
 		ID = ID->NextIdea;
 	};
-	ID->NextIdea = NULL;
+	ID->NextIdea = nullptr;
 	ID->Brain = IBR;
-	ID->IdeaData = NULL;
+	ID->IdeaData = nullptr;
 	ID->DataSize = 0;
 	ID->CT = this;
-	ID->FI = NULL;
+	ID->FI = nullptr;
 	return ID;
 }
 
@@ -2793,7 +2793,7 @@ void Idea::ClearIdea()
 	else
 	{
 		CT->IDEA = NextIdea;
-		if ( NextIdea )NextIdea->PrevIdea = NULL;
+		if ( NextIdea )NextIdea->PrevIdea = nullptr;
 	};
 	if ( FI )FI( this );
 	free( this );
@@ -2944,9 +2944,9 @@ OneObject* DetermineMineBySprite( int Spr )
 				};
 			};
 		};
-		return NULL;
+		return nullptr;
 	}
-	else return NULL;
+	else return nullptr;
 };
 struct TNM_Data
 {
@@ -3046,11 +3046,11 @@ BeginMine:
 		word Ninf = 2;
 		word Nstrel = 0;
 		word MinWar = 0;
-		SendPInform* INF = (SendPInform*) CT->SearchInform( 0x1256, SID, NULL );
+		SendPInform* INF = (SendPInform*) CT->SearchInform( 0x1256, SID, nullptr );
 		if ( INF&&tmtmt - INF->time > SendPTime )
 		{
 			CT->DelInform( INF );
-			INF = NULL;
+			INF = nullptr;
 		};
 		if ( INF )
 		{
@@ -3114,7 +3114,7 @@ BeginMine:
 			IN1->time = tmtmt;
 			IN1->Size = sizeof SendPInform;
 			IN1->Essence = SID;
-			CT->AddInform( IN1, NULL );
+			CT->AddInform( IN1, nullptr );
 			return;
 		};
 	};
@@ -3167,7 +3167,7 @@ void UpgradeMineBrain( Idea* ID )
 	int N = UM->N;
 	int best = -1;
 	bool Gold = UM->Gold;
-	MineBase* BBase = NULL;
+	MineBase* BBase = nullptr;
 	int Mindis = 100000;
 	City* CT = ID->CT;
 	//if(CT->UnitAmount[CT->Nat->UID_PEASANT]<320)return;
@@ -3180,7 +3180,7 @@ void UpgradeMineBrain( Idea* ID )
 		word ess = UM->Sids[i];
 		if ( ess != 0xFFFF )
 		{
-			MineBase* MB = (MineBase*) CT->SearchInform( 0x4519, ess, NULL );
+			MineBase* MB = (MineBase*) CT->SearchInform( 0x4519, ess, nullptr );
 			if ( MB )
 			{
 				OneObject* OB = Group[MB->M_ID];
@@ -3242,7 +3242,7 @@ void City::UpgradeMines()
 	//Idea* ID1=AddIdea(&UpgradeMineBrain,false);
 	//if(!ID1)return;
 	//if(UnitAmount[Nat->UID_PEASANT]<280)return;
-	MineBase* MBS = (MineBase*) SearchInform( 0x4519, NULL );
+	MineBase* MBS = (MineBase*) SearchInform( 0x4519, nullptr );
 	int MaxLev = 100;
 	int N = 0;
 	int cx = CenterX << 11;
@@ -3549,7 +3549,7 @@ void City::SendAgressors()
 };
 void City::ProtectMine()
 {
-	PRM_Info* PR1 = (PRM_Info*) SearchInform( 0xFF4B, 0, NULL );
+	PRM_Info* PR1 = (PRM_Info*) SearchInform( 0xFF4B, 0, nullptr );
 	if ( PR1 )
 	{
 		if ( PR1->NBrigs > 2 )return;
@@ -3561,7 +3561,7 @@ void City::ProtectMine()
 		PR1->ID = 0xFF4B;
 		PR1->Essence = 0;
 		PR1->Size = sizeof( PRM_Info );
-		AddInform( (Inform*) PR1, NULL );
+		AddInform( (Inform*) PR1, nullptr );
 	};
 	int N1 = GetFreeBrigade();
 	if ( N1 != -1 )
@@ -3817,8 +3817,8 @@ void City::AddDefending( byte x, byte y, byte Imp )
 	DI->Importance = Imp;
 	DI->NDefenders = 0;
 	DI->MaxDefs = 0;
-	DI->Def = NULL;
-	DI->DefSN = NULL;
+	DI->Def = nullptr;
+	DI->DefSN = nullptr;
 	NDefn++;
 };
 void City::AddUnitDefender( OneObject* OB )
@@ -4147,7 +4147,7 @@ ArmyOrder* AI_Army::CreateOrder( byte OrdType, int Size )
 		AOrder = OR1;
 		break;
 	case 2:
-		OR1->Next = NULL;
+		OR1->Next = nullptr;
 		if ( AOrder )
 		{
 			OR2 = AOrder;
@@ -4159,7 +4159,7 @@ ArmyOrder* AI_Army::CreateOrder( byte OrdType, int Size )
 	default:
 		ClearAOrders();
 		AOrder = OR1;
-		OR1->Next = NULL;
+		OR1->Next = nullptr;
 	};
 	return OR1;
 };
@@ -5559,7 +5559,7 @@ void A_BitvaLink( AI_Army* ARM )
 								word MID = Mem[t];
 								OneObject* EOB = Group[MID];
 								int dan = DANG[t];
-								NewMonster* ENM = NULL;
+								NewMonster* ENM = nullptr;
 								if ( EOB )ENM = EOB->newMons;
 								if ( EOB && ( ENM->MathMask&mms ) && ( !EOB->Sdoxlo ) && EOB->Serial == MSN[t] )
 								{

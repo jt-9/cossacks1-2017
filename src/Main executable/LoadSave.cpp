@@ -82,14 +82,14 @@ public:
 
 SaveBuf::SaveBuf()
 {
-	Buf = NULL;
+	Buf = nullptr;
 	Size = 0;
 	RealSize = 0;
 	Pos = 0;
 };
 void SaveBuf::Init()
 {
-	Buf = NULL;
+	Buf = nullptr;
 	Size = 0;
 	RealSize = 0;
 	Pos = 0;
@@ -206,8 +206,8 @@ void Nation::CloseNation()
 	if (hLibAI)
 	{
 		FreeLibrary( hLibAI );
-		DLLName = NULL;
-		ProcessAIinDLL = NULL;
+		DLLName = nullptr;
+		ProcessAIinDLL = nullptr;
 	};
 	for (int i = 0; i < NMon; i++)
 	{
@@ -230,7 +230,7 @@ void Nation::CloseNation()
 	};
 	VictState = 0;
 	NHistory = 0;
-	History = NULL;
+	History = nullptr;
 	NMon = 0;
 	for (int i = 0; i < NCOND; i++)
 	{
@@ -295,14 +295,14 @@ void Nation::CloseNation()
 		free( WCL );
 	};
 	if (WSys.WCL)free( WSys.WCL );
-	WSys.WCL = NULL;
-	WSys.NClusters = NULL;
+	WSys.WCL = nullptr;
+	WSys.NClusters = nullptr;
 	ThereWasUnit = 0;
 	if (Popul)
 	{
 		free( Popul );
 		NPopul = 0;
-		Popul = NULL;
+		Popul = nullptr;
 		MaxPopul = 0;
 	};
 	if (UpgIDS)
@@ -311,8 +311,8 @@ void Nation::CloseNation()
 		free( UpgTime );
 		NUpgMade = 0;
 		MaxUpgMade = 0;
-		UpgIDS = NULL;
-		UpgTime = NULL;
+		UpgIDS = nullptr;
+		UpgTime = nullptr;
 	};
 	VictState = 0;
 };
@@ -329,8 +329,8 @@ void OneObject::CloseObject()
 	if (NInside)free( Inside );
 	if (PathX)free( PathX );
 	if (PathY)free( PathY );
-	PathX = NULL;
-	PathY = NULL;
+	PathX = nullptr;
+	PathY = nullptr;
 	CPdestX = 0;
 	CPdestY = 0;
 	NIPoints = 0;
@@ -567,7 +567,7 @@ void UnLoading()
 		if (Group[i])
 		{
 			Group[i]->CloseObject();
-			Group[i] = NULL;
+			Group[i] = nullptr;
 		}
 	}
 
@@ -799,7 +799,7 @@ void LoadMap( SaveBuf* SB )
 	if (FishMap)
 	{
 		free( FishMap );
-		FishMap = NULL;
+		FishMap = nullptr;
 		FishLx = 0;
 	};
 	xBlockRead( SB, &FishLx, 4 );
@@ -1143,7 +1143,7 @@ ReportFn* ORDLIST[OrdCount] = {
 	&MakeOneShotLink
 };
 #ifdef STARFORCE
-ReportFn** PTR_LAND = NULL;
+ReportFn** PTR_LAND = nullptr;
 void __declspec( dllexport ) SFINIT2_InitLAND()
 {
 	PTR_LAND = (ReportFn**) GlobalAlloc( GMEM_FIXED, 4 * OrdCount );
@@ -1168,7 +1168,7 @@ int GetOrderKind( ReportFn* RF )
 };
 ReportFn* GetOrderRef( int i )
 {
-	if (i == -1 || i >= OrdCount)return NULL;
+	if (i == -1 || i >= OrdCount)return nullptr;
 	return ORDLIST[i];
 };
 void SaveObjects( SaveBuf* SB )
@@ -1217,7 +1217,7 @@ void SaveObjects( SaveBuf* SB )
 				ORD1 = *OB->LocalOrder;
 				while (ORDR)
 				{
-					ORD1.NextOrder = NULL;
+					ORD1.NextOrder = nullptr;
 					ORD1.DoLink = (ReportFn*) ( GetOrderKind( ORDR->DoLink ) );
 					//assert(int(ORD1.DoLink)!=-1);
 					xBlockWrite( SB, &ORD1, sizeof ORD1 );
@@ -1273,12 +1273,12 @@ void LoadObjects( SaveBuf* SB )
 		int pp = 0;
 		xBlockRead( SB, &pp, 1 );
 		if (pp != 255)OB->GroupIndex = SelSet + pp;
-		else OB->GroupIndex = NULL;
+		else OB->GroupIndex = nullptr;
 		LOADMES( SB );
 		//Order information
 		pp = 0;
 		xBlockRead( SB, &pp, 2 );
-		Order1* PRE = NULL;
+		Order1* PRE = nullptr;
 		Order1* OR1;
 		for (int j = 0; j < pp; j++)
 		{
@@ -1345,8 +1345,8 @@ void LoadSelection( SaveBuf* SB )
 		}
 		else
 		{
-			SG->Member = NULL;
-			SG->SerialN = NULL;
+			SG->Member = nullptr;
+			SG->SerialN = nullptr;
 		};
 	};
 	/*
@@ -1363,8 +1363,8 @@ void LoadSelection( SaveBuf* SB )
 			memcpy(ImSelm[i],Selm[i],NSL[i]*2);
 			memcpy(ImSerN[i],SerN[i],NSL[i]*2);
 		}else{
-			Selm[i]=NULL;
-			SerN[i]=NULL;
+			Selm[i]=nullptr;
+			SerN[i]=nullptr;
 		};
 		ImNSL[i]=NSL[i];
 	};
@@ -1532,7 +1532,7 @@ void LoadAnmObj( SaveBuf* SB )
 		AnmObject* NAN = GAnm[ai];
 		xBlockRead( SB, &NAN->x, sizeof( AnmObject ) - 4 );
 		if (int( NAN->Sender ) != -1)NAN->Sender = Group[int( NAN->Sender )];
-		else NAN->Sender = NULL;
+		else NAN->Sender = nullptr;
 		NAN->Weap = WPLIST[int( NAN->Weap )];
 		NAN->NewAnm = NAN->Weap->NewAnm;
 	};
@@ -1642,7 +1642,7 @@ void LoadSprites( SaveBuf* SB )
 			SpRefs[p] = new int[N1];
 			xBlockRead( SB, SpRefs[p], int( NSpri[p] ) << 2 );
 		}
-		else SpRefs[p] = NULL;
+		else SpRefs[p] = nullptr;
 	};
 };
 void Save3DBars( SaveBuf* SB )
@@ -1765,9 +1765,9 @@ void LS_LoadTopology( SaveBuf* SB )
 		Area* Ar1 = TopMap + j;
 		xBlockRead( SB, Ar1, sizeof Area );
 		if (Ar1->NMines)Ar1->MinesIdx = new word[Ar1->NMines];
-		else Ar1->MinesIdx = NULL;
+		else Ar1->MinesIdx = nullptr;
 		if (Ar1->MaxLink)Ar1->Link = new word[Ar1->MaxLink << 1];
-		else Ar1->Link = NULL;
+		else Ar1->Link = nullptr;
 		if (Ar1->NMines)xBlockRead( SB, Ar1->MinesIdx, Ar1->NMines << 1 );
 		if (Ar1->NLinks)xBlockRead( SB, Ar1->Link, Ar1->NLinks << 2 );
 	};
@@ -1970,8 +1970,8 @@ void SaveAI( SaveBuf* SB )
 					{
 						xBlockWrite( SB, &BOR->Size, 2 );
 						BrigadeOrder BO1 = *BOR;
-						BO1.Message = NULL;
-						BO1.Next = NULL;
+						BO1.Message = nullptr;
+						BO1.Next = nullptr;
 						int j;
 						for (j = 0; j < NBR_ORD&&BO1.BLink != BR_ORD[j]; j++);
 						//assert(j<NBR_ORD);
@@ -2032,8 +2032,8 @@ void SaveAI( SaveBuf* SB )
 						{
 							xBlockWrite( SB, &AOR->Size, 2 );
 							ArmyOrder AO1 = *AOR;
-							AO1.Message = NULL;
-							AO1.Next = NULL;
+							AO1.Message = nullptr;
+							AO1.Next = nullptr;
 							int j;
 							for (j = 0; j < NAR_ORD&&AOR->ALink != AR_ORD[j]; j++);
 							//assert(j<NAR_ORD);
@@ -3613,7 +3613,7 @@ void SetupArrays()
 	}
 	else
 	{
-		SectMap = NULL;
+		SectMap = nullptr;
 	}
 
 	OTRI.TRIANG = (VertOver**) calloc( VertLx*VertLx * 4, 1 );
@@ -3625,7 +3625,7 @@ void SetupArrays()
 
 	for (int i = 0; i < VertLx*VertLx; i++)
 	{
-		OTRI.TRIANG[i] = NULL;
+		OTRI.TRIANG[i] = nullptr;
 		OTRI.NTRIANG[i] = 0;
 	}
 
@@ -3650,36 +3650,36 @@ void FreeArrays()
 	if (!RivDir)return;
 	ACTUAL_ADDSH = 0;
 	free( RivDir );
-	RivDir = NULL;
+	RivDir = nullptr;
 	free( RivVol );
-	RivVol = NULL;
+	RivVol = nullptr;
 	free( MCount );
-	MCount = NULL;
+	MCount = nullptr;
 	//free(NMsList);
-	//NMsList=NULL;
+	//NMsList=nullptr;
 	free( MRef );
-	MRef = NULL;
+	MRef = nullptr;
 	free( MCash );
-	MCash = NULL;
+	MCash = nullptr;
 	MaxMCash = 0;
 	CurMCash = 0;
 
 	free( BLDList );
-	BLDList = NULL;
+	BLDList = nullptr;
 	free( NPresence );
-	NPresence = NULL;
+	NPresence = nullptr;
 	free( TmpMC );
-	TmpMC = NULL;
+	TmpMC = nullptr;
 	free( WRefs );
-	WRefs = NULL;
+	WRefs = nullptr;
 	free( NSpri );
-	NSpri = NULL;
+	NSpri = nullptr;
 	free( SpRefs );
-	SpRefs = NULL;
+	SpRefs = nullptr;
 	free( WaterDeep );
-	WaterDeep = NULL;
+	WaterDeep = nullptr;
 	free( WaterBright );
-	WaterBright = NULL;
+	WaterBright = nullptr;
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -3688,38 +3688,38 @@ void FreeArrays()
 
 	UnitsField.FreeAlloc();
 	free( Obj3Map );
-	Obj3Map = NULL;
+	Obj3Map = nullptr;
 	free( NObj3 );
-	NObj3 = NULL;
+	NObj3 = nullptr;
 	free( InfoMap );
-	InfoMap = NULL;
+	InfoMap = nullptr;
 	free( CantBuild );
-	CantBuild = NULL;
+	CantBuild = nullptr;
 	free( TopRef );
-	TopRef = NULL;
+	TopRef = nullptr;
 	free( WTopRef );
-	WTopRef = NULL;
+	WTopRef = nullptr;
 	free( THMap );
-	THMap = NULL;
+	THMap = nullptr;
 	//free(AddTHMap);
-	//AddTHMap=NULL;
+	//AddTHMap=nullptr;
 	free( TexMap );
-	TexMap = NULL;
+	TexMap = nullptr;
 
 	if (SectMap)
 	{
 		free( SectMap );
 	}
 
-	SectMap = NULL;
+	SectMap = nullptr;
 	free( OTRI.TRIANG );
-	OTRI.TRIANG = NULL;
+	OTRI.TRIANG = nullptr;
 	free( OTRI.NTRIANG );
-	OTRI.NTRIANG = NULL;
+	OTRI.NTRIANG = nullptr;
 	free( DANGMAP );
-	DANGMAP = NULL;
+	DANGMAP = nullptr;
 	free( DCHTIME );
-	DCHTIME = NULL;
+	DCHTIME = nullptr;
 	GNFO.Clear();
 	MaxSprt = 0;
 	free( NatDeals );

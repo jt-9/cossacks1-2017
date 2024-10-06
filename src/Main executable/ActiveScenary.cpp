@@ -253,7 +253,7 @@ void ScenErr( char* Mess )
 	if ( FFF != INVALID_HANDLE_VALUE )
 	{
 		RClose( FFF );
-		MessageBox( NULL, Mess, "Scenary error...", MB_TOPMOST );
+		MessageBox( nullptr, Mess, "Scenary error...", MB_TOPMOST );
 		assert( false );
 	}
 }
@@ -284,7 +284,7 @@ int GetCPos( char C )
 void CreateMissText()
 {
 	int TextSize = 0;//SCENINF.TextSize;
-	char* MissText = NULL;//SCENINF.MissText;
+	char* MissText = nullptr;//SCENINF.MissText;
 	for ( int i = 0; i < SCENINF.NPages; i++ )
 	{
 		if ( !strcmp( SCENINF.PageID[i], "#BRIEFING" ) )
@@ -428,8 +428,8 @@ void ScenaryInterface::Load( char* Name, char* Text )
 		if ( hLib )FreeLibrary( hLib );
 		hLib = LoadLibrary( Name );
 	}
-	ScenaryHandler = NULL;
-	if ( hLib == NULL )
+	ScenaryHandler = nullptr;
+	if ( hLib == nullptr )
 	{
 		ScenErr( "Can't load DLL:%s", Name );
 	}
@@ -444,7 +444,7 @@ void ScenaryInterface::Load( char* Name, char* Text )
 		if ( NErrors )
 		{
 			ScenErr( "%s:Errors was found during initialisation.", Name );
-			ScenaryHandler = NULL;
+			ScenaryHandler = nullptr;
 		}
 	}
 }
@@ -458,11 +458,11 @@ void IntErr( char* Mess )
 		RClose( FFF );
 		if ( AiIsRunNow )
 		{
-			MessageBox( NULL, Mess, "AI registration error...", MB_TOPMOST );
+			MessageBox( nullptr, Mess, "AI registration error...", MB_TOPMOST );
 		}
 		else
 		{
-			MessageBox( NULL, Mess, SCENINF.DLLName, MB_TOPMOST );
+			MessageBox( nullptr, Mess, SCENINF.DLLName, MB_TOPMOST );
 		}
 	}
 }
@@ -1704,7 +1704,7 @@ extern "C" __declspec( dllexport ) bool CreateObject0( GAMEOBJ* DstObj, GAMEOBJ*
 		}
 	OrderDescription* ODS = ElementaryOrders + Form->Index;
 	int N = ODS->NUnits;
-	PORD.CreateSimpleOrdPos( xc, yc, Direction, ODS->NUnits, NULL, ODS );
+	PORD.CreateSimpleOrdPos( xc, yc, Direction, ODS->NUnits, nullptr, ODS );
 	Nation* Nat = NATIONS + NatID;
 	word NewIds[1024];
 	int NU = 0;
@@ -1773,13 +1773,13 @@ void ImClearSelection( byte Nat )
 		}
 		free( SMon );
 		free( SN );
-		ImSelm[Nat] = NULL;
-		ImSerN[Nat] = NULL;
-		ImNSL[Nat] = NULL;
+		ImSelm[Nat] = nullptr;
+		ImSerN[Nat] = nullptr;
+		ImNSL[Nat] = nullptr;
 	}
-	ImSelm[Nat] = NULL;
-	ImSerN[Nat] = NULL;
-	ImNSL[Nat] = NULL;
+	ImSelm[Nat] = nullptr;
+	ImSerN[Nat] = nullptr;
+	ImNSL[Nat] = nullptr;
 }
 void ReClearSelection( byte Nat )
 {
@@ -1806,13 +1806,13 @@ void ReClearSelection( byte Nat )
 		}
 		free( SMon );
 		free( SN );
-		Selm[Nat] = NULL;
-		SerN[Nat] = NULL;
-		NSL[Nat] = NULL;
+		Selm[Nat] = nullptr;
+		SerN[Nat] = nullptr;
+		NSL[Nat] = nullptr;
 	}
-	Selm[Nat] = NULL;
-	SerN[Nat] = NULL;
-	NSL[Nat] = NULL;
+	Selm[Nat] = nullptr;
+	SerN[Nat] = nullptr;
+	NSL[Nat] = nullptr;
 }
 extern "C" __declspec( dllexport ) void ClearSelection( byte Nat )
 {
@@ -1855,8 +1855,8 @@ void CopyReIm( byte NI )
 		{
 			free( ImSelm[NI] );
 			free( ImSerN[NI] );
-			ImSelm[NI] = NULL;
-			ImSerN[NI] = NULL;
+			ImSelm[NI] = nullptr;
+			ImSerN[NI] = nullptr;
 			ImNSL[NI] = 0;
 		}
 	}
@@ -2413,7 +2413,7 @@ OneObject* SearchUnitInCell( int cell, byte nmask )
 {
 	cell += VAL_MAXCX + 1;
 	int NMon = MCount[cell];
-	if ( NMon < 3 )return NULL;
+	if ( NMon < 3 )return nullptr;
 	int ofs1 = cell << SHFCELL;
 	word MID;
 	for ( int i = 0; i < NMon; i++ )
@@ -2425,13 +2425,13 @@ OneObject* SearchUnitInCell( int cell, byte nmask )
 			if ( OB&&OB->NMask&nmask && !OB->LockType )return OB;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 OneObject* SearchShipInCell( int cell, byte nmask )
 {
 	cell += VAL_MAXCX + 1;
 	int NMon = MCount[cell];
-	if ( NMon < 3 )return NULL;
+	if ( NMon < 3 )return nullptr;
 	int ofs1 = cell << SHFCELL;
 	word MID;
 	for ( int i = 0; i < NMon; i++ )
@@ -2443,7 +2443,7 @@ OneObject* SearchShipInCell( int cell, byte nmask )
 			if ( OB&&OB->NMask&nmask&&OB->LockType&&OB->newMons->Usage != FisherID )return OB;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 OneObject* SearchBuildingInCell( int cell, byte nmask )
 {
@@ -2454,7 +2454,7 @@ OneObject* SearchBuildingInCell( int cell, byte nmask )
 		OneObject* OB = Group[MID];
 		if ( OB->NMask&nmask && !OB->Sdoxlo )return OB;
 	}
-	return NULL;
+	return nullptr;
 }
 bool CheckVisibility( int x1, int y1, int x2, int y2, word MyID );
 void SearchEnemyForAIArtillery( OneObject* OB );
@@ -2470,9 +2470,9 @@ OneObject* TryToFindEnemy( int x, int y, int r0, int r1, byte mask )
 	int maxdy = ( msx >> 2 ) + mindy;
 	int rx1 = ( r1 >> 7 ) + 1;
 	byte nmask = ~mask;
-	OneObject* DestObj = NULL;
-	OneObject* DestShip = NULL;
-	OneObject* DestBld = NULL;
+	OneObject* DestObj = nullptr;
+	OneObject* DestShip = nullptr;
+	OneObject* DestBld = nullptr;
 	int mindist = 10000000;
 	int minSdist = 10000000;
 	int minBdist = 10000000;
@@ -2537,7 +2537,7 @@ OneObject* TryToFindEnemy( int x, int y, int r0, int r1, byte mask )
 	if ( DestShip )return DestShip;
 	if ( DestBld )return DestBld;
 	if ( DestObj )return DestObj;
-	return NULL;
+	return nullptr;
 }
 extern "C" __declspec( dllexport ) void AttackBuildingsInZone( GAMEOBJ* ArtGroup, GAMEOBJ* Zone, byte Nat )
 {
@@ -4443,9 +4443,9 @@ extern "C" __declspec( dllexport ) void SaveSelectedUnits( byte NI, GAMEOBJ* Uni
 		if ( SCENINF.UGRP[Units->Index].IDS )
 		{
 			free( SCENINF.UGRP[Units->Index].IDS );
-			SCENINF.UGRP[Units->Index].IDS = NULL;
+			SCENINF.UGRP[Units->Index].IDS = nullptr;
 			free( SCENINF.UGRP[Units->Index].SNS );
-			SCENINF.UGRP[Units->Index].SNS = NULL;
+			SCENINF.UGRP[Units->Index].SNS = nullptr;
 			free( SCENINF.UGRP[Units->Index].IDS );
 			SCENINF.UGRP[Units->Index].N = 0;
 		}
@@ -4594,8 +4594,8 @@ extern "C" __declspec( dllexport ) void RegisterDynGroup( GAMEOBJ* Units )
 	}
 	Units->Index = SCENINF.NUGRP;
 	UnitsGroup *UG = SCENINF.UGRP + SCENINF.NUGRP;
-	UG->IDS = NULL;
-	UG->SNS = NULL;
+	UG->IDS = nullptr;
+	UG->SNS = nullptr;
 	UG->N = 0;
 	SCENINF.NUGRP++;
 	Units->Serial = 0;
@@ -4713,8 +4713,8 @@ extern "C" __declspec( dllexport ) void RemoveGroup( GAMEOBJ* Source, GAMEOBJ* D
 		memcpy( SCENINF.UGRP[Dest->Index].SNS + Nd, SCENINF.UGRP[Source->Index].SNS, Ns * 2 );
 		free( SCENINF.UGRP[Source->Index].IDS );
 		free( SCENINF.UGRP[Source->Index].SNS );
-		SCENINF.UGRP[Source->Index].IDS = NULL;
-		SCENINF.UGRP[Source->Index].SNS = NULL;
+		SCENINF.UGRP[Source->Index].IDS = nullptr;
+		SCENINF.UGRP[Source->Index].SNS = nullptr;
 		SCENINF.UGRP[Source->Index].N = 0;
 		SCENINF.UGRP[Dest->Index].N += Ns;
 	}
@@ -4723,7 +4723,7 @@ extern "C" __declspec( dllexport ) void RemoveGroup( GAMEOBJ* Source, GAMEOBJ* D
 //-------------------------AI Low level functions------------------------//
 const int AI_PROB[4] = { 32768 / 100, 32768 / 50, 32768 / 10, 32768 };
 byte CurAINation = 1;
-City* CCIT = NULL;
+City* CCIT = nullptr;
 Nation* CNAT;
 #define PRC(x) ((32768*##x##)/100)
 
@@ -4739,11 +4739,11 @@ int PERCONV[101] = { PRC( 0 ),PRC( 1 ),PRC( 2 ),PRC( 3 ),PRC( 4 ),PRC( 5 ),PRC( 
 				  PRC( 90 ),PRC( 91 ),PRC( 92 ),PRC( 93 ),PRC( 94 ),PRC( 95 ),PRC( 96 ),PRC( 97 ),PRC( 98 ),PRC( 99 ),
 				  PRC( 100 ) };
 
-char* CurAIDLL = NULL;
+char* CurAIDLL = nullptr;
 
 void AIER( char* Mess )
 {
-	MessageBox( NULL, Mess, CurAIDLL, MB_TOPMOST );
+	MessageBox( nullptr, Mess, CurAIDLL, MB_TOPMOST );
 }
 
 void AI_Error()
@@ -5647,7 +5647,7 @@ void MissPack::LoadMissions()
 	}
 	else
 	{
-		MessageBox( NULL, "Could not open Missions\\Missions.txt", "Missions loading failed...", MB_TOPMOST );
+		MessageBox( nullptr, "Could not open Missions\\Missions.txt", "Missions loading failed...", MB_TOPMOST );
 	}
 
 	ProtectionMode = 1;
@@ -5678,7 +5678,7 @@ void MissPack::LoadMissions()
 	}
 	else
 	{
-		MessageBox( NULL, "Could not open Missions\\SingleMiss.txt", "Missions loading failed...", MB_TOPMOST );
+		MessageBox( nullptr, "Could not open Missions\\SingleMiss.txt", "Missions loading failed...", MB_TOPMOST );
 	}
 }
 
@@ -5810,7 +5810,7 @@ void LoadAIFromDLL( byte Nat, char* Name )
 		{
 			char cc[128];
 			sprintf( cc, "%s : Could not load <void ProcessAI()>", Name );
-			MessageBox( NULL, cc, "AI loadind from DLL", MB_TOPMOST );
+			MessageBox( nullptr, cc, "AI loadind from DLL", MB_TOPMOST );
 			assert( 0 );
 		}
 		else
@@ -5820,7 +5820,7 @@ void LoadAIFromDLL( byte Nat, char* Name )
 			{
 				char cc[128];
 				sprintf( cc, "%s : Could not load <void InitAI()>", Name );
-				MessageBox( NULL, cc, "AI loadind from DLL", MB_TOPMOST );
+				MessageBox( nullptr, cc, "AI loadind from DLL", MB_TOPMOST );
 				assert( 0 );
 			}
 			AiIsRunNow = true;
@@ -5834,7 +5834,7 @@ void LoadAIFromDLL( byte Nat, char* Name )
 #ifndef STARFORCE
 		char cc[128];
 		sprintf( cc, "Could not load %s", Name );
-		MessageBox( NULL, cc, "AI loadind from DLL", MB_TOPMOST );
+		MessageBox( nullptr, cc, "AI loadind from DLL", MB_TOPMOST );
 		assert( 0 );
 #endif
 	}

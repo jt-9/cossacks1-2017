@@ -460,7 +460,7 @@ void ResizeAndCenterWindow()
 bool Loading()
 {
 	ReadClanData();
-	RivDir = NULL;
+	RivDir = nullptr;
 
 	Init_GP_IMG();
 	InitDeathList();
@@ -1018,7 +1018,7 @@ long FAR PASCAL WindowProc( HWND hWnd, UINT message,
 		break;
 
 	case WM_SETCURSOR:
-		SetCursor( NULL );
+		SetCursor( nullptr );
 		return TRUE;
 
 	case WM_KEYDOWN:
@@ -2225,9 +2225,9 @@ static BOOL doInit( HINSTANCE hInstance, int nCmdShow )
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
 	wc.hIcon = LoadIcon( hInstance, IDI_APPLICATION );
-	wc.hCursor = LoadCursor( NULL, IDC_ARROW );
-	wc.hbrBackground = NULL;
-	wc.lpszMenuName = NULL;
+	wc.hCursor = LoadCursor( nullptr, IDC_ARROW );
+	wc.hbrBackground = nullptr;
+	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = NAME;
 	RegisterClass( &wc );
 
@@ -2240,10 +2240,10 @@ static BOOL doInit( HINSTANCE hInstance, int nCmdShow )
 			50, 50,
 			RealLx,
 			RealLy,
-			NULL,
-			NULL,
+			nullptr,
+			nullptr,
 			hInstance,
-			NULL
+			nullptr
 		);
 		ResizeAndCenterWindow();
 	}
@@ -2257,10 +2257,10 @@ static BOOL doInit( HINSTANCE hInstance, int nCmdShow )
 			0, 0,
 			screen_width,
 			screen_height,
-			NULL,
-			NULL,
+			nullptr,
+			nullptr,
 			hInstance,
-			NULL
+			nullptr
 		);
 	}
 	if (!hwnd)
@@ -3500,7 +3500,7 @@ int PASCAL WinMain(
 	//Program loop to handle WM_QUIT; everything else handles AllGame()
 	while (true)
 	{
-		while (PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+		while (PeekMessage( &msg, nullptr, 0, 0, PM_REMOVE ))
 		{
 			if (msg.message == WM_QUIT)
 			{

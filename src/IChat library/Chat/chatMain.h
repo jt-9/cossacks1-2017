@@ -46,7 +46,7 @@ devsupport@gamespy.com
 #define MAX_PARAM  512
 
 #define CONNECTION      ciConnection * connection;\
-						assert(chat != NULL);\
+						assert(chat != nullptr);\
 						connection = (ciConnection *)chat;
 #define CONNECTED       if(!connection->connected) return; //ERRCON
 #if 0

@@ -17,7 +17,7 @@ CWave::CWave(char* fileName)
     // Initialize the class's members.
     m_waveSize = 0;
     m_waveOK = FALSE;
-    m_pWave= NULL;
+    m_pWave= nullptr;
 
     // Load the wave file.
     m_waveOK = LoadWaveFile(fileName);
@@ -47,13 +47,13 @@ BOOL CWave::LoadWaveFile(char* fileName)
     long bytesRead;
 
     // Open the wave file.
-    hMMIO = mmioOpen(fileName, NULL, MMIO_READ | MMIO_ALLOCBUF);
-    if (hMMIO == NULL)
+    hMMIO = mmioOpen(fileName, nullptr, MMIO_READ | MMIO_ALLOCBUF);
+    if (hMMIO == nullptr)
         return FALSE;
 
     // Descend into the RIFF chunk.
     mmCkInfoRIFF.fccType = mmioFOURCC('W', 'A', 'V', 'E');
-    result = mmioDescend(hMMIO, &mmCkInfoRIFF, NULL, MMIO_FINDRIFF);
+    result = mmioDescend(hMMIO, &mmCkInfoRIFF, nullptr, MMIO_FINDRIFF);
     if (result != MMSYSERR_NOERROR)
         return FALSE;
 
@@ -87,7 +87,7 @@ BOOL CWave::LoadWaveFile(char* fileName)
 
     // Allocate a buffer for the wave data.
     m_pWave = (char*)GlobalAllocPtr(GMEM_MOVEABLE, m_waveSize);
-    if (m_pWave == NULL)
+    if (m_pWave == nullptr)
         return FALSE;
 
     // Read the wave data into the buffer.

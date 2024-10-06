@@ -43,7 +43,7 @@ public:
 
 };
 Menu::Menu() {
-	items = NULL;
+	items = nullptr;
 	NZones = 0;
 };
 

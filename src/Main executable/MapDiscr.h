@@ -858,7 +858,7 @@ typedef void ReportFn( OneObject* Sender );
 //Приказы 1-го уровня
 struct Order1
 {
-	//Указатель на отложенный приказ, если NULL то нет 
+	//Указатель на отложенный приказ, если nullptr то нет 
 	//отложенного приказа 
 	Order1* NextOrder;
 
